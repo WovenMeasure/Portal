@@ -1,0 +1,40 @@
+﻿<div class="header">
+    <div class="logo"></div>
+    <div class="controls">      
+        <div>
+            <div>
+                <i class="fa fa-cog" aria-hidden="true"></i>
+            </div>
+            <div class="label">Settings</div>
+        </div>
+        <div>
+            <div>
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+            </div>
+            <div class="label" (click)="logout()">Log Out</div>
+        </div>
+    </div>
+</div>
+<div class="body"> 
+    <div class="sidebar">
+        <div class="menu-item">
+            <span><a href="#">Administration</a></span>
+        </div>
+        <div class="menu-item">
+            <span><a href="#">Imports</a></span>
+        </div>
+        <div class="menu-item">
+            <span><a href="#">Reports</a></span>
+        </div>
+        <div class="menu-item">
+            <span><a href="#">Alerts</a></span>
+        </div>
+        <div class="menu-item">
+            <span><a href="#">Rules</a></span>
+        </div>      
+    </div>
+    <div class="main" ui-view="screens">
+        <!-- (Child detail views) Routed views go into this -->
+        <router-outlet></router-outlet>
+    </div>
+ </div>

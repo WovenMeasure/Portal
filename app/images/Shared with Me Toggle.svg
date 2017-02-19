@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="54px" height="35px" viewBox="0 0 54 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.3 (33839) - http://www.bohemiancoding.com/sketch -->
+    <title>Shared with Me Toggle</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="54" height="35" rx="7"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="54" height="35" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Mobile" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Messages-Mobile-Conversation" transform="translate(-15.000000, -137.000000)">
+            <g id="Shared-with-Me-Toggle" transform="translate(15.000000, 137.000000)">
+                <use id="Rectangle" stroke="#EEEEEE" mask="url(#mask-2)" stroke-width="2" fill="#F6F6F6" xlink:href="#path-1"></use>
+                <circle id="Oval" fill="#D4D2D2" cx="16" cy="17" r="4"></circle>
+                <circle id="Oval" fill="#D4D2D2" cx="26" cy="17" r="4"></circle>
+                <circle id="Oval" fill="#D4D2D2" cx="36" cy="17" r="4"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

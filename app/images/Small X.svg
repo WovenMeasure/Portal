@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>Small X</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Small-X" transform="translate(-1.000000, -2.000000)">
+            <circle id="Oval-4" fill="#C4C0C0" cx="11" cy="12" r="10"></circle>
+            <text id="+" transform="translate(11.500000, 11.500000) rotate(45.000000) translate(-11.500000, -11.500000) " font-family="Roboto-Regular, Roboto" font-size="18" font-weight="normal" fill="#FFFFFF">
+                <tspan x="6" y="18">+</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
