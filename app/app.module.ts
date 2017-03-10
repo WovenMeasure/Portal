@@ -36,6 +36,8 @@ import { ChangePasswordComponent } from './changePassword/changePassword'
 import { ImageCropperComponent } from 'ng2-img-cropper';
 import { DashboardMainComponent } from './dashboard/dashboard-main';
 import { MasterPageComponent } from './shared/masterpage/masterpage';
+import { MerchantListComponent} from './admin/merchants/merchant-list';
+import { AlertListComponent} from './alerts/alert-list';
 
 /*************************************************************Directives/dto*******************************************************************/
 import { CanActivateGuard } from "./app.authguard";
@@ -55,7 +57,7 @@ import { Attachments } from './dto/attachment';
         DataTableModule, GrowlModule, DropdownModule],
     declarations: [
         AppComponent, SafePipe, MomentPipe, HeaderComponent, ImageCropperComponent,
-        MasterPageComponent,         
+        MasterPageComponent, MerchantListComponent, AlertListComponent,
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, 
         PasswordValidator, FileUploadComponent, DashboardMainComponent
        ],

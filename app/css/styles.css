@@ -5833,6 +5833,14 @@ body {
         font-weight: lighter; 
     }
 
+      .admin-portal .sidebar .menu-item > span > a.selected{
+        display: block;
+        font-size: 18px;
+        color: gray;
+        cursor: pointer;
+        font-weight: lighter; 
+    }
+
       .admin-portal .sidebar .menu-item:after {
         position: absolute;
         content: "";
@@ -5867,6 +5875,9 @@ body {
           padding: 5px 0;
           color: #FFF;
           font-size: 14px; }
+
+
+        
 
 .thumb-nail {
   display: inline-block;

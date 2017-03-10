@@ -8,6 +8,7 @@ export class ContextService {
     public messages: Message[];
 
     constructor() {
+        this.merchantId = "";
         this.messages = new Array<Message>();
         var userString = window.sessionStorage.getItem("contextInfo");
         if (userString == null) {
@@ -41,6 +42,36 @@ export class ContextService {
             window.sessionStorage.removeItem("contextInfo");
 
         this._loggedIn = value;
+    }
+
+    _currentSection: string;
+
+    public get currentSection(): string {
+        return this._currentSection;
+    }
+
+    public set currentSection(value: string) {
+        this._currentSection = value;
+    }
+
+    _merchantId: string;
+
+    public get merchantId(): string {
+        return this._merchantId;
+    }
+
+    public set merchantId(value: string) {
+        this._merchantId = value;
+    }
+
+    _merchantName: string;
+
+    public get merchantName(): string {
+        return this._merchantName;
+    }
+
+    public set merchantName(value: string) {
+        this._merchantName = value;
     }
 
 }

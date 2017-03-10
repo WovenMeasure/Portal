@@ -13,13 +13,11 @@ import { ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
 export class LoginComponent {
     email: string;
     password: string;
-    message: string;
+    message: string; 
     coachImage: string;
     erroMsgShow: boolean;
     erroMsg2Show: boolean;
-    step: number;
-    auth2FACode: string;
-    auth2FAResponse: any;
+  
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
@@ -28,53 +26,29 @@ export class LoginComponent {
                 private constants: Constants,
                 private translationService: TranslationService) {
 
-       }
+       } 
 
     
 
     ngOnInit() {
         this.erroMsgShow = false;
         this.erroMsg2Show = false;
-        this.step = 1;
        
     }
     
 
     onLogin(ev) {       
         this.spinnerService.postStatus(this.translationService.translate('Logging in'));
-        this.authenticationService.Login2FA(this.email, this.password).subscribe(
+        this.authenticationService.Login(this.email, this.password).subscribe(
             res => {
-                if (res.success) {             
-                    this.auth2FAResponse = res;
-                    this.step = 2;
-                }
-                else {
-                    this.erroMsgShow = true;
-                }
+                this.router.navigate(['dash-main']);               
             },
-            null,
+            (error) => {
+                this.erroMsgShow = true;
+            },
             () => { this.spinnerService.finishCurrentStatus(); }
         );
     
     }
-
-    completeLogin() {
-        if (this.auth2FACode.length == 0)
-            return;
-
-        this.spinnerService.postStatus('Validating Code');
-        this.authenticationService.LoginFinish2FA(this.auth2FAResponse.userId, this.auth2FACode).subscribe(
-            res => {
-                if (res.success) {
-                    this.router.navigate(['dash-main']);
-                }
-                else {
-                    this.erroMsg2Show = true;
-                }
-            },
-            null,
-            () => { this.spinnerService.finishCurrentStatus(); }
-        );
-
-    }
+    
 }

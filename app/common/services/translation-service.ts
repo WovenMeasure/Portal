@@ -24,7 +24,7 @@ export class TranslationService {
                 language = language.split('_')[0];
 
             console.log(language);
-            let languageFilePath: string = 'app/translations/wellview-participantportal-' + language + '.js';
+            let languageFilePath: string = 'app/translations/laz-' + language + '.js';
             let ssid: string = "id_" + language;
             if (sessionStorage) {
                 if (sessionStorage.getItem(ssid)) {

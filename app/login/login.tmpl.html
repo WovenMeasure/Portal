@@ -1,7 +1,7 @@
 ﻿<div id="content" class="container fill">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12 first-section">
-            <form #loginForm="ngForm" (ngSubmit)="onLogin($event)" autocomplete="false" *ngIf="step==1">
+            <form #loginForm="ngForm" (ngSubmit)="onLogin($event)" autocomplete="false">
                 <img src="/app/images/logo-laz-parking.png" class="center-block">
                 <div class="text-center form-group text1" [ngClass]="{ 'has-error' : !emailField.valid && emailField.dirty, 'has-error' : !emailField.valid && emailField.touched  }">
                     <input  type="text" class="Rectangle-1205 form-control" id="email" required [(ngModel)]="email" name="email" #emailField="ngModel" pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="{{translationService.translate('Email')}}"/>
@@ -22,30 +22,13 @@
                     <button type="submit" class="Rectangle-13-Login form-control" [disabled]="!loginForm.valid"><p class="center-block LOG-IN">{{translationService.translate('LOG IN')}}</p></button>
                 </div>
             </form>
-
-
-            <div *ngIf="step==2">
-                <div *ngIf="!auth2FAResponse.twoFactorSetup">
-                    <h4>Please take a moment to install Google Authenticator on your device and scan this QR code.</h4>
-                    <img style="height:300px;width:300px"src="{{auth2FAResponse.qrUrl}}" /><br />
-                </div>
-                <div *ngIf="auth2FAResponse.twoFactorSetup">
-                    <h4>Please input the LAZ Parking Admin code showing on your device's Google Authenticator.</h4>
-                </div>
-                <div *ngIf="erroMsg2Show">
-                    <h5 class="text-center" style="color:red;">'Unable to verify your code.'</h5>
-                </div>
-                <input type="text" class="Rectangle-1205 form-control" id="auth2FACode" required [(ngModel)]="auth2FACode" name="auth2FACode" />
-                <button type="submit" (click)="completeLogin()" class="Rectangle-13-Login form-control"><p class="center-block LOG-IN">{{translationService.translate('LOG IN')}}</p></button>
-            </div>
-
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12 coach">
            
         </div>
     </div>
 </div>
-<div style="margin-top:-25px;position:absolute;margin-left: 20px;">&copy; 2017 LAZ Parking Inc. All Rights Reserved</div>
+<div style="margin-top:-15px;position:absolute;margin-left: 20px;">&copy; 2017 LAZ Parking Inc. All Rights Reserved</div>
 <div class="footer">
     <div class="col-lg-12 col-md-12 col-sm-12 Rectangle-4-Copy"></div>
 </div>

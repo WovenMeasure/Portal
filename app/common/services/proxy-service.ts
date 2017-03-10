@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Response, Headers } from '@angular/http';
+import { Http, Response, Headers, URLSearchParams } from '@angular/http';
 import { Observable }     from 'rxjs/Observable';
 import { LoggerService } from "./logger-service";
 import { SpinnerService } from "./spinner-service";
@@ -53,6 +53,15 @@ export class ProxyService {
         this.createBasicHeader(headers);
 
         let observable = this.http.get(fullUrl, { headers: headers }).map(res => res.json()).catch((error) => { return this.HandleError(error); }).share(); //make 'em hot
+        return observable;
+    }
+
+    public PostAnonymousFormLogin(url: string, userName: string, password: string): Observable<any> {
+        let body = new URLSearchParams();
+        body.set('username', userName);
+        body.set('password', password);
+        body.set('grant_type', 'password');
+        let observable = this.http.post(this.baseUrl + url, body).map(res => res.json()).catch((error) => { return this.HandleError(error); }).share(); //make 'em hot
         return observable;
     }
 

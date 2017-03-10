@@ -5,20 +5,26 @@
             <div>
                 <i class="fa fa-cog" aria-hidden="true"></i>
             </div>
-            <div class="label">Settings</div>
+            <div class="label">Settings</div> 
         </div>
         <div>
             <div>
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
             </div>
             <div class="label" (click)="logout()">Log Out</div>
-        </div>
+        </div> 
     </div>
 </div>
 <div class="body"> 
     <div class="sidebar">
         <div class="menu-item">
-            <span><a href="#">Administration</a></span>
+            <span (click)="contextService.currentSection='admin'">Admin</span>
+            <div class="details" *ngIf="contextService.currentSection=='admin'">
+                <div>
+                    <div class="label"><a [ngClass]="{'selected': contextService.currentSection == 'merchantlist'}" [routerLink]="['/admin/merchant-list']">Merchants</a></div>
+                    <div class="name"><a [ngClass]="{'selected': contextService.currentSection == 'merchant-detail'}"[routerLink]="['/admin/merchant-detail']" [queryParams]="{i: contextService.ContextInfo.merchantId}">{{contextService.merchantName}}</a></div>
+                </div>
+            </div>
         </div>
         <div class="menu-item">
             <span><a href="#">Imports</a></span>
@@ -27,7 +33,7 @@
             <span><a href="#">Reports</a></span>
         </div>
         <div class="menu-item">
-            <span><a href="#">Alerts</a></span>
+                <span><a [ngClass]="{'selected': contextService.currentSection == 'alerts'}" [routerLink]="['/alert-list']">Alerts</a></span>
         </div>
         <div class="menu-item">
             <span><a href="#">Rules</a></span>

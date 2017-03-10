@@ -13,44 +13,21 @@ export class AuthenticationService {
     constructor(private proxyService: ProxyService, private contextService: ContextService) { }
 
     public Login(email: string, password: string): Observable<any> {
-        let observable$ = this.proxyService.PostAnonymous("account/authenticate", { Username: email, Password: password, RequiredClaimValue :"Admin" }).share();
+        let observable$ = this.proxyService.PostAnonymousFormLogin("account/authenticate", email, password).share();
         observable$.subscribe(
             data => {
-                if (data.success) {
-                    this.contextService.ContextInfo.displayName = data.user.firstName;
-                    this.contextService.ContextInfo.fullName = data.user.fullName;
-                    this.contextService.ContextInfo.userId = data.user.id;
-                    this.contextService.ContextInfo.email = data.user.email;
-                    this.contextService.ContextInfo.token = data.token;
-                    this.contextService.ContextInfo.tokenExpires = data.tokenExpirationDate;
-                    this.contextService.LoggedIn = true;
-                }
-            });
+                this.contextService.ContextInfo.displayName = data.userName;
+                this.contextService.ContextInfo.userId = data.id;
+                this.contextService.ContextInfo.email = data.email;
+                this.contextService.ContextInfo.token = data.access_token;
+                this.contextService.ContextInfo.tokenExpires = data[".expires"];
+                this.contextService.LoggedIn = true;
+            },
+            () => { }
+           );
         return observable$;     
     }
-
-    public Login2FA(email: string, password: string): Observable<any> {
-        let observable$ = this.proxyService.PostAnonymous("account/authenticateW2FA", { Username: email, Password: password, RequiredClaimValue: "Admin" }).share();      
-        return observable$;
-    }
-
-    public LoginFinish2FA(userId: string, key2FA: string): Observable<any> {
-        let observable$ = this.proxyService.PostAnonymous("account/authenticateCheck2FA", { UserId: userId, Key2FA: key2FA }).share();
-        observable$.subscribe(
-            data => {
-                if (data.success) {
-                    this.contextService.ContextInfo.displayName = data.user.firstName;
-                    this.contextService.ContextInfo.fullName = data.user.fullName;
-                    this.contextService.ContextInfo.userId = data.user.id;
-                    this.contextService.ContextInfo.email = data.user.email;
-                    this.contextService.ContextInfo.token = data.token;
-                    this.contextService.ContextInfo.tokenExpires = data.tokenExpirationDate;
-                    this.contextService.LoggedIn = true;
-                }
-            });
-        return observable$;
-    }
-  
+    
     public Logoff() {
         this.contextService.Clear();
     }

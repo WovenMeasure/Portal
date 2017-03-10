@@ -1,0 +1,25 @@
+﻿<div class="col-md-12">
+    <h2>Alert List</h2>
+    <div> 
+        <div class="pull-right"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;&nbsp;<input #gb type="text" placeholder="Search"></div>
+        <p-dataTable [pageLinks]="5" [value]="alerts" tableStyleClass="table-striped" [paginator]="true" [rows]="10" [globalFilter]="gb">
+             <p-column field="alertDateTime" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Alert Date Time
+                </template>
+                <template let-alert="rowData" pTemplate="body">
+                    {{alert.alertDateTime | moment: 'utc' |  moment: 'format': 'MM/DD/YYYY' }}
+                </template>
+            </p-column>
+
+            <p-column field="alertType.description" header="Type" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="alertStatus.description" header="Status" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="detail"  header="Detail" sortable="true" styleClass="col-md-5"></p-column>
+
+
+        </p-dataTable>
+    </div>
+</div>
+
+
+
