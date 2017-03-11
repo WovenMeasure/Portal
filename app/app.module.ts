@@ -56,7 +56,7 @@ import { Attachments } from './dto/attachment';
     imports: [BrowserModule, routing, HttpModule, JsonpModule, FormsModule, Ng2PaginationModule, Ng2PageScrollModule.forRoot(), NgbModule.forRoot(), WVDatepickerModule.forRoot(), DateValueAccessorModule,
         DataTableModule, GrowlModule, DropdownModule],
     declarations: [
-        AppComponent, SafePipe, MomentPipe, HeaderComponent, ImageCropperComponent,
+        AppComponent, SafePipe,  MomentPipe, HeaderComponent, ImageCropperComponent,
         MasterPageComponent, MerchantListComponent, AlertListComponent,
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, 
         PasswordValidator, FileUploadComponent, DashboardMainComponent

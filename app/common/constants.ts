@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Constants {
-    public get BaseApiUriProd(): string { return "http://wellview.webapi/api/"; }
-    public get BaseApiUri(): string { return "http://laz.webapi/api/"; }
+    public get BaseApiUri(): string { return "http://api-laz.wovenmeasure.com/api/"; }
+    public get BaseApiUriProd(): string { return "http://laz.webapi/api/"; }
 
     public get RegistrationStatus_Contact(): number { return 1; } 
     public get RegistrationStatus_Insurance(): number { return 2; } 
