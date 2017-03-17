@@ -7,6 +7,7 @@ import { TranslationService } from '../common/services/translation-service';
 import { ContextService } from '../common/services/context-service';
 import {Constants } from "../common/constants";
 import { ProxyService } from "../common/services/proxy-service";
+import {AlertService } from "./alert-service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Merchant } from "../dto/merchant";
 import {SelectItem} from 'primeng/primeng';
@@ -15,7 +16,7 @@ import {SelectItem} from 'primeng/primeng';
     templateUrl: 'alert-list.html'
 })
 export class AlertListComponent {   
-    constructor(private router: Router,
+    constructor(private router: Router, 
                 private componentFactoryResolver: ComponentFactoryResolver,
                 private proxyService: ProxyService,
                 private route: ActivatedRoute,
@@ -23,17 +24,24 @@ export class AlertListComponent {
                 private spinnerService: SpinnerService,
                 private contextService: ContextService,
                 private constants: Constants,
+                private alertService: AlertService,
                 private ngbModal: NgbModal,
                 private translationService: TranslationService) {
 
     }    
 
     alerts: any[];
+    alertDate: Date;
 
     ngOnInit() {
         this.contextService.currentSection = "alerts";
-        this.spinnerService.postStatus('Loading');      
-        let observable$ = this.proxyService.Get("alert/all");
+        this.alertDate = new Date();
+        this.loadAlerts();
+    }       
+
+    loadAlerts() {
+        this.spinnerService.postStatus('Loading');
+        let observable$ = this.alertService.loadAlerts();
         observable$.subscribe(
             data => {
                 if (data.success) {
@@ -44,7 +52,18 @@ export class AlertListComponent {
             () => {
                 this.spinnerService.finishCurrentStatus();
             });   
+    }
 
-    }       
-    
+    tabClick(tab: string) {
+        this.alertService.currentAlertType = this.constants.getAlertTypeByConstant(tab);
+        this.loadAlerts();
+    }
+
+    edit(alert: any) { 
+        if (alert.alertTypeID == this.constants.getAlertTypeByConstant("LOC").alertTypeID) {
+            this.router.navigate(['/alert/alert-detail-location'], { queryParams: { i: alert.alertID } });
+        }
+        else { /*....*/
+        }
+    }   
 }

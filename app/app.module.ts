@@ -14,7 +14,7 @@ import { Ng2PaginationModule } from 'ng2-pagination';
 import {Ng2PageScrollModule} from 'ng2-page-scroll/ng2-page-scroll';
 import { WVDatepickerModule } from './shared/datepicker/datepicker.module';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
-import {InputTextModule, DataTableModule, ButtonModule, DialogModule, GrowlModule, DropdownModule} from 'primeng/primeng';
+import {InputTextModule, DataTableModule, ButtonModule, DialogModule, GrowlModule, DropdownModule, CalendarModule} from 'primeng/primeng';
 
 /*************************************************************Service*******************************************************************/
 import { AuthenticationService } from "./common/services/authentication-service";
@@ -26,6 +26,8 @@ import { TranslationService } from "./common/services/translation-service";
 import { ProviderService } from "./common/services/provider-service";
 import { ResetPasswordService} from "./resetPassword/resetPassword-service";
 import { ChangePasswordService} from "./changePassword/changePassword-service";
+import { AlertService} from "./alerts/alert-service";
+import { LookupService } from "./common/services/lookup-service";
 
 /*************************************************************Components*******************************************************************/
 import { routing, appRoutingProviders } from "./app.routing";
@@ -38,6 +40,7 @@ import { DashboardMainComponent } from './dashboard/dashboard-main';
 import { MasterPageComponent } from './shared/masterpage/masterpage';
 import { MerchantListComponent} from './admin/merchants/merchant-list';
 import { AlertListComponent} from './alerts/alert-list';
+import { AlertDetailLocationComponent} from './alerts/alert-detail-location';
 
 /*************************************************************Directives/dto*******************************************************************/
 import { CanActivateGuard } from "./app.authguard";
@@ -54,10 +57,10 @@ import { Attachments } from './dto/attachment';
 
 @NgModule({
     imports: [BrowserModule, routing, HttpModule, JsonpModule, FormsModule, Ng2PaginationModule, Ng2PageScrollModule.forRoot(), NgbModule.forRoot(), WVDatepickerModule.forRoot(), DateValueAccessorModule,
-        DataTableModule, GrowlModule, DropdownModule],
+        DataTableModule, GrowlModule, DropdownModule, CalendarModule],
     declarations: [
         AppComponent, SafePipe,  MomentPipe, HeaderComponent, ImageCropperComponent,
-        MasterPageComponent, MerchantListComponent, AlertListComponent,
+        MasterPageComponent, MerchantListComponent, AlertListComponent, AlertDetailLocationComponent,
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, 
         PasswordValidator, FileUploadComponent, DashboardMainComponent
        ],
@@ -78,7 +81,7 @@ import { Attachments } from './dto/attachment';
         ChangePasswordService, ContextService, ProxyService,
         AuthenticationService, SpinnerService, LoggerService,
         ProviderService, Constants, CanActivateGuard, 
-        CredentialInfo, ContactInfo,
+        CredentialInfo, ContactInfo, AlertService, LookupService,
         NgbModalRef]
 })
 

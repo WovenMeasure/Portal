@@ -24,7 +24,9 @@ audio:not([controls]) {
   height: 0; }
 
 [hidden], template {
-  display: none; }
+  display: none; 
+
+}
 
 a {
   background-color: transparent; }
@@ -5717,7 +5719,7 @@ body {
   right: 0;
   bottom: 0;
   min-width: 1200px;
-  min-height: 800px; }
+  min-height: 900px; }
   
   .admin-portal .header {
     position:absolute;
@@ -5931,7 +5933,7 @@ body {
 
 .table {
   margin: 30px;
-  min-width: 800px;
+  min-width: 900px;
   width: 97%; }
   .table.indent {
     margin-right: 80px;
@@ -6140,7 +6142,7 @@ section {
   left: 0;
   z-index: 2002;
   min-width: 1200px;
-  min-height: 800px; }
+  min-height: 900px; }
   .auth-view-content .auth-logo {
     width: 268px;
     height: 103px;
@@ -6164,7 +6166,7 @@ section {
     position: absolute;
     margin-left: -400px;
     margin-top: -300px;
-    width: 800px;
+    width: 900px;
     height: 400px;
     top: 50%;
     left: 50%; }
@@ -6366,7 +6368,7 @@ button {
   border-radius: 5px;
   padding: 7px;
   margin: 12px;
-  min-width: 130px;
+  min-width: 50px;
   min-height: 33px;
   border: 1px solid #cbcbcb; }
   button.secondary {
@@ -10518,4 +10520,16 @@ div.asterisk > input{
 .msgbuttonfield button{
     margin: 1px;
     width: 50px;
+}
+
+
+
+
+.borderTable {
+    border: #204D74 10px solid
+}
+
+.tabButton {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }

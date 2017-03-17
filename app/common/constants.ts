@@ -3,15 +3,9 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Constants {
-    public get BaseApiUri(): string { return "http://api-laz.wovenmeasure.com/api/"; }
-    public get BaseApiUriProd(): string { return "http://laz.webapi/api/"; }
-
-    public get RegistrationStatus_Contact(): number { return 1; } 
-    public get RegistrationStatus_Insurance(): number { return 2; } 
-    public get RegistrationStatus_Terms(): number { return 3; } 
-    public get RegistrationStatus_Dash(): number { return 4; } 
-
-     
+    public get BaseApiUriProd(): string { return "http://api-laz.wovenmeasure.com/api/"; }
+    public get BaseApiUri(): string { return "http://laz.webapi/api/"; }
+        
     public get US_States() {
         var states = [
             { state: 'Alabama', postCode: 'AL' }, { state: 'Alaska', postCode: 'AK' }, { state: 'Arizona', postCode: 'AZ' }, { state: 'Arkansas', postCode: 'AR' }, { state: 'California', postCode: 'CA' },
@@ -30,18 +24,36 @@ export class Constants {
         return states;
     }
 
-    public get User_Relations() {
-        var relations = [
-            { relation: 'Parent' },
-            { relation: 'Friend' },
-            { relation: 'Other' },
-            { relation: 'Spouse' },
-            { relation: 'Caretaker' },
-            { relation: 'Partner' }
-        ];
-        return relations;
+    public getAlertTypeByConstant(constant: string) {
+        return this.AlertTypes.filter(a => { return a.constant == constant })[0];
     }
+    
+    public get AlertTypes() {
+        var alertTypes = [
+            {
+                constant: "LOC",            
+                alertTypeID : 1,
+                description: "Location"
+            },
+            {
+                constant: "BANKDEP",
+                alertTypeID: 2,
+                description: "Bank Deposit"
+            },
+            {
+                constant: "CREDC",
+                alertTypeID: 3,
+                description: "Credit Card"
+            },
+            {
+                constant: "WEBDCR",
+                alertTypeID: 4,
+                description: "WebDCR"
+            }
+        ];
 
+        return alertTypes;
+    }
 
      //public preferedMethod = [{ value: 'Phone', display: 'Phone' }, { value: 'Text-Message', display: 'Text-Message' }, { value: 'Email', display: 'Email' }];
 
