@@ -100,6 +100,7 @@ export class AlertDetailLocationComponent {
     }
 
     onAddLocation($event) {
+        var _self = this;
         //save
         var data = {
             location: this.newLocation, fromAlertId: this.alert.alertID
@@ -109,7 +110,7 @@ export class AlertDetailLocationComponent {
             data => {
                 if (data.success) {
                     this.msgs.push({ severity: 'success', summary: "Location added" });
-                    setTimeout(new function(){ this.router.navigate(['/alert/alert-list']) }, 3500); 
+                    setTimeout(function () { _self.router.navigate(['/alert/alert-list']) }, 3500); 
                 }
                 else {
                     this.msgs.push({ severity: 'error', summary: data.errorMessage });
