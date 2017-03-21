@@ -45,9 +45,10 @@
         </div>
         <div class="clearfix">&nbsp;</div>
         <br /><br />
+        <p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
         <button class="btn btn-secondary" (click)="addLocation()">Add Location</button>&nbsp;
         <button class="btn btn-secondary" (click)="deleteLocation()">Delete Location</button>&nbsp;
-        <button class="btn btn-secondary" (click)="markTerminated()">Mark Location Terminated</button>
+        <button class="btn btn-secondary" *ngIf="alert?.ruleType.ruleTypeID == 3" (click)="markTerminated()">Mark Location Terminated</button>
     </div>
     <div *ngIf="addingLocation">
         <h2>Add Location</h2>
@@ -107,13 +108,7 @@
             <button type="submit" class="btn btn-default" [disabled]="!myForm.valid" [ngClass]="{ 'btn-default' : !myForm.valid, 'btn-primary': myForm.valid }">Save</button>
             <button class="btn btn-secondary" (click)="addingLocation = false">Cancel</button>
         </form>
-    </div>
-    <div *ngIf="deletingLocation">
-        deleting
-    </div>
-    <div *ngIf="markingTerminated">
-        terming
-    </div>
+    </div>   
 </div>
 
 

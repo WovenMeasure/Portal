@@ -14,7 +14,10 @@ import { Ng2PaginationModule } from 'ng2-pagination';
 import {Ng2PageScrollModule} from 'ng2-page-scroll/ng2-page-scroll';
 import { WVDatepickerModule } from './shared/datepicker/datepicker.module';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
-import {InputTextModule, DataTableModule, ButtonModule, DialogModule, GrowlModule, DropdownModule, CalendarModule} from 'primeng/primeng';
+import {
+    InputTextModule, DataTableModule, ButtonModule, DialogModule, GrowlModule, DropdownModule, ConfirmDialogModule, ConfirmationService,
+    CalendarModule
+} from 'primeng/primeng';
 
 /*************************************************************Service*******************************************************************/
 import { AuthenticationService } from "./common/services/authentication-service";
@@ -57,7 +60,7 @@ import { Attachments } from './dto/attachment';
 
 @NgModule({
     imports: [BrowserModule, routing, HttpModule, JsonpModule, FormsModule, Ng2PaginationModule, Ng2PageScrollModule.forRoot(), NgbModule.forRoot(), WVDatepickerModule.forRoot(), DateValueAccessorModule,
-        DataTableModule, GrowlModule, DropdownModule, CalendarModule],
+        DataTableModule, GrowlModule, DropdownModule, CalendarModule, ConfirmDialogModule],
     declarations: [
         AppComponent, SafePipe,  MomentPipe, HeaderComponent, ImageCropperComponent,
         MasterPageComponent, MerchantListComponent, AlertListComponent, AlertDetailLocationComponent,

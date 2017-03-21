@@ -12,10 +12,11 @@ import {AlertService } from "./alert-service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Merchant } from "../dto/merchant";
 import {SelectItem} from 'primeng/primeng';
-import {Message} from 'primeng/primeng';
+import { Message, ConfirmationService, ConfirmDialogModule} from 'primeng/primeng';
 
 @Component({
-    templateUrl: 'alert-detail-location.html'
+    templateUrl: 'alert-detail-location.html',
+    providers: [ConfirmationService]
 })
 export class AlertDetailLocationComponent {   
     constructor(private router: Router, 
@@ -29,7 +30,8 @@ export class AlertDetailLocationComponent {
                 private alertService: AlertService,
                 private lookupService: LookupService,
                 private ngbModal: NgbModal,
-                private translationService: TranslationService) {
+                private translationService: TranslationService,
+                private confirmationService: ConfirmationService) {
         this.addingLocation = false;
         this.deletingLocation = false;
         this.markingTerminated = false;
@@ -105,12 +107,13 @@ export class AlertDetailLocationComponent {
         var data = {
             location: this.newLocation, fromAlertId: this.alert.alertID
         };
+        this.spinnerService.postStatus('Adding Location');
         let $observable = this.proxyService.Put("location/add", data);
         $observable.subscribe(
             data => {
                 if (data.success) {
                     this.msgs.push({ severity: 'success', summary: "Location added" });
-                    setTimeout(function () { _self.router.navigate(['/alert/alert-list']) }, 3500); 
+                    _self.router.navigate(['/alert/alert-list']);
                 }
                 else {
                     this.msgs.push({ severity: 'error', summary: data.errorMessage });
@@ -126,11 +129,60 @@ export class AlertDetailLocationComponent {
    
 
     deleteLocation() {
-        this.deletingLocation = true;
+        var _self = this;
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to perform this action?',
+            accept: () => {
+                this.spinnerService.postStatus('Removing Location');
+                this.deletingLocation = true;
+                let $observable = this.proxyService.Delete("location/" + this.alert.locationID);
+                $observable.subscribe(
+                    data => {
+                        if (data.success) {
+                            this.msgs.push({ severity: 'success', summary: "Location deleted" });
+                            _self.router.navigate(['/alert/alert-list']);
+                        }
+                        else {
+                            this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                        }
+                    },
+                    (err) => {
+                        this.msgs.push({ severity: 'error', summary: err });
+                    },
+                    () => {
+                        this.spinnerService.finishCurrentStatus();
+                    });   
+            }
+        });
     }
 
     markTerminated() {
-        this.markingTerminated = true;
+        var _self = this;
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to perform this action?',
+            accept: () => {
+                this.spinnerService.postStatus('Marking Location Terminated');
+                this.deletingLocation = true;
+                var request = { locationID: this.alert.locationID, alertID: this.alert.alertID };
+                let $observable = this.proxyService.Post("location/term/", request);
+                $observable.subscribe(
+                    data => {
+                        if (data.success) {
+                            this.msgs.push({ severity: 'success', summary: "Location terminated" });
+                            _self.router.navigate(['/alert/alert-list']);
+                        }
+                        else {
+                            this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                        }
+                    },
+                    (err) => {
+                        this.msgs.push({ severity: 'error', summary: err });
+                    },
+                    () => {
+                        this.spinnerService.finishCurrentStatus();
+                    });
+            }
+        });
     }
     
 }
