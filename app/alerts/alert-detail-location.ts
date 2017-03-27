@@ -131,7 +131,7 @@ export class AlertDetailLocationComponent {
     deleteLocation() {
         var _self = this;
         this.confirmationService.confirm({
-            message: 'Are you sure that you want to perform this action?',
+            message: 'Are you sure that you want to delete this location?',
             accept: () => {
                 this.spinnerService.postStatus('Removing Location');
                 this.deletingLocation = true;
@@ -159,7 +159,7 @@ export class AlertDetailLocationComponent {
     markTerminated() {
         var _self = this;
         this.confirmationService.confirm({
-            message: 'Are you sure that you want to perform this action?',
+            message: 'Are you sure that you want to terminate this location?',
             accept: () => {
                 this.spinnerService.postStatus('Marking Location Terminated');
                 this.deletingLocation = true;

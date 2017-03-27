@@ -1,4 +1,5 @@
-﻿// Angular
+﻿
+// Angular
 import '@angular/platform-browser';
 import '@angular/platform-browser-dynamic';
 import '@angular/core';
@@ -21,6 +22,5 @@ import 'ng2-page-scroll/ng2-page-scroll';
 import 'ng2-bootstrap';
 import 'angular-date-value-accessor';
 import 'primeng/primeng';
-
 import 'core-js';
-
+import 'Quill';

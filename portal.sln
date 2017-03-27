@@ -1,26 +1,27 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "portal", ".", "{E2AF8B28-706F-4A3B-AEFE-DBF2E75128E4}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Portal", ".", "{E2AF8B28-706F-4A3B-AEFE-DBF2E75128E4}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_54259"
-		Debug.AspNetCompiler.PhysicalPath = "..\WM\LAZ\portal\"
+		Debug.AspNetCompiler.PhysicalPath = "..\Portal\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_54259\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/localhost_54259"
-		Release.AspNetCompiler.PhysicalPath = "..\WM\LAZ\portal\"
+		Release.AspNetCompiler.PhysicalPath = "..\Portal\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_54259\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "54259"
+		SlnRelativePath = "..\Portal\"
 	EndProjectSection
 EndProject
 Global

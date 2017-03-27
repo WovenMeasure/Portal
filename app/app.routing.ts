@@ -9,7 +9,8 @@ import { MasterPageComponent } from './shared/masterpage/masterpage';
 import { CanActivateGuard } from './app.authguard';
 import { MerchantListComponent} from './admin/merchants/merchant-list';
 import { AlertListComponent} from './alerts/alert-list';
-import { AlertDetailLocationComponent} from './alerts/alert-detail-location';
+import { AlertDetailLocationComponent } from './alerts/alert-detail-location';
+import { AlertDetailComponent } from './alerts/alert-detail';
 
 const appRoutes: Routes = [
     { path: '', component: MasterPageComponent, canActivate: [CanActivateGuard],
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
                 path: 'alert', component: null, canActivate: [CanActivateGuard], children:
                 [
                     { path: 'alert-list', component: AlertListComponent, canActivate: [CanActivateGuard] },
-                    { path: 'alert-detail-location', component: AlertDetailLocationComponent, canActivate: [CanActivateGuard] }
+                    { path: 'alert-detail-location', component: AlertDetailLocationComponent, canActivate: [CanActivateGuard] },
+                    { path: 'alert-detail', component: AlertDetailComponent, canActivate: [CanActivateGuard] }
                 ]
             }
         ]

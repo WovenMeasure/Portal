@@ -1,0 +1,64 @@
+﻿<p-growl [value]="msgs"></p-growl>
+<div class="col-md-12">
+    <div *ngIf="!addingLocation">
+        <div class="col-md-4">
+            <h2><strong>Alert Status: {{alert?.alertStatus.description}}</strong></h2>
+        </div>
+        <div class="col-md-offset-4 col-md-4">
+            <div class="col-md-4"><button [disabled]="alert?.alertStatusID == constants.alertStatusInProgress" (click)="markInProgress()" class="btn btn-primary">Mark in Progress</button></div>
+            <div class="col-md-4"><button [disabled]="alert?.alertStatusID != constants.alertStatusInProgress" (click)="markResolved()" class="btn btn-primary">Mark Resolved</button></div>
+        </div>        
+        <div style="clear:both"></div>
+        <table class="table-condensed table-striped table-bordered col-md-6 col-sm-12">
+            <tr>
+                <td>Alerted On</td><td>{{alert?.alertDateTime | moment: 'utc' |  moment: 'format': 'MM/DD/YYYY hh:mm A'  }}</td>
+            </tr>
+            <tr>
+                <td>Rule Type</td>
+                <td>{{alert?.ruleType.description}}</td>
+            </tr>
+            <tr>
+                <td>Alerted On</td>
+                <td>{{alert?.alertDateTime | moment: 'utc' |  moment: 'format': 'MM/DD/YYYY hh:mm A'  }}</td>
+            </tr>
+            <tr>
+                <td>Location ID</td>
+                <td>{{alert?.locationID}}</td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>{{alert?.name}}</td>
+            </tr>          
+        </table>
+        <div class="col-md-6 col-sm-12" style="background-color:#F9F9F9">
+            <strong class="lead">Detail:</strong><br /><br />
+            <strong>{{alert?.detail}}</strong>
+        </div>
+        <div class="clearfix">&nbsp;</div>
+        <hr />
+        <div *ngIf="alert?.notes.length > 0">
+            <h3>Notes</h3>
+            <div *ngFor="let note of alert?.notes">
+                <div>
+                    <div class="small">By:&nbsp;&nbsp;<strong>{{note.noteByUser.userName}}</strong> on {{note.noteDateTime | moment: 'format': 'ddd MM/DD/YYYY h:mm a' }}</div>
+                    <p-editor readonly="true" [(ngModel)]="note.note">
+                        <p-header>
+                        </p-header>
+                    </p-editor>
+                    <br />
+                </div>
+            </div>
+            <hr />
+        </div>
+        <h4><button class="btn btn-primary" [disabled]="!newNote || newNote.length == 0" (click)="saveNewNote()"><i class="fa fa-save"></i>&nbsp;&nbsp;Save New Note</button></h4>
+        <p-editor [(ngModel)]="newNote" [style]="{'height':'160px'}"></p-editor>
+        <br /><br />
+        <p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+        <button class="btn btn-secondary" (click)="addLocation()">Add Location</button>&nbsp;
+        <button class="btn btn-secondary" (click)="deleteLocation()">Delete Location</button>&nbsp;
+        <button class="btn btn-secondary" *ngIf="alert?.ruleType.ruleTypeID == 3" (click)="markTerminated()">Mark Location Terminated</button>
+    </div>
+</div>
+
+
+

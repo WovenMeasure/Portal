@@ -3,9 +3,15 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class Constants {
-    public get BaseApiUri(): string { return "http://api-laz.wovenmeasure.com/api/"; }
-    public get BaseApiUriLocal(): string { return "http://laz.webapi/api/"; }
-        
+    public get BaseApiUriProd(): string { return "http://api-laz.wovenmeasure.com/api/"; }
+    public get BaseApiUri(): string { return "http://laz.webapi/api/"; }
+
+    public alertStatusNew: number = 1;
+    public alertStatusResolved: number = 2;
+    public alertStatusDismissed: number = 3;
+    public alertStatusInProgress: number = 4;
+
+
     public get US_States() {
         var states = [
             { state: 'Alabama', postCode: 'AL' }, { state: 'Alaska', postCode: 'AK' }, { state: 'Arizona', postCode: 'AZ' }, { state: 'Arkansas', postCode: 'AR' }, { state: 'California', postCode: 'CA' },

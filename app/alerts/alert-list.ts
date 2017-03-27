@@ -10,7 +10,7 @@ import { ProxyService } from "../common/services/proxy-service";
 import {AlertService } from "./alert-service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Merchant } from "../dto/merchant";
-import {SelectItem} from 'primeng/primeng';
+import { SelectItem, Message} from 'primeng/primeng';
 
 @Component({
     templateUrl: 'alert-list.html'
@@ -30,6 +30,7 @@ export class AlertListComponent {
 
     }    
 
+    msgs: Message[] = [];
     alerts: any[];
     alertDate: Date;
 
@@ -64,6 +65,32 @@ export class AlertListComponent {
             this.router.navigate(['/alert/alert-detail-location'], { queryParams: { i: alert.alertID } });
         }
         else { /*....*/
+            this.router.navigate(['/alert/alert-detail'], { queryParams: { i: alert.alertID } });
         }
     }   
+
+    onRowSelect(event) {
+        this.edit(event.data);
+    }
+
+    dismiss(alert: any) {
+        let $observable = this.proxyService.Post("alert/dismiss", { alertID: alert.alertID });
+        $observable.subscribe(
+            data => {
+                if (data.success) {
+                    this.msgs.push({ severity: 'success', summary: "Alert dismissed" });
+                    this.alerts.splice(this.alerts.indexOf(alert), 1);
+                }
+                else {
+                    this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                }
+            },
+            (err) => {
+                this.msgs.push({ severity: 'error', summary: err });
+            },
+            () => {
+                this.spinnerService.finishCurrentStatus();
+            });   
+    }
+
 }

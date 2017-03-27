@@ -153,7 +153,20 @@ table {
 td, th {
   padding: 0; }
 
+.ql-toolbar.ql-snow {
+    background-color: #F1F2F4;
+    padding: 0;
+}
 
+.ql-snow.ql-toolbar button svg, .ql-snow .ql-toolbar button svg {
+    float: left;
+    height: 80%;
+}
+
+
+.ql-snow.ql-toolbar button, .ql-snow .ql-toolbar button {
+    margin:3px
+}
 .error {
     color:red;
     font-weight:bold;

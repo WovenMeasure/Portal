@@ -16,7 +16,7 @@ import { WVDatepickerModule } from './shared/datepicker/datepicker.module';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
 import {
     InputTextModule, DataTableModule, ButtonModule, DialogModule, GrowlModule, DropdownModule, ConfirmDialogModule, ConfirmationService,
-    CalendarModule
+    CalendarModule, EditorModule, SharedModule
 } from 'primeng/primeng';
 
 /*************************************************************Service*******************************************************************/
@@ -43,7 +43,8 @@ import { DashboardMainComponent } from './dashboard/dashboard-main';
 import { MasterPageComponent } from './shared/masterpage/masterpage';
 import { MerchantListComponent} from './admin/merchants/merchant-list';
 import { AlertListComponent} from './alerts/alert-list';
-import { AlertDetailLocationComponent} from './alerts/alert-detail-location';
+import { AlertDetailLocationComponent } from './alerts/alert-detail-location';
+import { AlertDetailComponent } from './alerts/alert-detail';
 
 /*************************************************************Directives/dto*******************************************************************/
 import { CanActivateGuard } from "./app.authguard";
@@ -60,10 +61,10 @@ import { Attachments } from './dto/attachment';
 
 @NgModule({
     imports: [BrowserModule, routing, HttpModule, JsonpModule, FormsModule, Ng2PaginationModule, Ng2PageScrollModule.forRoot(), NgbModule.forRoot(), WVDatepickerModule.forRoot(), DateValueAccessorModule,
-        DataTableModule, GrowlModule, DropdownModule, CalendarModule, ConfirmDialogModule],
+        DataTableModule, GrowlModule, DropdownModule, CalendarModule, ConfirmDialogModule, EditorModule,SharedModule],
     declarations: [
         AppComponent, SafePipe,  MomentPipe, HeaderComponent, ImageCropperComponent,
-        MasterPageComponent, MerchantListComponent, AlertListComponent, AlertDetailLocationComponent,
+        MasterPageComponent, MerchantListComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent,
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, 
         PasswordValidator, FileUploadComponent, DashboardMainComponent
        ],
