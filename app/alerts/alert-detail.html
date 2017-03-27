@@ -37,27 +37,27 @@
         </div>
         <div class="clearfix">&nbsp;</div>
         <hr />
-        <div *ngIf="alert?.notes.length > 0">
-            <h3>Notes</h3>
-            <div *ngFor="let note of alert?.notes">
-                <div>
-                    <div class="small">By:&nbsp;&nbsp;<strong>{{note.noteByUser.userName}}</strong> on {{note.noteDateTime | moment: 'format': 'ddd MM/DD/YYYY h:mm a' }}</div>
-                    <p-editor readonly="true" [(ngModel)]="note.note">
-                        <p-header>
-                        </p-header>
-                    </p-editor>
-                    <br />
-                </div>
-            </div>
-            <hr />
-        </div>
         <h4><button class="btn btn-primary" [disabled]="!newNote || newNote.length == 0" (click)="saveNewNote()"><i class="fa fa-save"></i>&nbsp;&nbsp;Save New Note</button></h4>
-        <p-editor [(ngModel)]="newNote" [style]="{'height':'160px'}"></p-editor>
-        <br /><br />
+        <p-editor [(ngModel)]="newNote" [style]="{'height':'100px'}"></p-editor>
+        <hr />
+        <p-dataTable [value]="alert?.notes" tableStyleClass="table-striped pull-right">
+            <p-column field="noteDateTime" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Note Date Time
+                </template>
+                <template let-note="rowData" pTemplate="body">
+                    {{note.noteDateTime | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
+                </template>
+            </p-column>
+            <p-column field="noteByUser.userName" header="User" sortable="true" styleClass="col-md-2"></p-column>          
+            <p-column header="Note" styleClass="col-md-8">
+                <template let-note="rowData" pTemplate="body">
+                    <div [innerHTML]="note.note">
+                    </div>
+                </template>
+            </p-column>
+        </p-dataTable>      
         <p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
-        <button class="btn btn-secondary" (click)="addLocation()">Add Location</button>&nbsp;
-        <button class="btn btn-secondary" (click)="deleteLocation()">Delete Location</button>&nbsp;
-        <button class="btn btn-secondary" *ngIf="alert?.ruleType.ruleTypeID == 3" (click)="markTerminated()">Mark Location Terminated</button>
     </div>
 </div>
 
