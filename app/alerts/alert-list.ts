@@ -32,11 +32,19 @@ export class AlertListComponent {
 
     msgs: Message[] = [];
     alerts: any[];
+    allAlerts: any[];
     alertDate: Date;
+    inProgressOnly: boolean = false;
 
     ngOnInit() {
         this.contextService.currentSection = "alerts";
         this.alertDate = new Date();
+
+        let tab: string = this.contextService.currentTab;
+        this.inProgressOnly = this.contextService.showInProgressOnly;
+        if (tab)
+            this.alertService.currentAlertType = this.constants.getAlertTypeByConstant(tab);
+
         this.loadAlerts();
     }       
 
@@ -47,6 +55,13 @@ export class AlertListComponent {
             data => {
                 if (data.success) {
                     this.alerts = data.alerts;
+                    this.allAlerts = data.alerts;
+                    if (this.inProgressOnly) {
+                        this.alerts = this.allAlerts.filter((a) => { return a.alertStatusID == this.constants.alertStatusInProgress });
+                    }
+                    else {
+                        this.alerts = this.allAlerts;
+                    }
                 }
             },
             (err) => { },
@@ -55,8 +70,22 @@ export class AlertListComponent {
             });   
     }
 
+    toggleShowInProgress() {
+        this.inProgressOnly = !this.inProgressOnly;
+        this.contextService.showInProgressOnly = this.inProgressOnly;
+        if (this.inProgressOnly) {
+            this.alerts = this.allAlerts.filter((a) => { return a.alertStatusID == this.constants.alertStatusInProgress });
+        }
+        else {
+            this.alerts = this.allAlerts;
+        }
+
+
+    }
+
     tabClick(tab: string) {
         this.alertService.currentAlertType = this.constants.getAlertTypeByConstant(tab);
+        this.contextService.currentTab = tab;
         this.loadAlerts();
     }
 

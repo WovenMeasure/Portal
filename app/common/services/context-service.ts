@@ -74,4 +74,24 @@ export class ContextService {
         this._merchantName = value;
     }
 
+    public get currentTab(): string {
+        return window.localStorage.getItem("currentTab");
+    }
+
+    public set currentTab(value: string) {
+        window.localStorage.setItem("currentTab", value);
+    }
+
+    public get showInProgressOnly(): boolean {
+        let val: string = window.localStorage.getItem("showInProgressOnly");
+        if (null == val)
+            return false;
+
+        return val == 'true';
+    }
+
+    public set showInProgressOnly(value: boolean) {
+        window.localStorage.setItem("showInProgressOnly", value.toString());
+    }
+
 }
