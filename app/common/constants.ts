@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 
-@Injectable()
+@Injectable() 
 export class Constants {
     public get BaseApiUri(): string { return "http://api-laz.wovenmeasure.com/api/"; }
     public get BaseApiUriLocal(): string { return "http://laz.webapi/api/"; }
