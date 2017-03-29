@@ -5820,13 +5820,14 @@ body {
       bottom: 0;
       right: 0;
       z-index:5;
-      left: 276.2px; }
+      left: 195px; }
   .admin-portal .sidebar {
     position: fixed;
     top: 75px;
     bottom: 0;
+    z-index:20;
     left: 0;
-    width: 276.2px;
+    width: 195px;
     background-color: #004C93; }
     .admin-portal .sidebar .menu-item {
       position: relative;
