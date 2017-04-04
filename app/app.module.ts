@@ -45,6 +45,8 @@ import { MerchantListComponent} from './admin/merchants/merchant-list';
 import { AlertListComponent} from './alerts/alert-list';
 import { AlertDetailLocationComponent } from './alerts/alert-detail-location';
 import { AlertDetailComponent } from './alerts/alert-detail';
+import { JobLogListComponent } from './log/job-log-list';
+import { LocationListComponent } from './location/location-list';
 
 /*************************************************************Directives/dto*******************************************************************/
 import { CanActivateGuard } from "./app.authguard";
@@ -66,7 +68,7 @@ import { Attachments } from './dto/attachment';
         AppComponent, SafePipe,  MomentPipe, HeaderComponent, ImageCropperComponent,
         MasterPageComponent, MerchantListComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent,
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, 
-        PasswordValidator, FileUploadComponent, DashboardMainComponent
+        PasswordValidator, FileUploadComponent, DashboardMainComponent, JobLogListComponent, LocationListComponent
        ],
 
     entryComponents: [],

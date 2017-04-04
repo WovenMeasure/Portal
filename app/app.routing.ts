@@ -11,6 +11,8 @@ import { MerchantListComponent} from './admin/merchants/merchant-list';
 import { AlertListComponent} from './alerts/alert-list';
 import { AlertDetailLocationComponent } from './alerts/alert-detail-location';
 import { AlertDetailComponent } from './alerts/alert-detail';
+import { JobLogListComponent } from './log/job-log-list';
+import { LocationListComponent } from './location/location-list';
 
 const appRoutes: Routes = [
     { path: '', component: MasterPageComponent, canActivate: [CanActivateGuard],
@@ -19,10 +21,9 @@ const appRoutes: Routes = [
             { path: '', redirectTo: 'dash-main', pathMatch: 'full' },
             { path: 'dash-main', component: DashboardMainComponent, canActivate: [CanActivateGuard] },
             {
-                path: 'admin', component: null, canActivate: [CanActivateGuard], children:
+                path: 'location', component: null, canActivate: [CanActivateGuard], children:
                 [
-                    { path: '', redirectTo: 'merchant-list', pathMatch: 'full' },
-                    { path: 'merchant-list', component: MerchantListComponent, canActivate: [CanActivateGuard] },                    
+                    { path: 'location-list', component: LocationListComponent, canActivate: [CanActivateGuard] }
                 ]
             },
             {
@@ -31,6 +32,12 @@ const appRoutes: Routes = [
                     { path: 'alert-list', component: AlertListComponent, canActivate: [CanActivateGuard] },
                     { path: 'alert-detail-location', component: AlertDetailLocationComponent, canActivate: [CanActivateGuard] },
                     { path: 'alert-detail', component: AlertDetailComponent, canActivate: [CanActivateGuard] }
+                ],
+            },
+            {
+                path: 'log', component: null, canActivate: [CanActivateGuard], children:
+                [
+                    { path: 'job-log-list', component: JobLogListComponent, canActivate: [CanActivateGuard] }
                 ]
             }
         ]
