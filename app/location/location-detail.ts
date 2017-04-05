@@ -91,4 +91,28 @@ export class LocationDetailComponent {
                 this.spinnerService.finishCurrentStatus();
             });   
     }   
+
+    onSaveLocation($event) {
+        //save
+        var data = {
+            location: this.location
+        };
+        this.spinnerService.postStatus('Saving Location');
+        let $observable = this.proxyService.Post("location/update", data);
+        $observable.subscribe(
+            data => {
+                if (data.success) {
+                    this.msgs.push({ severity: 'success', summary: "Location updated" });
+                }
+                else {
+                    this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                }
+            },
+            (err) => {
+                this.msgs.push({ severity: 'error', summary: err });
+            },
+            () => {
+                this.spinnerService.finishCurrentStatus();
+            });
+    }
 }

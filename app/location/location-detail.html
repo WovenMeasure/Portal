@@ -2,7 +2,7 @@
 <div class="col-md-12">
     <div *ngIf="loaded">
         <h2>Location</h2>
-        <form #myForm="ngForm" autocomplete="false">
+        <form #myForm="ngForm" (ngSubmit)="onSaveLocation($event)" autocomplete="false">
             <div class="form-group col-md-6">
                 <label for="name">Name *</label>
                 <input required type="text" class="form-control" name="name" id="name" placeholder="Name" [(ngModel)]="location.name">
