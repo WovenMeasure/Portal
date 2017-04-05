@@ -3,12 +3,6 @@
     <div class="controls">      
         <div>
             <div>
-                <i class="fa fa-cog" aria-hidden="true"></i>
-            </div>
-            <div class="label">Settings</div> 
-        </div>
-        <div>
-            <div>
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
             </div>
             <div class="label" (click)="logout()">Log Out</div>
@@ -22,9 +16,6 @@
         </div>
         <div class="menu-item">
             <span><a [ngClass]="{'selected': contextService.currentSection == 'logs'}" [routerLink]="['/log/job-log-list']">Imports</a></span>
-        </div>
-        <div class="menu-item">
-            <span><a href="#">Reports</a></span>
         </div>
         <div class="menu-item">
                 <span><a [ngClass]="{'selected': contextService.currentSection == 'alerts'}" [routerLink]="['/alert/alert-list']">Alerts</a></span>

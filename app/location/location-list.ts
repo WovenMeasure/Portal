@@ -33,12 +33,12 @@ export class LocationListComponent {
 
     ngOnInit() {
         this.contextService.currentSection = "locations";
-        this.loadLogs();
+        this.loadLocations();
     }       
 
-    loadLogs() {
+    loadLocations() {
         this.spinnerService.postStatus('Loading Locations');
-        let $observable = this.proxyService.Get("location/0/3000");
+        let $observable = this.proxyService.Get("location/list/0/3000");
         $observable.subscribe(
             data => {
                 if (data.success) {
@@ -54,5 +54,13 @@ export class LocationListComponent {
             () => {
                 this.spinnerService.finishCurrentStatus();
             });   
-    }    
+    } 
+
+    edit(location: any) {
+        this.router.navigate(['/location/location-detail'], { queryParams: { i: location.locationID } });
+    }
+
+    onRowSelect(event) {
+        this.edit(event.data);
+    }
 }

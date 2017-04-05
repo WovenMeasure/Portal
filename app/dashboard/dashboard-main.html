@@ -1,10 +1,8 @@
 ﻿<div>
     <div class="dashboard-tiles">
-        <div>Administration</div>
-        <div>Imports</div>
-        <div>Reports</div>
-        <div>Alerts</div>
+        <div><a [ngClass]="{'selected': contextService.currentSection == 'locations'}" [routerLink]="['/location/location-list']">Locations</a></div>
+        <div><a [ngClass]="{'selected': contextService.currentSection == 'logs'}" [routerLink]="['/log/job-log-list']">Imports</a></div>
+        <div><a [ngClass]="{'selected': contextService.currentSection == 'alerts'}" [routerLink]="['/alert/alert-list']">Alerts</a></div>
         <div>Rules</div>
-        <div>Reports</div>
     </div>
 </div>

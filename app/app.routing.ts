@@ -13,6 +13,7 @@ import { AlertDetailLocationComponent } from './alerts/alert-detail-location';
 import { AlertDetailComponent } from './alerts/alert-detail';
 import { JobLogListComponent } from './log/job-log-list';
 import { LocationListComponent } from './location/location-list';
+import { LocationDetailComponent } from './location/location-detail';
 
 const appRoutes: Routes = [
     { path: '', component: MasterPageComponent, canActivate: [CanActivateGuard],
@@ -23,7 +24,8 @@ const appRoutes: Routes = [
             {
                 path: 'location', component: null, canActivate: [CanActivateGuard], children:
                 [
-                    { path: 'location-list', component: LocationListComponent, canActivate: [CanActivateGuard] }
+                    { path: 'location-list', component: LocationListComponent, canActivate: [CanActivateGuard] },
+                    { path: 'location-detail', component: LocationDetailComponent, canActivate: [CanActivateGuard] }
                 ]
             },
             {

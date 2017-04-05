@@ -47,6 +47,7 @@ import { AlertDetailLocationComponent } from './alerts/alert-detail-location';
 import { AlertDetailComponent } from './alerts/alert-detail';
 import { JobLogListComponent } from './log/job-log-list';
 import { LocationListComponent } from './location/location-list';
+import { LocationDetailComponent } from './location/location-detail';
 
 /*************************************************************Directives/dto*******************************************************************/
 import { CanActivateGuard } from "./app.authguard";
@@ -67,7 +68,7 @@ import { Attachments } from './dto/attachment';
     declarations: [
         AppComponent, SafePipe,  MomentPipe, HeaderComponent, ImageCropperComponent,
         MasterPageComponent, MerchantListComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent,
-        LoginComponent, ResetPasswordComponent, ChangePasswordComponent, 
+        LoginComponent, ResetPasswordComponent, ChangePasswordComponent, LocationDetailComponent,
         PasswordValidator, FileUploadComponent, DashboardMainComponent, JobLogListComponent, LocationListComponent
        ],
 

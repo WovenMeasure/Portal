@@ -1,7 +1,8 @@
 //our root app component
 import {Component, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import {AuthenticationService} from '../common/services/authentication-service';
+import { AuthenticationService } from '../common/services/authentication-service';
+import { ContextService } from '../common/services/context-service';
 import { SpinnerService } from '../common/services/spinner-service';
 import { TranslationService } from '../common/services/translation-service';
 import {Constants } from '../common/constants';
@@ -23,7 +24,8 @@ export class DashboardMainComponent {
                 private authenticationService: AuthenticationService,
                 private spinnerService: SpinnerService,
                 private constants: Constants,
-                private translationService: TranslationService) {
+                private translationService: TranslationService,
+                private contextService:ContextService) {
 
        }
 

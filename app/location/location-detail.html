@@ -1,0 +1,85 @@
+﻿<p-growl [value]="msgs"></p-growl>
+<div class="col-md-12">
+    <div *ngIf="loaded">
+        <h2>Location</h2>
+        <form #myForm="ngForm" autocomplete="false">
+            <div class="form-group col-md-6">
+                <label for="name">Name *</label>
+                <input required type="text" class="form-control" name="name" id="name" placeholder="Name" [(ngModel)]="location.name">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="address1">Address *</label>
+                <input required type="text" class="form-control" name="address1" id="address1" placeholder="Address" [(ngModel)]="location.address1">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="city">City *</label>
+                <input required type="text" class="form-control" name="city" id="city" placeholder="City" [(ngModel)]="location.city">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="state">State *</label>
+                <p-dropdown placeholder="Select a state" name="state" [required]="true" [options]="states" [filter]="true" [(ngModel)]="location.state"></p-dropdown>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="zip">Zip *</label>
+                <input required type="text" class="form-control" name="zip" id="zip" placeholder="Zip" [(ngModel)]="location.zip">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="region">Region</label>
+                <p-dropdown placeholder="Select region" name="region" [required]="true" [options]="regions" [filter]="true" [(ngModel)]="location.regionID"></p-dropdown>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="corpName">Corp Name</label>
+                <input type="text" class="form-control" name="corpName" id="corpName" placeholder="Corp Name" [(ngModel)]="location.corpName">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="contactName">Contact Name *</label>
+                <input required type="text" class="form-control" name="contactName" id="contactName" placeholder="Contact Name" [(ngModel)]="location.contactName">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="abaNum">ABA #</label>
+                <input type="text" class="form-control" name="abaNum" id="abaNum" placeholder="ABA #" [(ngModel)]="location.abaNo">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="merchantID">Merchant ID</label>
+                <input type="text" class="form-control" id="merchantID" name="merchantID" placeholder="Merchant ID" [(ngModel)]="location.merchantID">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="amexSE">Amex SE</label>
+                <input type="text" class="form-control" id="amexSE" name="amexSE" placeholder="AMEX SE" [(ngModel)]="location.amexSE">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="discoverSE">Discover SE</label>
+                <input type="text" class="form-control" id="discoverSE" name="discoverSE" placeholder="Discover SE" [(ngModel)]="location.discoverSE">
+            </div>         
+            <div class="form-group col-md-6">
+                <label for="corpName">DDA Act Number SE</label>
+                <input type="text" class="form-control" id="amexSE" name="amexSE" placeholder="Discover SE" [(ngModel)]="location.discoverSE">
+            </div>          
+            <button type="submit" class="btn btn-default" [disabled]="!myForm.valid" [ngClass]="{ 'btn-default' : !myForm.valid, 'btn-primary': myForm.valid }">Save</button>
+        </form>
+        <hr />
+        <strong>Transactions</strong>
+        <input #gb type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>
+        <p-dataTable [value]="transactions"  [pageLinks]="5" selectionMode="single"tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb">
+            <p-column field="locationID" header="Location" sortable="true" styleClass="col-md-2"></p-column>
+            <p-column field="customerAccountNumber" header="Customer Account" sortable="true" styleClass="col-md-2"></p-column>
+            <p-column field="trans_DateTime" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Transaction Date
+                </template>
+                <template let-transaction="rowData" pTemplate="body">
+                    {{transaction.trans_DateTime | moment: 'format': 'MM/DD/YYYY' }}
+                </template>
+            </p-column>
+            <p-column field="transactionType.transactionDescription" header="Type" sortable="true" styleClass="col-md-2"></p-column>
+            <p-column header="Amount" styleClass="col-md-1">
+                <template let-transaction="rowData" pTemplate="body">
+                    {{transaction.transactionAmount | currency:'USD':true}}
+                </template>
+            </p-column>
+        </p-dataTable>  
+    </div>   
+</div>
+
+
+
