@@ -18,10 +18,10 @@
             <span><a [ngClass]="{'selected': contextService.currentSection == 'logs'}" [routerLink]="['/log/job-log-list']">Imports</a></span>
         </div>
         <div class="menu-item">
-                <span><a [ngClass]="{'selected': contextService.currentSection == 'alerts'}" [routerLink]="['/alert/alert-list']">Alerts</a></span>
+            <span><a [ngClass]="{'selected': contextService.currentSection == 'alerts'}" [routerLink]="['/alert/alert-list']">Alerts</a></span>
         </div>
         <div class="menu-item">
-            <span><a href="#">Rules</a></span>
+            <span><a [ngClass]="{'selected': contextService.currentSection == 'jobparams'}" [routerLink]="['/jobparameter/job-parameter-list']">Rules</a></span>
         </div>      
     </div>
     <div class="main" ui-view="screens">

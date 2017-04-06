@@ -1,0 +1,40 @@
+﻿<p-growl [value]="msgs"></p-growl>
+<div class="col-md-12">
+    <h2 class="col-md-4"><strong>Job Parameters</strong></h2>
+    <p-dataTable [value]="jobParameters" selectionMode="single" [(selection)]="selectedParam" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
+        <p-column field="jobName" header="Job" [sortable]="true"></p-column>
+        <p-column field="key" header="Key" [sortable]="true"></p-column>
+        <p-column styleClass="col-md-2" field="value" header="Value" [sortable]="true"></p-column>
+        <p-column styleClass="col-md-6" field="description" header="Description" [sortable]="true"></p-column>
+    </p-dataTable>
+</div>
+
+<p-dialog header="Parameter Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="parameter">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="jobName">Job</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="job" readonly [(ngModel)]="parameter.jobName" /></div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="key">Key</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="key" readonly [(ngModel)]="parameter.key" /></div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="value">Value</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="value" [(ngModel)]="parameter.value" /></div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="description">Description</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="description" [(ngModel)]="parameter.description" /></div>
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-close" (click)="cancel()" label="Cancel"></button>
+            <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+
+

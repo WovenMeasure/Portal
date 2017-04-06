@@ -26,7 +26,6 @@ import { LoggerService } from "./common/services/logger-service";
 import { ContextService } from "./common/services/context-service";
 import { ProxyService } from "./common/services/proxy-service";
 import { TranslationService } from "./common/services/translation-service";
-import { ProviderService } from "./common/services/provider-service";
 import { ResetPasswordService} from "./resetPassword/resetPassword-service";
 import { ChangePasswordService} from "./changePassword/changePassword-service";
 import { AlertService} from "./alerts/alert-service";
@@ -41,34 +40,27 @@ import { ChangePasswordComponent } from './changePassword/changePassword'
 import { ImageCropperComponent } from 'ng2-img-cropper';
 import { DashboardMainComponent } from './dashboard/dashboard-main';
 import { MasterPageComponent } from './shared/masterpage/masterpage';
-import { MerchantListComponent} from './admin/merchants/merchant-list';
 import { AlertListComponent} from './alerts/alert-list';
 import { AlertDetailLocationComponent } from './alerts/alert-detail-location';
 import { AlertDetailComponent } from './alerts/alert-detail';
 import { JobLogListComponent } from './log/job-log-list';
 import { LocationListComponent } from './location/location-list';
 import { LocationDetailComponent } from './location/location-detail';
+import { JobParametersListComponent } from './jobparameters/jobparameters-list';
 
 /*************************************************************Directives/dto*******************************************************************/
 import { CanActivateGuard } from "./app.authguard";
 import { PasswordValidator} from './changePassword/changePassword.directive';
-import { CredentialInfo} from "./dto/participant-info";
-import { ContactInfo} from "./dto/participant-info";
-import { InsuranceInfo} from "./dto/participant-info";
-import { TermsConditionInfo} from "./dto/participant-info";
-import { ParticipantContext} from "./dto/participant-info";
-import { QuestAnswer } from './dto/assessment';
-import { Attachments } from './dto/attachment';
 
 
 
 @NgModule({
     imports: [BrowserModule, routing, HttpModule, JsonpModule, FormsModule, Ng2PaginationModule, Ng2PageScrollModule.forRoot(), NgbModule.forRoot(), WVDatepickerModule.forRoot(), DateValueAccessorModule,
-        DataTableModule, GrowlModule, DropdownModule, CalendarModule, ConfirmDialogModule, EditorModule,SharedModule],
+        DataTableModule, GrowlModule, DropdownModule, CalendarModule, ConfirmDialogModule, DialogModule, EditorModule,SharedModule],
     declarations: [
         AppComponent, SafePipe,  MomentPipe, HeaderComponent, ImageCropperComponent,
-        MasterPageComponent, MerchantListComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent,
-        LoginComponent, ResetPasswordComponent, ChangePasswordComponent, LocationDetailComponent,
+        MasterPageComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent,
+        LoginComponent, ResetPasswordComponent, ChangePasswordComponent, LocationDetailComponent, JobParametersListComponent,
         PasswordValidator, FileUploadComponent, DashboardMainComponent, JobLogListComponent, LocationListComponent
        ],
 
@@ -87,8 +79,8 @@ import { Attachments } from './dto/attachment';
         },
         ChangePasswordService, ContextService, ProxyService,
         AuthenticationService, SpinnerService, LoggerService,
-        ProviderService, Constants, CanActivateGuard, 
-        CredentialInfo, ContactInfo, AlertService, LookupService,
+        Constants, CanActivateGuard, 
+        AlertService, LookupService,
         NgbModalRef]
 })
 

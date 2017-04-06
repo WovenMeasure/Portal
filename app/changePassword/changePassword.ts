@@ -3,8 +3,6 @@ import {Component} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {ChangePasswordService} from '../changePassword/changePassword-service';
 import { SpinnerService } from '../common/services/spinner-service';
-import { ProviderService } from '../common/services/provider-service';
-import { Provider } from '../dto/provider';
 import { TranslationService } from '../common/services/translation-service';
 
 @Component({
@@ -27,7 +25,6 @@ export class ChangePasswordComponent {
     token: string;
     condition: boolean;
     coachImage: string;
-    provider: Provider;
     messageShow: boolean;
 
     ngOnInit() {

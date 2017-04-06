@@ -7,13 +7,13 @@ import { ResetPasswordComponent } from './resetPassword/resetPassword';
 import { DashboardMainComponent } from './dashboard/dashboard-main';
 import { MasterPageComponent } from './shared/masterpage/masterpage';
 import { CanActivateGuard } from './app.authguard';
-import { MerchantListComponent} from './admin/merchants/merchant-list';
 import { AlertListComponent} from './alerts/alert-list';
 import { AlertDetailLocationComponent } from './alerts/alert-detail-location';
 import { AlertDetailComponent } from './alerts/alert-detail';
 import { JobLogListComponent } from './log/job-log-list';
 import { LocationListComponent } from './location/location-list';
 import { LocationDetailComponent } from './location/location-detail';
+import { JobParametersListComponent } from './jobparameters/jobparameters-list';
 
 const appRoutes: Routes = [
     { path: '', component: MasterPageComponent, canActivate: [CanActivateGuard],
@@ -41,7 +41,14 @@ const appRoutes: Routes = [
                 [
                     { path: 'job-log-list', component: JobLogListComponent, canActivate: [CanActivateGuard] }
                 ]
+            },
+            {
+                path: 'jobparameter', component: null, canActivate: [CanActivateGuard], children:
+                [
+                    { path: 'job-parameter-list', component: JobParametersListComponent, canActivate: [CanActivateGuard] }
+                ]
             }
+
         ]
     },
     { path: 'login', component: LoginComponent},

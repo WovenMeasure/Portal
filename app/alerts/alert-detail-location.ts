@@ -10,7 +10,6 @@ import {Constants } from "../common/constants";
 import { ProxyService } from "../common/services/proxy-service";
 import {AlertService } from "./alert-service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Merchant } from "../dto/merchant";
 import {SelectItem} from 'primeng/primeng';
 import { Message, ConfirmationService, ConfirmDialogModule} from 'primeng/primeng';
 

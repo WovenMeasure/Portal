@@ -9,7 +9,6 @@ import {Constants } from "../common/constants";
 import { ProxyService } from "../common/services/proxy-service";
 import {AlertService } from "./alert-service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Merchant } from "../dto/merchant";
 import { SelectItem, Message} from 'primeng/primeng';
 
 @Component({
@@ -49,7 +48,7 @@ export class AlertListComponent {
     }       
 
     loadAlerts() {
-        this.spinnerService.postStatus('Loading');
+        this.spinnerService.postStatus('Loading Alerts');
         let observable$ = this.alertService.loadAlerts();
         observable$.subscribe(
             data => {

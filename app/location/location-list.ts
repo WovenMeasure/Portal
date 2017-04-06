@@ -8,7 +8,6 @@ import { ContextService } from '../common/services/context-service';
 import {Constants } from "../common/constants";
 import { ProxyService } from "../common/services/proxy-service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Merchant } from "../dto/merchant";
 import { SelectItem, Message} from 'primeng/primeng';
 
 @Component({

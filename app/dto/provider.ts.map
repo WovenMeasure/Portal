@@ -1,1 +1,0 @@
-{"version":3,"names":[],"mappings":"","sources":["dto/provider.ts"],"sourcesContent":["export class Provider {\r\n    public id: string;  \r\n    public providerNumber: string;\r\n    public title: string;\r\n    public firstName: string;\r\n    public lastName: string;\r\n    public heroImageId: string;\r\n\r\n}"],"file":"dto/provider.ts","sourceRoot":"/source/"}

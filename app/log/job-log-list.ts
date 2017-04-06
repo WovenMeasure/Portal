@@ -8,7 +8,6 @@ import { ContextService } from '../common/services/context-service';
 import {Constants } from "../common/constants";
 import { ProxyService } from "../common/services/proxy-service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Merchant } from "../dto/merchant";
 import { SelectItem, Message} from 'primeng/primeng';
 
 @Component({
@@ -37,7 +36,7 @@ export class JobLogListComponent {
     }       
 
     loadLogs() {
-        this.spinnerService.postStatus('Loading Alerts');
+        this.spinnerService.postStatus('Loading Job Logs');
         let $observable = this.proxyService.Get("log/0/1000");
         $observable.subscribe(
             data => {
