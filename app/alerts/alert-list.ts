@@ -44,12 +44,15 @@ export class AlertListComponent {
         if (tab)
             this.alertService.currentAlertType = this.constants.getAlertTypeByConstant(tab);
 
+
+        this.alertDate = this.contextService.currentAlertFilterDate;
+
         this.loadAlerts();
     }       
 
     loadAlerts() {
         this.spinnerService.postStatus('Loading Alerts');
-        let observable$ = this.alertService.loadAlerts();
+        let observable$ = this.alertService.loadAlerts(this.alertDate);
         observable$.subscribe(
             data => {
                 if (data.success) {
@@ -80,6 +83,11 @@ export class AlertListComponent {
         }
 
 
+    }
+
+    filterByDate() {
+        this.contextService.currentAlertFilterDate = this.alertDate;
+        this.loadAlerts();
     }
 
     tabClick(tab: string) {

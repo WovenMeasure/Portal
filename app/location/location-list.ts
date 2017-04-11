@@ -10,10 +10,10 @@ import { ProxyService } from "../common/services/proxy-service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SelectItem, Message} from 'primeng/primeng';
 
-@Component({
+@Component({ 
     templateUrl: 'location-list.html'
 })
-export class LocationListComponent {   
+export class LocationListComponent {    
     constructor(private router: Router, 
                 private componentFactoryResolver: ComponentFactoryResolver,
                 private proxyService: ProxyService,
@@ -27,17 +27,22 @@ export class LocationListComponent {
 
     }    
 
+    terminated: boolean = false;
     msgs: Message[] = [];
     locations: any[];
-
+     
     ngOnInit() {
         this.contextService.currentSection = "locations";
         this.loadLocations();
     }       
 
+    onSelectionChange() {
+        this.loadLocations();
+    }
+
     loadLocations() {
         this.spinnerService.postStatus('Loading Locations');
-        let $observable = this.proxyService.Get("location/list/0/3000");
+        let $observable = this.proxyService.Get("location/list/0/3000/" + this.terminated);
         $observable.subscribe(
             data => {
                 if (data.success) {

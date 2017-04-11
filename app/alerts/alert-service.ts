@@ -6,7 +6,8 @@ import { ProxyService } from "../common/services/proxy-service";
 import { Constants } from "../common/constants";
 import { ContextService } from "../common/services/context-service";
 import "../rxjs-operators"
- 
+import * as moment from 'moment';
+
 @Injectable() 
 export class AlertService {
     constructor(private proxyService: ProxyService,
@@ -28,8 +29,8 @@ export class AlertService {
     }
 
 
-    public loadAlerts(): Observable<any> {
-        let observable$ = this.proxyService.Get("alert/all/" + this.currentAlertType.alertTypeID);
+    public loadAlerts(alertDate: Date): Observable<any> {
+        let observable$ = this.proxyService.Get("alert/all/" + this.currentAlertType.alertTypeID + "/" + moment(alertDate).format("MM-DD-YYYY"));
         return observable$;
     }
 

@@ -1,6 +1,8 @@
 ﻿import { Injectable } from '@angular/core';
 import { ContextInfo } from "./context-info";
-import {Message} from 'primeng/primeng';
+import { Message } from 'primeng/primeng';
+import * as moment from 'moment';
+
 @Injectable() 
 export class ContextService {
     _contextInfo: ContextInfo;
@@ -52,6 +54,16 @@ export class ContextService {
 
     public set currentSection(value: string) {
         this._currentSection = value;
+    }
+
+    _alertFilterDate: Date = moment().subtract(2, 'months').toDate();
+
+    public get currentAlertFilterDate(): Date {
+        return this._alertFilterDate;
+    }
+
+    public set currentAlertFilterDate(value: Date) {
+        this._alertFilterDate = value;
     }
 
     _merchantId: string;

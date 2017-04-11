@@ -1,13 +1,13 @@
 ﻿<p-growl [value]="msgs"></p-growl>
 <div class="col-md-12">
     <h2 class="col-md-1"><strong>Alerts</strong></h2>
-    <div style="margin-top:20px"><p-calendar styleClass="pull-left" [(ngModel)]="alertDate"></p-calendar></div>
+    <div style="margin-top:20px"><p-calendar styleClass="pull-left" [(ngModel)]="alertDate" (onSelect)="filterByDate()"></p-calendar></div>
     <div class="clearfix"></div>
     <button class="btn btn-primary active tabButton" (click)="tabClick('LOC')" style="margin-left:1px" [ngClass]="{'active' : alertService.currentAlertType.constant == 'LOC'}">Location</button>&nbsp;&nbsp;
     <button class="btn btn-primary tabButton"  (click)="tabClick('BANKDEP')" [ngClass]="{'active' : alertService.currentAlertType.constant == 'BANKDEP'}">Bank Deposit</button>&nbsp;&nbsp;
     <button class="btn btn-primary tabButton"  (click)="tabClick('CREDC')" [ngClass]="{'active' : alertService.currentAlertType.constant == 'CREDC'}">Credit Card</button>&nbsp;&nbsp;
     <button class="btn btn-primary tabButton"  (click)="tabClick('WEBDCR')" [ngClass]="{'active' : alertService.currentAlertType.constant == 'WEBDCR'}">WebDCR</button>
-    <label class="col-md-offset-2"><input class="checkbox" type="checkbox" value="Show In Progress Only" [(ngModel)]="inProgressOnly" (click)="toggleShowInProgress()"/>&nbsp;&nbsp;Show in progress only</label>
+    <label class="col-md-offset-2"><input class="checkbox" style="display:inline" type="checkbox" value="Show In Progress Only" [(ngModel)]="inProgressOnly" (click)="toggleShowInProgress()"/>&nbsp;&nbsp;Show in progress only</label>
     <input #gb type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>
     <p-dataTable [pageLinks]="5" selectionMode="single" (onRowSelect)="onRowSelect($event)" [value]="alerts" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="20" [globalFilter]="gb">
        <p-column field="alertDateTime" sortable="true" styleClass="col-md-2">

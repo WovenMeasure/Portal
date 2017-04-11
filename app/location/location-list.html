@@ -1,6 +1,18 @@
 ﻿<p-growl [value]="msgs"></p-growl>
 <div class="col-md-12">
     <h2 class="col-md-4"><strong>Locations</strong></h2>
+    <div class="col-md-4 col-md-offset-2" style="margin-top:20px">
+        <div class="radio-inline">
+            <label>
+                <input class="radio-inline" type="radio" name="status" [value]="false" [(ngModel)]="terminated" (change)="onSelectionChange()"/>Active
+            </label>
+        </div>
+        <div class="radio-inline">
+            <label>
+                <input class="radio-inline" type="radio"  name="status" [value]="true" [(ngModel)]="terminated" (change)="onSelectionChange()"/>Terminated
+            </label>
+        </div>
+    </div>
     <input #gb type="text" style="margin-top:20px" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-top:20px;margin-right:10px" aria-hidden="true"></i>
     <div class="clearfix"></div>
     <p-dataTable [pageLinks]="5" selectionMode="single" (onRowSelect)="onRowSelect($event)" [value]="locations" tableStyleClass="table-striped pull-right" [paginator]="true" [rows]="100" [globalFilter]="gb">
