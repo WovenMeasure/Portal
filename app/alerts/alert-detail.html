@@ -37,8 +37,7 @@
         <hr />
         <strong>Transactions</strong>
         <p-dataTable [value]="transactions" tableStyleClass="table-striped">
-            <p-column field="locationID" header="Location" sortable="true" styleClass="col-md-2"></p-column>
-            <p-column field="customerAccountNumber" header="Customer Account" sortable="true" styleClass="col-md-2"></p-column>
+            <p-column field="customerAccountNumber" header="Customer Account" sortable="true" styleClass="col-md-1"></p-column>
             <p-column field="trans_DateTime" sortable="true" styleClass="col-md-2">
                 <template pTemplate="header">
                     Transaction Date
@@ -53,6 +52,7 @@
                     {{transaction.transactionAmount | currency:'USD':true}}
                 </template>
             </p-column>
+            <p-column field="notes" header="Notes" sortable="true" styleClass="col-md-3"></p-column>
         </p-dataTable>      
         <hr />
         <strong>Notes</strong>

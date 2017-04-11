@@ -56,14 +56,24 @@ export class ContextService {
         this._currentSection = value;
     }
 
-    _alertFilterDate: Date = moment().subtract(2, 'months').toDate();
+    _alertFilterFromDate: Date = moment().subtract(2, 'months').toDate();
 
-    public get currentAlertFilterDate(): Date {
-        return this._alertFilterDate;
+    public get currentAlertFilterFromDate(): Date {
+        return this._alertFilterFromDate;
     }
 
-    public set currentAlertFilterDate(value: Date) {
-        this._alertFilterDate = value;
+    public set currentAlertFilterFromDate(value: Date) {
+        this._alertFilterFromDate = value;
+    }
+
+    _alertFilterToDate: Date = moment().toDate();
+
+    public get currentAlertFilterToDate(): Date {
+        return this._alertFilterToDate;
+    }
+
+    public set currentAlertFilterToDate(value: Date) {
+        this._alertFilterToDate = value;
     }
 
     _merchantId: string;

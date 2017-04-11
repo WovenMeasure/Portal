@@ -1,7 +1,7 @@
 ﻿<p-growl [value]="msgs"></p-growl>
 <div class="col-md-12">
     <h2 class="col-md-1"><strong>Alerts</strong></h2>
-    <div style="margin-top:20px"><p-calendar styleClass="pull-left" [(ngModel)]="alertDate" (onSelect)="filterByDate()"></p-calendar></div>
+    <div style="margin-top:20px"><label class="pull-left" style="height:35px;margin-top:10px;">From:  </label><p-calendar styleClass="pull-left" [(ngModel)]="alertFromDate"></p-calendar><label class="pull-left" style="height:35px;margin-top:10px;">To:  </label><p-calendar styleClass="pull-left" [(ngModel)]="alertToDate"></p-calendar>&nbsp;&nbsp;<button type="button"class="btn btn-primary btn-xs" style="margin-top:10px;margin-left:8px" (click)="filterByDate()">Apply</button></div>
     <div class="clearfix"></div>
     <button class="btn btn-primary active tabButton" (click)="tabClick('LOC')" style="margin-left:1px" [ngClass]="{'active' : alertService.currentAlertType.constant == 'LOC'}">Location</button>&nbsp;&nbsp;
     <button class="btn btn-primary tabButton"  (click)="tabClick('BANKDEP')" [ngClass]="{'active' : alertService.currentAlertType.constant == 'BANKDEP'}">Bank Deposit</button>&nbsp;&nbsp;

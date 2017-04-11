@@ -61,8 +61,7 @@
         <strong>Transactions</strong>
         <input #gb type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>
         <p-dataTable [value]="transactions"  [pageLinks]="5" selectionMode="single"tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb">
-            <p-column field="locationID" header="Location" sortable="true" styleClass="col-md-2"></p-column>
-            <p-column field="customerAccountNumber" header="Customer Account" sortable="true" styleClass="col-md-2"></p-column>
+            <p-column field="customerAccountNumber" header="Customer Account" sortable="true" styleClass="col-md-1"></p-column>
             <p-column field="trans_DateTime" sortable="true" styleClass="col-md-2">
                 <template pTemplate="header">
                     Transaction Date
@@ -77,6 +76,7 @@
                     {{transaction.transactionAmount | currency:'USD':true}}
                 </template>
             </p-column>
+            <p-column field="notes" header="Notes" sortable="true" styleClass="col-md-3"></p-column>
         </p-dataTable>  
     </div>   
 </div>

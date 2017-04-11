@@ -32,12 +32,12 @@ export class AlertListComponent {
     msgs: Message[] = [];
     alerts: any[];
     allAlerts: any[];
-    alertDate: Date;
+    alertFromDate: Date;
+    alertToDate: Date;
     inProgressOnly: boolean = false;
 
     ngOnInit() {
         this.contextService.currentSection = "alerts";
-        this.alertDate = new Date();
 
         let tab: string = this.contextService.currentTab;
         this.inProgressOnly = this.contextService.showInProgressOnly;
@@ -45,14 +45,16 @@ export class AlertListComponent {
             this.alertService.currentAlertType = this.constants.getAlertTypeByConstant(tab);
 
 
-        this.alertDate = this.contextService.currentAlertFilterDate;
+        this.alertFromDate = this.contextService.currentAlertFilterFromDate;
+        this.alertToDate = this.contextService.currentAlertFilterToDate;
+
 
         this.loadAlerts();
     }       
 
     loadAlerts() {
         this.spinnerService.postStatus('Loading Alerts');
-        let observable$ = this.alertService.loadAlerts(this.alertDate);
+        let observable$ = this.alertService.loadAlerts(this.alertFromDate, this.alertToDate);
         observable$.subscribe(
             data => {
                 if (data.success) {
@@ -86,7 +88,8 @@ export class AlertListComponent {
     }
 
     filterByDate() {
-        this.contextService.currentAlertFilterDate = this.alertDate;
+        this.contextService.currentAlertFilterFromDate = this.alertFromDate;
+        this.contextService.currentAlertFilterToDate = this.alertToDate;
         this.loadAlerts();
     }
 

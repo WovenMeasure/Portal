@@ -26,11 +26,11 @@ export class AlertService {
 
     public set currentAlertType(value: any) {
         this._currentAlertType = value;
-    }
+    } 
 
 
-    public loadAlerts(alertDate: Date): Observable<any> {
-        let observable$ = this.proxyService.Get("alert/all/" + this.currentAlertType.alertTypeID + "/" + moment(alertDate).format("MM-DD-YYYY"));
+    public loadAlerts(alertFromDate: Date, alertToDate: Date): Observable<any> {
+        let observable$ = this.proxyService.Get("alert/all/" + this.currentAlertType.alertTypeID + "/" + moment(alertFromDate).format("MM-DD-YYYY") + "/" + moment(alertToDate).format("MM-DD-YYYY"));
         return observable$;
     }
 
