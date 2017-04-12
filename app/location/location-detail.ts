@@ -114,4 +114,60 @@ export class LocationDetailComponent {
                 this.spinnerService.finishCurrentStatus();
             });
     }
+
+    markTerminated(location) {
+        var _self = this;
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to terminate this location?',
+            accept: () => {
+                this.spinnerService.postStatus('Marking Location Terminated');
+                var request = { locationID: location.locationID, alertID: 0 };
+                let $observable = this.proxyService.Post("location/term/", request);
+                $observable.subscribe(
+                    data => {
+                        if (data.success) {
+                            this.msgs.push({ severity: 'success', summary: "Location terminated" });
+                            location.terminated = 1;
+                        }
+                        else {
+                            this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                        }
+                    },
+                    (err) => {
+                        this.msgs.push({ severity: 'error', summary: err });
+                    },
+                    () => {
+                        this.spinnerService.finishCurrentStatus();
+                    });
+            }
+        });
+    }
+
+    markActive(location) {
+        var _self = this;
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to activate this location?',
+            accept: () => {
+                this.spinnerService.postStatus('Marking Location Active');
+                var request = { locationID: location.locationID, alertID: 0 };
+                let $observable = this.proxyService.Post("location/activate/", request);
+                $observable.subscribe(
+                    data => {
+                        if (data.success) {
+                            this.msgs.push({ severity: 'success', summary: "Location Activated" });
+                            location.terminated = 0;
+                        }
+                        else {
+                            this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                        }
+                    },
+                    (err) => {
+                        this.msgs.push({ severity: 'error', summary: err });
+                    },
+                    () => {
+                        this.spinnerService.finishCurrentStatus();
+                    });
+            }
+        });
+    }
 }
