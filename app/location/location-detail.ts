@@ -170,4 +170,60 @@ export class LocationDetailComponent {
             }
         });
     }
+
+    markIgnored(location) {
+        var _self = this;
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to ignore this location?',
+            accept: () => {
+                this.spinnerService.postStatus('Marking Location Ignored');
+                var request = { locationID: location.locationID, alertID: 0 };
+                let $observable = this.proxyService.Post("location/ignore/", request);
+                $observable.subscribe(
+                    data => {
+                        if (data.success) {
+                            this.msgs.push({ severity: 'success', summary: "Location Ignored" });
+                            location.ignored = true;                        }
+                        else {
+                            this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                        }
+                    },
+                    (err) => {
+                        this.msgs.push({ severity: 'error', summary: err });
+                    },
+                    () => {
+                        this.spinnerService.finishCurrentStatus();
+                    });
+            }
+        });
+    }
+
+
+    markNotIgnored(location) {
+        var _self = this;
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to not ignore this location?',
+            accept: () => {
+                this.spinnerService.postStatus('Marking Location Not Ignoree');
+                var request = { locationID: location.locationID, alertID: 0 };
+                let $observable = this.proxyService.Post("location/notignore/", request);
+                $observable.subscribe(
+                    data => {
+                        if (data.success) {
+                            this.msgs.push({ severity: 'success', summary: "Location Update Done" });
+                            location.ignored = false;
+                        }
+                        else {
+                            this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                        }
+                    },
+                    (err) => {
+                        this.msgs.push({ severity: 'error', summary: err });
+                    },
+                    () => {
+                        this.spinnerService.finishCurrentStatus();
+                    });
+            }
+        });
+    }
 }

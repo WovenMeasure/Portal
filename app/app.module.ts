@@ -7,6 +7,7 @@ import { ImageCropperModule } from 'ng2-img-cropper';
 import { AppComponent }   from "./app.component";
 import { SafePipe } from './common/pipes/pipes';
 import { MomentPipe } from './common/pipes/pipes';
+import { FormatDatePipe } from './common/pipes/pipes';
 import { HttpModule, JsonpModule } from "@angular/http";
 import { HeaderComponent } from "./shared/header/header";
 import { Constants } from "./common/constants";
@@ -43,6 +44,8 @@ import { MasterPageComponent } from './shared/masterpage/masterpage';
 import { AlertListComponent} from './alerts/alert-list';
 import { AlertDetailLocationComponent } from './alerts/alert-detail-location';
 import { AlertDetailComponent } from './alerts/alert-detail';
+import { AlertDetailChargeBackComponent } from './alerts/alert-detail-chargeback';
+
 import { JobLogListComponent } from './log/job-log-list';
 import { LocationListComponent } from './location/location-list';
 import { LocationDetailComponent } from './location/location-detail';
@@ -58,7 +61,7 @@ import { PasswordValidator} from './changePassword/changePassword.directive';
     imports: [BrowserModule, routing, HttpModule, JsonpModule, FormsModule, Ng2PaginationModule, Ng2PageScrollModule.forRoot(), NgbModule.forRoot(), WVDatepickerModule.forRoot(), DateValueAccessorModule,
         DataTableModule, GrowlModule, DropdownModule, CalendarModule, ConfirmDialogModule, DialogModule, EditorModule,SharedModule],
     declarations: [
-        AppComponent, SafePipe,  MomentPipe, HeaderComponent, ImageCropperComponent,
+        AppComponent, SafePipe, MomentPipe, FormatDatePipe, HeaderComponent, ImageCropperComponent, AlertDetailChargeBackComponent,
         MasterPageComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent,
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, LocationDetailComponent, JobParametersListComponent,
         PasswordValidator, FileUploadComponent, DashboardMainComponent, JobLogListComponent, LocationListComponent

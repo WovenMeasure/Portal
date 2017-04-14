@@ -103,6 +103,12 @@ export class AlertListComponent {
         if (alert.alertTypeID == this.constants.getAlertTypeByConstant("LOC").alertTypeID) {
             this.router.navigate(['/alert/alert-detail-location'], { queryParams: { i: alert.alertID } });
         }
+
+        else if (alert.ruleType.ruleTypeID == this.constants.alertRuleTypeChargeBackOrDispute)
+        {
+            this.router.navigate(['/alert/alert-detail-chargeback'], { queryParams: { i: alert.alertID } });
+        }
+
         else { /*....*/
             this.router.navigate(['/alert/alert-detail'], { queryParams: { i: alert.alertID } });
         }

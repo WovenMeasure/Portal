@@ -11,6 +11,8 @@ export class Constants {
     public alertStatusDismissed: number = 3;
     public alertStatusInProgress: number = 4;
 
+    public alertRuleTypeChargeBackOrDispute: number = 5;
+
 
     public get US_States() {
         var states = [

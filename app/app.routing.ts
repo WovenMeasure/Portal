@@ -10,6 +10,7 @@ import { CanActivateGuard } from './app.authguard';
 import { AlertListComponent} from './alerts/alert-list';
 import { AlertDetailLocationComponent } from './alerts/alert-detail-location';
 import { AlertDetailComponent } from './alerts/alert-detail';
+import { AlertDetailChargeBackComponent } from './alerts/alert-detail-chargeback';
 import { JobLogListComponent } from './log/job-log-list';
 import { LocationListComponent } from './location/location-list';
 import { LocationDetailComponent } from './location/location-detail';
@@ -33,7 +34,8 @@ const appRoutes: Routes = [
                 [
                     { path: 'alert-list', component: AlertListComponent, canActivate: [CanActivateGuard] },
                     { path: 'alert-detail-location', component: AlertDetailLocationComponent, canActivate: [CanActivateGuard] },
-                    { path: 'alert-detail', component: AlertDetailComponent, canActivate: [CanActivateGuard] }
+                    { path: 'alert-detail', component: AlertDetailComponent, canActivate: [CanActivateGuard] },
+                    { path: 'alert-detail-chargeback', component: AlertDetailChargeBackComponent, canActivate: [CanActivateGuard] }
                 ],
             },
             {

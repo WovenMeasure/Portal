@@ -55,16 +55,27 @@
                 <label for="corpName">DDA Act Number SE</label>
                 <input type="text" class="form-control" id="amexSE" name="amexSE" placeholder="Discover SE" [(ngModel)]="location.discoverSE">
             </div>    
-            <div class="form-group col-md-4 col-md-offset-8" *ngIf="location.terminated > 0">
-                <strong>This location is terminated.</strong>
-                <button class="btn btn-primary btn-xs" type="button" (click)="markActive(location)">Mark Location Active</button>
+            <div class="row col-md-12">
+                <button type="submit" class="col-md-1 btn btn-default" [disabled]="!myForm.valid" [ngClass]="{ 'btn-default' : !myForm.valid, 'btn-primary': myForm.valid }">Save</button>
+
+                <div class="form-group col-md-3 pull-right" *ngIf="location.terminated > 0">
+                    <strong>This location is terminated.</strong>
+                    <button class="btn btn-primary btn-xs" type="button" (click)="markActive(location)">Mark Location Active</button>
+                </div>
+                <div class="form-group col-md-3 pull-right" *ngIf="location.terminated <= 0">
+                    <strong>This location is active.</strong>
+                    <button class="btn btn-primary btn-xs" type="button" (click)="markTerminated(location)">Mark Location Terminated</button>
+                </div>
+                <div class="form-group col-md-3 col-md-offset-1  pull-right" *ngIf="location.ignored">
+                    <strong>This location is ignored.</strong>
+                    <button class="btn btn-primary btn-xs" type="button" (click)="markNotIgnored(location)">Mark Location Not Ignored</button>
+                </div>
+                <div class="form-group col-md-3 col-md-offset-1  pull-right" *ngIf="!location.ignored">
+                    <strong>This location is not ignored.</strong>
+                    <button class="btn btn-primary btn-xs" type="button" (click)="markIgnored(location)">Mark Location Ignored</button>
+                </div>
             </div>
-            <div class="form-group col-md-4 col-md-offset-8" *ngIf="location.terminated <= 0">
-                <strong>This location is active.</strong>
-                <button class="btn btn-primary btn-xs" type="button" (click)="markTerminated(location)">Mark Location Terminated</button>
-            </div>
-            <button type="submit" class="btn btn-default" [disabled]="!myForm.valid" [ngClass]="{ 'btn-default' : !myForm.valid, 'btn-primary': myForm.valid }">Save</button>
-        </form>
+       </form>
         <hr />
         <strong>Transactions</strong>
         <input #gb type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>

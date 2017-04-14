@@ -7,6 +7,7 @@
     <button class="btn btn-primary tabButton"  (click)="tabClick('BANKDEP')" [ngClass]="{'active' : alertService.currentAlertType.constant == 'BANKDEP'}">Bank Deposit</button>&nbsp;&nbsp;
     <button class="btn btn-primary tabButton"  (click)="tabClick('CREDC')" [ngClass]="{'active' : alertService.currentAlertType.constant == 'CREDC'}">Credit Card</button>&nbsp;&nbsp;
     <button class="btn btn-primary tabButton"  (click)="tabClick('WEBDCR')" [ngClass]="{'active' : alertService.currentAlertType.constant == 'WEBDCR'}">WebDCR</button>
+    &nbsp;&nbsp;<strong>Alert Count: {{alerts?.length}}</strong>
     <label class="col-md-offset-2"><input class="checkbox" style="display:inline" type="checkbox" value="Show In Progress Only" [(ngModel)]="inProgressOnly" (click)="toggleShowInProgress()"/>&nbsp;&nbsp;Show in progress only</label>
     <input #gb type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>
     <p-dataTable [pageLinks]="5" selectionMode="single" (onRowSelect)="onRowSelect($event)" [value]="alerts" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="20" [globalFilter]="gb">
@@ -29,6 +30,7 @@
            </template>
        </p-column>
     </p-dataTable>
+    <div><strong>Alert Count: {{alerts?.length}}</strong></div>
 </div>
 
 

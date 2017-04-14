@@ -1,0 +1,117 @@
+﻿<p-growl [value]="msgs"></p-growl>
+<div class="col-md-12">
+    <div *ngIf="!addingLocation">
+        <div class="col-md-4">
+            <h2><strong>Alert Status: {{alert?.alertStatus?.description}}</strong></h2>
+        </div>
+        <div class="col-md-offset-2 col-md-4"><button [disabled]="alert?.alertStatusID == constants.alertStatusInProgress" (click)="markInProgress()" class="btn btn-primary">Mark in Progress</button>&nbsp;&nbsp;
+        <button [disabled]="alert?.alertStatusID != constants.alertStatusInProgress" (click)="markResolved()" class="btn btn-primary">Mark Resolved</button></div>
+        <div style="clear:both"></div>
+        <table class="table-condensed table-striped table-bordered col-md-6 col-sm-12">
+            <tr>
+                <td>Alerted On</td><td>{{alert?.alertDateTime | moment: 'utc' |  moment: 'format': 'MM/DD/YYYY hh:mm A'  }}</td>
+            </tr>
+            <tr>
+                <td>Rule Type</td>
+                <td>{{alert?.ruleType?.description}}</td>
+            </tr>
+            <tr>
+                <td>Alerted On</td>
+                <td>{{alert?.alertDateTime | moment: 'utc' |  moment: 'format': 'MM/DD/YYYY hh:mm A'  }}</td>
+            </tr>
+            <tr>
+                <td>Location ID</td>
+                <td>{{alert?.locationID}}</td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>{{alert?.name}}</td>
+            </tr>          
+        </table>
+        <div class="col-md-6 col-sm-12" style="background-color:#F9F9F9">
+            <strong class="lead">Detail:</strong><br /><br />
+            <strong>{{alert?.detail}}</strong>
+            {{alert?.detailedSummary}}
+        </div>
+        <div class="clearfix">&nbsp;</div>
+        <hr />
+        <h3>Work</h3>
+
+        <form *ngIf="alert && alert.chargeBack" #myForm="ngForm" (ngSubmit)="onSaveWork($event)" autocomplete="false" style="padding: 10px 0 10px 0">
+            <div class="form-group col-md-6">
+                <label for="dueDate">Due Date</label>
+                <input type="date" class="form-control" name="dueDate" id="dueDate" placeholder="Due Date" [ngModel] ="alert.chargeBack.dueDate | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.dueDate = $event" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="dateOfFieldResponse">Date of Field Response</label>
+                <input type="date" class="form-control" name="dateOfFieldResponse" id="dateOfFieldResponse"  placeholder="Date of Field Response"  [ngModel] ="alert.chargeBack.dateOfFieldResponse | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.dateOfFieldResponse = $event" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="dateSubmittedOrFaxed">Date Submitted or Faxed</label>
+                <input type="date" class="form-control" name="dateSubmittedOrFaxed" id="dateSubmittedOrFaxed"   placeholder="Date Submitted or Faxed" [ngModel] ="alert.chargeBack.dateSubmittedOrFaxed | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.dateSubmittedOrFaxed = $event" />
+            </div>
+            <div class="form-group col-md-6">
+                <div class="radio-inline">
+                    <label>
+                        <input class="radio-inline" type="radio" name="faxedOrUploaded" value="F" [(ngModel)]="alert.chargeBack.faxedOrUploaded" />Faxed
+                    </label>
+                </div>
+                <div class="radio-inline">
+                    <label>
+                        <input class="radio-inline" type="radio" name="faxedOrUploaded" value="U" [(ngModel)]="alert.chargeBack.faxedOrUploaded" />Uploaded
+                    </label>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="chargeBackNoticeDate">Charge Back Notice Date</label>
+                <input type="date" class="form-control" name="chargeBackNoticeDate" id="chargeBackNoticeDate" placeholder="Charge Back Notice Date" [ngModel] ="alert.chargeBack.chargeBackNoticeDate | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.chargeBackNoticeDate = $event" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="automaticLossAmount">Automatic Loss Amount</label>
+                $<input type="number" class="form-control" name="automaticLossAmount" id="automaticLossAmount" placeholder="Automatic Loss Amount" [(ngModel)]="alert.chargeBack.automaticLossAmount">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="approvedChargeBackAmount">Approved Charge Back Amount</label>
+                $<input type="number" class="form-control" name="approvedChargeBackAmount" id="approvedChargeBackAmount" placeholder="Approved Charge Back Amount" [(ngModel)]="alert.chargeBack.approvedChargeBackAmount">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="disputedAndLostAmount">Disputed and Lost Amount</label>
+                $<input type="number" class="form-control" name="disputedAndLostAmount" id="disputedAndLostAmount" placeholder="Disputed and Lost Amount" [(ngModel)]="alert.chargeBack.disputedAndLostAmount">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="disputedAndWonAmount">Disputed and Won Amount</label>
+                $<input type="number" class="form-control" name="disputedAndWonAmount" id="disputedAndWonAmount" placeholder="Disputed and Won Amount" [(ngModel)]="alert.chargeBack.disputedAndWonAmount">
+            </div>
+            <div class="row col-md-12">
+                <button type="submit" class="col-md-1 btn btn-default" [disabled]="!myForm.valid" [ngClass]="{ 'btn-default' : !myForm.valid, 'btn-primary': myForm.valid }">Save</button>
+            </div>
+        </form>
+        <div style="clear:both"></div>
+        <hr />
+        <h3>Notes</h3>
+        <p-editor [(ngModel)]="newNote" [style]="{'height':'100px'}"></p-editor>
+        <h4><button class="btn btn-primary" [disabled]="!newNote || newNote.length == 0" (click)="saveNewNote()"><i class="fa fa-save"></i>&nbsp;&nbsp;Save New Note</button></h4>
+        <hr />
+        <p-dataTable [value]="alert?.notes" tableStyleClass="table-striped pull-right">
+            <p-column field="noteDateTime" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Note Date Time
+                </template>
+                <template let-note="rowData" pTemplate="body">
+                    {{note.noteDateTime | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
+                </template>
+            </p-column>
+            <p-column field="noteByUser.userName" header="User" sortable="true" styleClass="col-md-2"></p-column>          
+            <p-column header="Note" styleClass="col-md-8">
+                <template let-note="rowData" pTemplate="body">
+                    <div [innerHTML]="note.note">
+                    </div>
+                </template>
+            </p-column>
+        </p-dataTable>      
+        <p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+    </div>
+</div>
+
+
+

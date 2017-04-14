@@ -25,3 +25,21 @@ export class MomentPipe implements PipeTransform {
     }
 }
 
+
+@Pipe({ name: 'formatDate' })
+export class FormatDatePipe implements PipeTransform {
+    transform(value: string): any {
+        if (value == '' || value == undefined)
+            return '';
+
+        var dateValue = new Date(value);
+        var datewithouttimezone = new Date(dateValue.getUTCFullYear(),
+            dateValue.getUTCMonth(),
+            dateValue.getUTCDate(),
+            dateValue.getUTCHours(),
+            dateValue.getUTCMinutes(),
+            dateValue.getUTCSeconds());
+        return datewithouttimezone;
+    }
+
+}
