@@ -47,8 +47,8 @@
         <div class="clearfix">&nbsp;</div>
         <br /><br />
         <p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
-        <button class="btn btn-secondary" (click)="addLocation()">Add Location</button>&nbsp;
-        <button class="btn btn-secondary" (click)="deleteLocation()">Delete Location</button>&nbsp;
+        <button *ngIf="alert?.ruleType.ruleTypeID == 1" class="btn btn-secondary" (click)="addLocation()">Add Location</button>&nbsp;
+        <button *ngIf="alert?.ruleType.ruleTypeID == 3" class="btn btn-secondary" (click)="deleteLocation()">Delete Location</button>&nbsp;
         <button class="btn btn-secondary" *ngIf="alert?.ruleType.ruleTypeID == 3" (click)="markTerminated()">Mark Location Terminated</button>
     </div>
     <div *ngIf="addingLocation">
@@ -95,6 +95,11 @@
                 <input type="text" class="form-control" id="merchantID" name="merchantID" placeholder="Merchant ID" [(ngModel)]="newLocation.merchantID">
             </div>
             <div class="form-group col-md-6">
+                <label for="corpName">DDA Act Number</label>
+                <input type="text" class="form-control" id="ddA_Account_No" name="ddA_Account_No" placeholder="DDA Account #" [(ngModel)]="newLocation.ddA_Account_No">
+            </div>   
+         
+            <div class="form-group col-md-6">
                 <label for="amexSE">Amex SE</label>
                 <input type="text" class="form-control" id="amexSE" name="amexSE" placeholder="AMEX SE" [(ngModel)]="newLocation.amexSE">
             </div>
@@ -102,10 +107,6 @@
                 <label for="discoverSE">Discover SE</label>
                 <input type="text" class="form-control" id="discoverSE" name="discoverSE" placeholder="Discover SE" [(ngModel)]="newLocation.discoverSE">
             </div>         
-            <div class="form-group col-md-6">
-                <label for="corpName">DDA Act Number SE</label>
-                <input type="text" class="form-control" id="amexSE" name="amexSE" placeholder="Discover SE" [(ngModel)]="newLocation.discoverSE">
-            </div>          
             <button type="submit" class="btn btn-default" [disabled]="!myForm.valid" [ngClass]="{ 'btn-default' : !myForm.valid, 'btn-primary': myForm.valid }">Save</button>
             <button class="btn btn-secondary" (click)="addingLocation = false">Cancel</button>
         </form>

@@ -37,6 +37,7 @@ export class AlertDetailComponent {
     alertId: any;
     newNote: string;
     transactions: any[] = [];
+    location: any;
 
     ngOnInit() {
         this.contextService.currentSection = "alerts";
@@ -52,6 +53,7 @@ export class AlertDetailComponent {
                 if (data.success) {
                     this.alert = data.alert;
                     this.transactions = data.transactions;
+                    this.location = data.location;
                 }
             },
             (err) => { },

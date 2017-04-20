@@ -1,5 +1,6 @@
 import { NgModule, APP_INITIALIZER} from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule  } from "@angular/platform-browser/animations";
 import { FormsModule }   from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -17,8 +18,11 @@ import { WVDatepickerModule } from './shared/datepicker/datepicker.module';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
 import {
     InputTextModule, DataTableModule, ButtonModule, DialogModule, GrowlModule, DropdownModule, ConfirmDialogModule, ConfirmationService,
-    CalendarModule, EditorModule, SharedModule
+    CalendarModule, EditorModule, SharedModule, InputMaskModule
 } from 'primeng/primeng';
+
+import { CurrencyMaskModule } from "ng2-currency-mask";
+
 
 /*************************************************************Service*******************************************************************/
 import { AuthenticationService } from "./common/services/authentication-service";
@@ -50,21 +54,22 @@ import { JobLogListComponent } from './log/job-log-list';
 import { LocationListComponent } from './location/location-list';
 import { LocationDetailComponent } from './location/location-detail';
 import { JobParametersListComponent } from './jobparameters/jobparameters-list';
+import { ReportListComponent } from './reports/reports-list';
 
 /*************************************************************Directives/dto*******************************************************************/
-import { CanActivateGuard } from "./app.authguard";
+import { CanActivateGuard } from "./app.authguard"; 
 import { PasswordValidator} from './changePassword/changePassword.directive';
 
-
+ 
 
 @NgModule({
-    imports: [BrowserModule, routing, HttpModule, JsonpModule, FormsModule, Ng2PaginationModule, Ng2PageScrollModule.forRoot(), NgbModule.forRoot(), WVDatepickerModule.forRoot(), DateValueAccessorModule,
-        DataTableModule, GrowlModule, DropdownModule, CalendarModule, ConfirmDialogModule, DialogModule, EditorModule,SharedModule],
+    imports: [BrowserAnimationsModule, BrowserModule, routing, HttpModule, JsonpModule, FormsModule, Ng2PaginationModule, Ng2PageScrollModule.forRoot(), NgbModule.forRoot(), WVDatepickerModule.forRoot(), DateValueAccessorModule,
+        DataTableModule, GrowlModule, DropdownModule, CalendarModule, ConfirmDialogModule, DialogModule, EditorModule, SharedModule, InputMaskModule, CurrencyMaskModule],
     declarations: [
         AppComponent, SafePipe, MomentPipe, FormatDatePipe, HeaderComponent, ImageCropperComponent, AlertDetailChargeBackComponent,
         MasterPageComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent,
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, LocationDetailComponent, JobParametersListComponent,
-        PasswordValidator, FileUploadComponent, DashboardMainComponent, JobLogListComponent, LocationListComponent
+        PasswordValidator, FileUploadComponent, DashboardMainComponent, JobLogListComponent, LocationListComponent, ReportListComponent
        ],
 
     entryComponents: [],
@@ -72,7 +77,7 @@ import { PasswordValidator} from './changePassword/changePassword.directive';
     bootstrap: [AppComponent],
 
     providers: [
-        appRoutingProviders, ResetPasswordService,
+        appRoutingProviders, ResetPasswordService, 
         TranslationService,
         {
             provide: APP_INITIALIZER,

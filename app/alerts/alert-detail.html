@@ -24,9 +24,17 @@
                 <td>{{alert?.locationID}}</td>
             </tr>
             <tr>
+                <td>Merchant ID</td>
+                <td>{{location?.merchantID}}</td>
+            </tr>
+            <tr>
                 <td>Name</td>
-                <td>{{alert?.name}}</td>
-            </tr>          
+                <td>{{location?.name}}</td>
+            </tr>  
+            <tr>
+                <td>Case #</td>
+                <td>{{alert?.chargeBack?.caseNumber}}</td>
+            </tr>
         </table>
         <div class="col-md-6 col-sm-12" style="background-color:#F9F9F9">
             <strong class="lead">Detail:</strong><br /><br />

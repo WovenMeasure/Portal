@@ -1,0 +1,20 @@
+﻿<p-growl [value]="msgs"></p-growl>
+<div class="col-md-12">
+    <h2 class="col-md-4"><strong>Reports</strong></h2>
+    <input #gb type="text" style="margin-top:20px" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-top:20px;margin-right:10px" aria-hidden="true"></i>
+    <div class="clearfix"></div>
+    <p-dataTable [pageLinks]="5" [value]="reports" tableStyleClass="table-striped" [paginator]="true" [rows]="100" [globalFilter]="gb">
+       <p-column field="name" header="Report" sortable="true" styleClass="col-md-3"></p-column>
+       <p-column field="url" styleClass="col-md-2">
+           <template pTemplate="header">
+               Run
+           </template>
+           <template let-report="rowData" pTemplate="body">
+               <a class="btn btn-primary" target="_blank" href="{{report.url}}">Run Report</a>
+           </template>
+       </p-column>      
+    </p-dataTable>
+</div>
+
+
+

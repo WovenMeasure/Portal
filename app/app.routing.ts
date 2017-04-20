@@ -15,6 +15,7 @@ import { JobLogListComponent } from './log/job-log-list';
 import { LocationListComponent } from './location/location-list';
 import { LocationDetailComponent } from './location/location-detail';
 import { JobParametersListComponent } from './jobparameters/jobparameters-list';
+import { ReportListComponent } from './reports/reports-list';
 
 const appRoutes: Routes = [
     { path: '', component: MasterPageComponent, canActivate: [CanActivateGuard],
@@ -48,6 +49,12 @@ const appRoutes: Routes = [
                 path: 'jobparameter', component: null, canActivate: [CanActivateGuard], children:
                 [
                     { path: 'job-parameter-list', component: JobParametersListComponent, canActivate: [CanActivateGuard] }
+                ]
+            },
+            {
+                path: 'reports', component: null, canActivate: [CanActivateGuard], children:
+                [
+                    { path: 'report-list', component: ReportListComponent, canActivate: [CanActivateGuard] }
                 ]
             }
 

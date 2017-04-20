@@ -14,7 +14,7 @@ export class LoginComponent {
     email: string;
     password: string;
     message: string; 
-    coachImage: string;
+    val: number;
     erroMsgShow: boolean;
     erroMsg2Show: boolean;
   
@@ -25,7 +25,7 @@ export class LoginComponent {
                 private spinnerService: SpinnerService,
                 private constants: Constants,
                 private translationService: TranslationService) {
-
+            this.val = 15.23;
        } 
 
     

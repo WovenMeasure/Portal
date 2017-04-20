@@ -23,6 +23,9 @@
         <div class="menu-item">
             <span><a [ngClass]="{'selected': contextService.currentSection == 'jobparams'}" [routerLink]="['/jobparameter/job-parameter-list']">Rules</a></span>
         </div>      
+        <div class="menu-item">
+            <span><a [ngClass]="{'selected': contextService.currentSection == 'reports'}" [routerLink]="['/reports/report-list']">Reports</a></span>
+        </div>      
     </div>
     <div class="main" ui-view="screens">
         <!-- (Child detail views) Routed views go into this -->

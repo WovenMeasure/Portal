@@ -9,8 +9,8 @@ import {Constants } from "../common/constants";
 import { ProxyService } from "../common/services/proxy-service";
 import {AlertService } from "./alert-service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {SelectItem} from 'primeng/primeng';
-import { Message, ConfirmationService, ConfirmDialogModule, EditorModule, SharedModule} from 'primeng/primeng';
+import { SelectItem } from 'primeng/primeng';
+import { Message, ConfirmationService, ConfirmDialogModule, EditorModule, SharedModule } from 'primeng/primeng';
 
 @Component({
     templateUrl: 'alert-detail-chargeback.html',
@@ -37,6 +37,7 @@ export class AlertDetailChargeBackComponent {
     alertId: any;
     newNote: string;
     transactions: any[] = [];
+    location: any;
 
     ngOnInit() {
      
@@ -53,6 +54,7 @@ export class AlertDetailChargeBackComponent {
                 if (data.success) {
                     this.alert = data.alert;
                     this.transactions = data.transactions;
+                    this.location = data.location;
                 }
             },
             (err) => { },
@@ -86,7 +88,7 @@ export class AlertDetailChargeBackComponent {
             });   
     }
 
-    onSaveWork($event) {
+    onSaveWork() {
         var _self = this;
         this.spinnerService.postStatus('Saving Work');
         var request = { chargeBack: this.alert.chargeBack };

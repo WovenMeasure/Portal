@@ -24,8 +24,12 @@
                 <td>{{alert?.locationID}}</td>
             </tr>
             <tr>
+                <td>Merchant ID</td>
+                <td>{{location?.merchantID}}</td>
+            </tr>
+            <tr>
                 <td>Name</td>
-                <td>{{alert?.name}}</td>
+                <td>{{location?.name}}</td>
             </tr>          
             <tr>
                 <td>Case #</td>
@@ -40,19 +44,22 @@
         <div class="clearfix">&nbsp;</div>
         <hr />
         <h3>Work</h3>
-
-        <form *ngIf="alert && alert.chargeBack" #myForm="ngForm" (ngSubmit)="onSaveWork($event)" autocomplete="false" style="padding: 10px 0 10px 0">
+        <div *ngIf="alert && alert.chargeBack" style="padding: 10px 0 10px 0">
             <div class="form-group col-md-6">
-                <label for="dueDate">Due Date</label>
-                <input type="date" class="form-control" name="dueDate" id="dueDate" placeholder="Due Date" [ngModel] ="alert.chargeBack.dueDate | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.dueDate = $event" />
+                <label for="chargeBackNoticeDate">Charge Back Notice Date</label>
+                <input type="date" class="form-control" name="chargeBackNoticeDate" id="chargeBackNoticeDate" placeholder="Charge Back Notice Date" [ngModel]="alert.chargeBack.chargeBackNoticeDate | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.chargeBackNoticeDate = $event" />
             </div>
             <div class="form-group col-md-6">
-                <label for="dateOfFieldResponse">Date of Field Response</label>
-                <input type="date" class="form-control" name="dateOfFieldResponse" id="dateOfFieldResponse"  placeholder="Date of Field Response"  [ngModel] ="alert.chargeBack.dateOfFieldResponse | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.dateOfFieldResponse = $event" />
+                <label for="dateSubmittedOrFaxed">Date Emailed To Field</label>
+                <input type="date" class="form-control" name="dateEmailedToField" id="dateEmailedToField" placeholder="Date Emailed To Field" [ngModel]="alert.chargeBack.dateEmailedToField | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.dateSubmittedOrFaxed = $event" />
             </div>
             <div class="form-group col-md-6">
                 <label for="dateSubmittedOrFaxed">Date Submitted or Faxed</label>
-                <input type="date" class="form-control" name="dateSubmittedOrFaxed" id="dateSubmittedOrFaxed"   placeholder="Date Submitted or Faxed" [ngModel] ="alert.chargeBack.dateSubmittedOrFaxed | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.dateSubmittedOrFaxed = $event" />
+                <input type="date" class="form-control" name="dateSubmittedOrFaxed" id="dateSubmittedOrFaxed" placeholder="Date Submitted or Faxed" [ngModel]="alert.chargeBack.dateSubmittedOrFaxed | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.dateSubmittedOrFaxed = $event" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="dateOfFieldResponse">Date of Field Response</label>
+                <input type="date" class="form-control" name="dateOfFieldResponse" id="dateOfFieldResponse" placeholder="Date of Field Response" [ngModel]="alert.chargeBack.dateOfFieldResponse | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.dateOfFieldResponse = $event" />
             </div>
             <div class="form-group col-md-6">
                 <div class="radio-inline">
@@ -67,29 +74,26 @@
                 </div>
             </div>
             <div class="form-group col-md-6">
-                <label for="chargeBackNoticeDate">Charge Back Notice Date</label>
-                <input type="date" class="form-control" name="chargeBackNoticeDate" id="chargeBackNoticeDate" placeholder="Charge Back Notice Date" [ngModel] ="alert.chargeBack.chargeBackNoticeDate | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.chargeBackNoticeDate = $event" />
+                <label for="approvedChargeBackAmount">Approved Charge Back Amount</label>
+                $<input currencyMask type="text" class="form-control" name="approvedChargeBackAmount" id="approvedChargeBackAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.approvedChargeBackAmount">
+
             </div>
             <div class="form-group col-md-6">
                 <label for="automaticLossAmount">Automatic Loss Amount</label>
-                $<input type="number" class="form-control" name="automaticLossAmount" id="automaticLossAmount" placeholder="Automatic Loss Amount" [(ngModel)]="alert.chargeBack.automaticLossAmount">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="approvedChargeBackAmount">Approved Charge Back Amount</label>
-                $<input type="number" class="form-control" name="approvedChargeBackAmount" id="approvedChargeBackAmount" placeholder="Approved Charge Back Amount" [(ngModel)]="alert.chargeBack.approvedChargeBackAmount">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="disputedAndLostAmount">Disputed and Lost Amount</label>
-                $<input type="number" class="form-control" name="disputedAndLostAmount" id="disputedAndLostAmount" placeholder="Disputed and Lost Amount" [(ngModel)]="alert.chargeBack.disputedAndLostAmount">
+                $<input currencyMask type="text" class="form-control" name="automaticLossAmount" id="automaticLossAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.automaticLossAmount">
             </div>
             <div class="form-group col-md-6">
                 <label for="disputedAndWonAmount">Disputed and Won Amount</label>
-                $<input type="number" class="form-control" name="disputedAndWonAmount" id="disputedAndWonAmount" placeholder="Disputed and Won Amount" [(ngModel)]="alert.chargeBack.disputedAndWonAmount">
+                $<input currencyMask type="text" class="form-control" name="disputedAndWonAmount" id="disputedAndWonAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.disputedAndWonAmount">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="disputedAndLostAmount">Disputed and Lost Amount</label>
+                $<input currencyMask type="text" class="form-control" name="disputedAndLostAmount" id="disputedAndLostAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.disputedAndLostAmount">
             </div>
             <div class="row col-md-12">
-                <button type="submit" class="col-md-1 btn btn-default" [disabled]="!myForm.valid" [ngClass]="{ 'btn-default' : !myForm.valid, 'btn-primary': myForm.valid }">Save</button>
+                <button type="button" class="col-md-1 btn btn-default" (click)="onSaveWork()">Save</button>
             </div>
-        </form>
+        </div>
         <div style="clear:both"></div>
         <hr />
         <h3>Notes</h3>
