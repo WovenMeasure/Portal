@@ -1,5 +1,6 @@
 //our root app component
-import {Component, ViewChild} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {AuthenticationService} from '../../common/services/authentication-service';
 import { SpinnerService } from '../../common/services/spinner-service';
@@ -12,6 +13,7 @@ import {Constants } from '../../common/constants';
 })
 export class MasterPageComponent {
     constructor(private router: Router,
+                private location: Location,
                 private route: ActivatedRoute,
                 private authenticationService: AuthenticationService,
                 private spinnerService: SpinnerService,
@@ -20,7 +22,7 @@ export class MasterPageComponent {
                 private translationService: TranslationService) {
 
        }   
-
+     
     ngOnInit() {
        
     }  
@@ -30,4 +32,7 @@ export class MasterPageComponent {
         this.router.navigate(['login']);
     }
 
+    back() {
+        this.location.back();
+    }
 }

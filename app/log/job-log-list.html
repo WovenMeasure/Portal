@@ -3,7 +3,7 @@
     <h2 class="col-md-4"><strong>Import Log</strong></h2>
     <input #gb type="text" style="margin-top:20px" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-top:20px;margin-right:10px" aria-hidden="true"></i>
     <div class="clearfix"></div>
-    <p-dataTable [pageLinks]="5" [value]="logs" tableStyleClass="table-striped pull-right" [paginator]="true" [rows]="100" [globalFilter]="gb">
+    <p-dataTable scrollable="true" scrollHeight="700px" [pageLinks]="5" [value]="logs" tableStyleClass="table-striped pull-right" [paginator]="true" [rows]="100" [globalFilter]="gb">
        <p-column field="logDateTime" sortable="true" styleClass="col-md-2">
            <template pTemplate="header">
                Log Date Time  
@@ -12,12 +12,12 @@
                {{alert.logDateTime | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
            </template>
        </p-column>
-       <p-column field="job" header="Job" sortable="true" styleClass="col-md-1"></p-column>
+       <p-column field="job" header="Job" sortable="true" styleClass="col-md-2"></p-column>
        <p-column field="numImported" header="# Imported" sortable="true" styleClass="col-md-1"></p-column>
        <p-column field="numErrors" header="# Errors" sortable="true" styleClass="col-md-1"></p-column>
-       <p-column field="fileName"  header="File" sortable="true" styleClass="col-md-4"></p-column>
+       <p-column field="fileName"  header="File" sortable="true" styleClass="col-md-3"></p-column>
        <p-column field="isGeneralFileError" header="General Error?" sortable="true" styleClass="col-md-1"></p-column>
-       <p-column field="generalFileException" header="General Error" sortable="true" styleClass="col-md-2"></p-column>
+       <p-column field="generalFileException" header="General Error" sortable="true" styleClass="col-md-1"></p-column>
     </p-dataTable>
 </div>
 

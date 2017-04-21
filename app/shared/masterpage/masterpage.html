@@ -1,11 +1,17 @@
 ﻿<div class="header">
     <div class="logo"></div>
-    <div class="controls">      
-        <div>
+    <div class="controls">    
+        <div (click)="back()">
+            <div>
+                <i class="fa fa-backward" aria-hidden="true"></i>
+            </div>
+            <div class="label">Back</div>
+        </div> 
+        <div  (click)="logout()">
             <div>
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
             </div>
-            <div class="label" (click)="logout()">Log Out</div>
+            <div class="label">Log Out</div>
         </div> 
     </div>
 </div>

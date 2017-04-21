@@ -84,7 +84,7 @@ export class AlertListComponent {
             this.alerts = this.allAlerts;
         }
 
-
+           
     }
 
     filterByDate() {
@@ -100,17 +100,14 @@ export class AlertListComponent {
     }
 
     edit(alert: any) { 
-        if (alert.alertTypeID == this.constants.getAlertTypeByConstant("LOC").alertTypeID) {
-            this.router.navigate(['/alert/alert-detail-location'], { queryParams: { i: alert.alertID } });
+        if (alert.alert.alertTypeID == this.constants.getAlertTypeByConstant("LOC").alertTypeID) {
+            this.router.navigate(['/alert/alert-detail-location'], { queryParams: { i: alert.alert.alertID } });
         }
-
-        else if (alert.ruleType.ruleTypeID == this.constants.alertRuleTypeChargeBackOrDispute)
-        {
-            this.router.navigate(['/alert/alert-detail-chargeback'], { queryParams: { i: alert.alertID } });
+        else if (alert.alert.ruleType.ruleTypeID == this.constants.alertRuleTypeChargeBackOrDispute) {
+            this.router.navigate(['/alert/alert-detail-chargeback'], { queryParams: { i: alert.alert.alertID } });
         }
-
         else { /*....*/
-            this.router.navigate(['/alert/alert-detail'], { queryParams: { i: alert.alertID } });
+            this.router.navigate(['/alert/alert-detail'], { queryParams: { i: alert.alert.alertID } });
         }
     }   
 
