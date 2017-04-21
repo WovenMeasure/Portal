@@ -13,20 +13,20 @@
     <p-dataTable [pageLinks]="5" selectionMode="single" (onRowSelect)="onRowSelect($event)" [value]="alerts" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="20" [globalFilter]="gb">
        <p-column field="alertDateTime" sortable="true" styleClass="col-md-2">
            <template pTemplate="header">
-               Alert Date Time  
+               Alert Date Time   
            </template>
            <template let-alert="rowData" pTemplate="body">
-               {{alert.alertDateTime | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
+               {{alert.alert.alertDateTime | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
            </template>
        </p-column>
-       <p-column field="locationID" header="Location" sortable="true" styleClass="col-md-1"></p-column>
-       <p-column field="alertStatus.description" header="Status" sortable="true" styleClass="col-md-1"></p-column>
-       <p-column field="ruleType.description" header="Rule" sortable="true" styleClass="col-md-3"></p-column>
-       <p-column field="contactName"  header="Contact Name" sortable="true" styleClass="col-md-2"></p-column>
-       <p-column field="contactPhone" header="Contact Phone" sortable="true" styleClass="col-md-1"></p-column>
+       <p-column field="alert.locationID" header="Location" sortable="true" styleClass="col-md-1"></p-column>
+       <p-column *ngIf="alertService.currentAlertType.constant == 'CREDC'" field="location.merchantID" header="MerchantID" sortable="true" styleClass="col-md-1"></p-column>
+       <p-column *ngIf="alertService.currentAlertType.constant == 'CREDC'" field="alert.chargeBack.caseNumber" header="Case Number" sortable="true" styleClass="col-md-1"></p-column>
+       <p-column field="alert.alertStatus.description" header="Status" sortable="true" styleClass="col-md-1"></p-column>
+       <p-column field="alert.ruleType.description" header="Rule" sortable="true" styleClass="col-md-2"></p-column>     
        <p-column header="Commands" styleClass="col-md-1">
            <template let-alert="rowData" pTemplate="body">
-               <i class="fa fa-2x fa-times-circle-o" title="Dismiss Alert" (click)="dismiss(alert)"></i>
+               <i class="fa fa-2x fa-times-circle-o" title="Dismiss Alert" (click)="dismiss(alert.alert)"></i>
            </template>
        </p-column>
     </p-dataTable>
