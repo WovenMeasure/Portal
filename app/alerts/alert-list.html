@@ -19,8 +19,12 @@
            <template let-alert="rowData" pTemplate="body">
                {{alert.alert.alertDateTime | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
            </template>
+       </p-column> 
+       <p-column field="alert.locationID" header="Location" sortable="true" styleClass="col-md-1">
+           <template let-alert="rowData" pTemplate="body">
+               <a [routerLink]="['/location/location-detail']" [queryParams]="{i:alert.alert.locationID}">{{alert.alert.locationID}}</a>
+           </template>
        </p-column>
-       <p-column field="alert.locationID" header="Location" sortable="true" styleClass="col-md-1"></p-column>
        <p-column *ngIf="alertService.currentAlertType.constant == 'CREDC'" field="location.merchantID" header="MerchantID" sortable="true" styleClass="col-md-1"></p-column>
        <p-column *ngIf="alertService.currentAlertType.constant == 'CREDC'" field="alert.chargeBack.caseNumber" header="Case Number" sortable="true" styleClass="col-md-1"></p-column>
        <p-column field="alert.alertStatus.description" header="Status" sortable="true" styleClass="col-md-1"></p-column>

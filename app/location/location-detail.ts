@@ -38,7 +38,7 @@ export class LocationDetailComponent {
     loaded: boolean = false;
     states: SelectItem[];
     regions: SelectItem[];
-
+    newLocationID: string = '';
     ngOnInit() {
         this.contextService.currentSection = "locations";
         this.locationId = this.route.snapshot.queryParams['i'];
@@ -94,6 +94,7 @@ export class LocationDetailComponent {
     onSaveLocation($event) {
         //save
         var data = {
+            newLocationID: this.newLocationID,
             location: this.location
         };
         this.spinnerService.postStatus('Saving Location');
@@ -102,6 +103,12 @@ export class LocationDetailComponent {
             data => {
                 if (data.success) {
                     this.msgs.push({ severity: 'success', summary: "Location updated" });
+                    if (this.newLocationID)
+                    {
+                        this.location.oldLocationID = this.location.locationID;
+                        this.location.locationID = this.newLocationID;
+                        this.newLocationID = '';
+                    }
                 }
                 else {
                     this.msgs.push({ severity: 'error', summary: data.errorMessage });

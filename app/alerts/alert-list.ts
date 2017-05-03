@@ -134,5 +134,6 @@ export class AlertListComponent {
                 this.spinnerService.finishCurrentStatus();
             });   
     }
+    
 
 }
