@@ -54,6 +54,11 @@ export class Constants {
                 description: "Credit Card"
             },
             {
+                constant: "CREDCDISPUTES",
+                alertTypeID: 5,
+                description: "Credit Card/Disputes"
+            },
+            {
                 constant: "WEBDCR",
                 alertTypeID: 4,
                 description: "WebDCR"

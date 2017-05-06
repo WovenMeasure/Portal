@@ -55,7 +55,7 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="dateSubmittedOrFaxed">Date Emailed To Field</label>
-                <input type="date" class="form-control" name="dateEmailedToField" id="dateEmailedToField" placeholder="Date Emailed To Field" [ngModel]="alert.chargeBack.dateEmailedToField | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.dateSubmittedOrFaxed = $event" />
+                <input type="date" class="form-control" name="dateEmailedToField" id="dateEmailedToField" placeholder="Date Emailed To Field" [ngModel]="alert.chargeBack.dateEmailedToField | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.dateEmailedToField = $event" />
             </div>
             <div class="form-group col-md-6">
                 <label for="dateSubmittedOrFaxed">Date Submitted or Faxed</label>
@@ -87,6 +87,10 @@
                 $<input currencyMask type="text" class="form-control" name="automaticLossAmount" id="automaticLossAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.automaticLossAmount">
             </div>
             <div class="form-group col-md-6">
+                <label for="disputedAndWonAmount">Disputed Amount</label>
+                $<input currencyMask type="text" class="form-control" name="disputedAmount" id="disputedAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.disputedAmount">
+            </div>
+            <div class="form-group col-md-6">
                 <label for="disputedAndWonAmount">Disputed and Won Amount</label>
                 $<input currencyMask type="text" class="form-control" name="disputedAndWonAmount" id="disputedAndWonAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.disputedAndWonAmount">
             </div>
@@ -95,7 +99,7 @@
                 $<input currencyMask type="text" class="form-control" name="disputedAndLostAmount" id="disputedAndLostAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.disputedAndLostAmount">
             </div>
             <div class="row col-md-12">
-                <button type="button" class="col-md-1 btn btn-default" (click)="onSaveWork()">Save</button>
+                <button type="button" class="col-md-1 btn btn-primary" (click)="onSaveWork()">Save</button>
             </div>
         </div>
         <div style="clear:both"></div>

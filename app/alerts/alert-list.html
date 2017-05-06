@@ -6,6 +6,7 @@
     <button class="btn btn-primary active tabButton" (click)="tabClick('LOC')" style="margin-left:1px" [ngClass]="{'active' : alertService.currentAlertType.constant == 'LOC'}">Location</button>&nbsp;&nbsp;
     <button class="btn btn-primary tabButton"  (click)="tabClick('BANKDEP')" [ngClass]="{'active' : alertService.currentAlertType.constant == 'BANKDEP'}">Bank Deposit</button>&nbsp;&nbsp;
     <button class="btn btn-primary tabButton"  (click)="tabClick('CREDC')" [ngClass]="{'active' : alertService.currentAlertType.constant == 'CREDC'}">Credit Card</button>&nbsp;&nbsp;
+    <button class="btn btn-primary tabButton" (click)="tabClick('CREDCDISPUTES')" [ngClass]="{'active' : alertService.currentAlertType.constant == 'CREDCDISPUTES'}">Chargebacks/Disputes</button>&nbsp;&nbsp;
     <button class="btn btn-primary tabButton"  (click)="tabClick('WEBDCR')" [ngClass]="{'active' : alertService.currentAlertType.constant == 'WEBDCR'}">WebDCR</button>
     &nbsp;&nbsp;<strong>Alert Count: {{alerts?.length}}</strong>
     <label class="col-md-offset-2"><input class="checkbox" style="display:inline" type="checkbox" value="Show In Progress Only" [(ngModel)]="inProgressOnly" (click)="toggleShowInProgress()"/>&nbsp;&nbsp;Show in progress only</label>

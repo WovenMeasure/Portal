@@ -32,7 +32,7 @@
                 <input required type="text" class="form-control" name="zip" id="zip" placeholder="Zip" [(ngModel)]="location.zip">
             </div>
             <div class="form-group col-md-6">
-                <label for="region">Region</label>
+                <label for="region">Region *</label>
                 <p-dropdown placeholder="Select region" name="region" [required]="true" [options]="regions" [filter]="true" [(ngModel)]="location.regionID"></p-dropdown>
             </div>
             <div class="form-group col-md-6">
@@ -65,8 +65,8 @@
             </div>         
             
             <div class="row col-md-12">
-                <button type="submit" class="col-md-1 btn btn-default" [disabled]="!myForm.valid" [ngClass]="{ 'btn-default' : !myForm.valid, 'btn-primary': myForm.valid }">Save</button>
-
+                <div class="small bold" style="color:red" *ngIf="!myForm.valid">All fields preceeded by an asterisk, *, must be filled in before the save button will be available.</div>
+                <button type="submit" class="col-md-1 btn btn-default" *ngIf="myForm.valid" [ngClass]="{ 'btn-default' : !myForm.valid, 'btn-primary': myForm.valid }">Save</button>
                 <div class="form-group col-md-3 pull-right" *ngIf="location.terminated > 0">
                     <strong>This location is terminated.</strong>
                     <button class="btn btn-primary btn-xs" type="button" (click)="markActive(location)">Mark Location Active</button>
@@ -86,9 +86,25 @@
             </div>
        </form>
         <hr />
-        <strong>Transactions</strong>
+        <strong>Credit Card Cases</strong>
         <input #gb type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>
-        <p-dataTable [value]="transactions"  [pageLinks]="5" selectionMode="single"tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb">
+        <p-dataTable (onRowSelect)="onCaseSelect($event)"  [value]="cases" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb">
+            <p-column field="chargeBack.caseNumber" header="Case Number" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="alertDateTime" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Alert Date Time
+                </template>
+                <template let-alert="rowData" pTemplate="body">
+                    {{alert.alertDateTime | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
+                </template>
+            </p-column>          
+            <p-column field="alertStatus.description" header="Status" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="ruleType.description" header="Rule" sortable="true" styleClass="col-md-2"></p-column>     
+        </p-dataTable>  
+        <hr />
+        <strong>Transactions</strong>
+        <input #gb2 type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>
+        <p-dataTable [value]="transactions"  [pageLinks]="5" selectionMode="single"tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb2">
             <p-column field="customerAccountNumber" header="Customer Account" sortable="true" styleClass="col-md-1"></p-column>
             <p-column field="trans_DateTime" sortable="true" styleClass="col-md-2">
                 <template pTemplate="header">

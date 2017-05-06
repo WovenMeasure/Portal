@@ -35,6 +35,7 @@ export class LocationDetailComponent {
     locationId: any;
     location: any;
     transactions: any[];
+    cases: any[];
     loaded: boolean = false;
     states: SelectItem[];
     regions: SelectItem[];
@@ -77,6 +78,7 @@ export class LocationDetailComponent {
                 if (data.success) {
                     this.location = data.location;
                     this.transactions = data.transactions;
+                    this.cases = data.cases;
                     this.loaded = true;
                 }
                 else {
@@ -232,5 +234,9 @@ export class LocationDetailComponent {
                     });
             }
         });
+    }    
+
+    onCaseSelect(event) {
+        this.router.navigate(['/alert/alert-detail-chargeback'], { queryParams: { i: event.data.alertID } });
     }
 }
