@@ -237,6 +237,16 @@ export class LocationDetailComponent {
     }    
 
     onCaseSelect(event) {
-        this.router.navigate(['/alert/alert-detail-chargeback'], { queryParams: { i: event.data.alertID } });
+        if (event.data.type == 1) {
+            this.router.navigate(['/alert/alert-detail-chargeback'], { queryParams: { i: event.data.id } });
+        }
+        else {
+            this.router.navigate(['/location/location-chargeback'], { queryParams: { i: event.data.id, l: this.locationId } });
+        }
+    }
+
+
+    addChargeback() {
+        this.router.navigate(['/location/location-chargeback'], { queryParams: { i: 0, l: this.locationId } });
     }
 }

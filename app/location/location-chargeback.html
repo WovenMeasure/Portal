@@ -1,0 +1,117 @@
+﻿<p-growl [value]="msgs"></p-growl>
+<div class="col-md-12">
+    <div *ngIf="!addingLocation">
+        <div class="col-md-4">
+            <h2><strong>Charge Back - {{location?.name}}</strong></h2>
+        </div>
+        <div style="clear:both"></div>
+        <table class="table-condensed table-striped table-bordered col-md-6 col-sm-12">           
+            <tr>
+                <td>Location ID</td>
+                <td>{{location?.locationID}}</td>
+            </tr>
+            <tr>
+                <td>Merchant ID</td>
+                <td>{{location?.merchantID}}</td>
+            </tr>
+            <tr>
+                <td>DDA Acct Number</td>
+                <td>{{location?.ddA_Account_No}}</td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>{{location?.name}}</td>
+            </tr>                     
+        </table>       
+        <div class="clearfix">&nbsp;</div>
+        <hr />
+        <h3>Detail</h3>
+        <div *ngIf="chargeBack" style="padding: 10px 0 10px 0">
+            <div class="form-group col-md-6">
+                <label for="chargeBackNoticeDate">Case Number</label>
+                <input type="text" class="form-control" name="caseNumber" id="caseNumber" placeholder="Case Number" [(ngModel)]="chargeBack.caseNumber"/>
+            </div>
+            <div class="form-group col-md-6" style="clear:both;">
+                <label for="chargeBackNoticeDate">Charge Back Notice Date</label>
+                <input type="date" class="form-control" name="chargeBackNoticeDate" id="chargeBackNoticeDate" placeholder="Charge Back Notice Date" [ngModel]="chargeBack.chargeBackNoticeDate | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="chargeBack.chargeBackNoticeDate = $event" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="dateSubmittedOrFaxed">Date Emailed To Field</label>
+                <input type="date" class="form-control" name="dateEmailedToField" id="dateEmailedToField" placeholder="Date Emailed To Field" [ngModel]="chargeBack.dateEmailedToField | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="chargeBack.dateEmailedToField = $event" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="dateSubmittedOrFaxed">Date Submitted or Faxed</label>
+                <input type="date" class="form-control" name="dateSubmittedOrFaxed" id="dateSubmittedOrFaxed" placeholder="Date Submitted or Faxed" [ngModel]="chargeBack.dateSubmittedOrFaxed | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="chargeBack.dateSubmittedOrFaxed = $event" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="dateOfFieldResponse">Date of Field Response</label>
+                <input type="date" class="form-control" name="dateOfFieldResponse" id="dateOfFieldResponse" placeholder="Date of Field Response" [ngModel]="chargeBack.dateOfFieldResponse | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="chargeBack.dateOfFieldResponse = $event" />
+            </div>
+            <div class="form-group col-md-6">
+                <div class="radio-inline">
+                    <label>
+                        <input class="radio-inline" type="radio" name="faxedOrUploaded" value="F" [(ngModel)]="chargeBack.faxedOrUploaded" />Faxed
+                    </label>
+                </div>
+                <div class="radio-inline">
+                    <label>
+                        <input class="radio-inline" type="radio" name="faxedOrUploaded" value="U" [(ngModel)]="chargeBack.faxedOrUploaded" />Uploaded
+                    </label>
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="approvedChargeBackAmount">Approved Charge Back Amount</label>
+                $<input currencyMask type="text" class="form-control" name="approvedChargeBackAmount" id="approvedChargeBackAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="chargeBack.approvedChargeBackAmount">
+
+            </div>
+            <div class="form-group col-md-6">
+                <label for="automaticLossAmount">Automatic Loss Amount</label>
+                $<input currencyMask type="text" class="form-control" name="automaticLossAmount" id="automaticLossAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="chargeBack.automaticLossAmount">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="disputedAndWonAmount">Disputed Amount</label>
+                $<input currencyMask type="text" class="form-control" name="disputedAmount" id="disputedAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="chargeBack.disputedAmount">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="disputedAndWonAmount">Disputed and Won Amount</label>
+                $<input currencyMask type="text" class="form-control" name="disputedAndWonAmount" id="disputedAndWonAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="chargeBack.disputedAndWonAmount">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="disputedAndLostAmount">Disputed and Lost Amount</label>
+                $<input currencyMask type="text" class="form-control" name="disputedAndLostAmount" id="disputedAndLostAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="chargeBack.disputedAndLostAmount">
+            </div>
+            <div class="row col-md-12">
+                <button type="button" class="col-md-1 btn btn-primary" (click)="onSaveWork()">Save</button>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+        <hr />
+        <h3>Notes</h3>
+        <div *ngIf="locationChargebackID > 0">
+            <p-editor [(ngModel)]="newNote" [style]="{'height':'100px'}"></p-editor>
+            <h4><button class="btn btn-primary" [disabled]="!newNote || newNote.length == 0" (click)="saveNewNote()"><i class="fa fa-save"></i>&nbsp;&nbsp;Save New Note</button></h4>
+            <hr />
+            <p-dataTable [value]="chargeBack?.notes" tableStyleClass="table-striped pull-right">
+                <p-column field="noteDateTime" sortable="true" styleClass="col-md-2">
+                    <template pTemplate="header">
+                        Note Date Time
+                    </template>
+                    <template let-note="rowData" pTemplate="body">
+                        {{note.noteDateTime | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
+                    </template>
+                </p-column>
+                <p-column field="noteByUser.userName" header="User" sortable="true" styleClass="col-md-2"></p-column>          
+                <p-column header="Note" styleClass="col-md-8">
+                    <template let-note="rowData" pTemplate="body">
+                        <div [innerHTML]="note.note">
+                        </div>
+                    </template>
+                </p-column>
+            </p-dataTable>    
+        </div>
+        <p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
+    </div>
+</div>
+
+
+

@@ -53,6 +53,7 @@ import { AlertDetailChargeBackComponent } from './alerts/alert-detail-chargeback
 import { JobLogListComponent } from './log/job-log-list';
 import { LocationListComponent } from './location/location-list';
 import { LocationDetailComponent } from './location/location-detail';
+import { LocationChargeBackComponent } from './location/location-chargeback';
 import { JobParametersListComponent } from './jobparameters/jobparameters-list';
 import { ReportListComponent } from './reports/reports-list';
 
@@ -67,7 +68,7 @@ import { PasswordValidator} from './changePassword/changePassword.directive';
         DataTableModule, GrowlModule, DropdownModule, CalendarModule, ConfirmDialogModule, DialogModule, EditorModule, SharedModule, InputMaskModule, CurrencyMaskModule],
     declarations: [
         AppComponent, SafePipe, MomentPipe, FormatDatePipe, HeaderComponent, ImageCropperComponent, AlertDetailChargeBackComponent,
-        MasterPageComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent,
+        MasterPageComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent, LocationChargeBackComponent,
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, LocationDetailComponent, JobParametersListComponent,
         PasswordValidator, FileUploadComponent, DashboardMainComponent, JobLogListComponent, LocationListComponent, ReportListComponent
        ],

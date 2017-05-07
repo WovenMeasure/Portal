@@ -85,21 +85,20 @@
                 </div>
             </div>
        </form>
+        <div style="clear:both"></div>
         <hr />
-        <strong>Credit Card Cases</strong>
+        <div><strong>Credit Card Cases</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary btn-sm" (click)="addChargeback()">Add Chargeback</button>
         <input #gb type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>
         <p-dataTable (onRowSelect)="onCaseSelect($event)"  [value]="cases" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb">
-            <p-column field="chargeBack.caseNumber" header="Case Number" sortable="true" styleClass="col-md-1"></p-column>
-            <p-column field="alertDateTime" sortable="true" styleClass="col-md-2">
+            <p-column field="caseNumber" header="Case Number" sortable="true" styleClass="col-md-2"></p-column>
+            <p-column field="chargeBackNoticeDate" sortable="true" styleClass="col-md-3">
                 <template pTemplate="header">
-                    Alert Date Time
+                    Charge Back Notice Date
                 </template>
-                <template let-alert="rowData" pTemplate="body">
-                    {{alert.alertDateTime | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
+                <template let-chargeBack="rowData" pTemplate="body">
+                    {{chargeBackNoticeDate | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
                 </template>
             </p-column>          
-            <p-column field="alertStatus.description" header="Status" sortable="true" styleClass="col-md-1"></p-column>
-            <p-column field="ruleType.description" header="Rule" sortable="true" styleClass="col-md-2"></p-column>     
         </p-dataTable>  
         <hr />
         <strong>Transactions</strong>
