@@ -17,6 +17,7 @@ import { LocationDetailComponent } from './location/location-detail';
 import { LocationChargeBackComponent } from './location/location-chargeback';
 import { JobParametersListComponent } from './jobparameters/jobparameters-list';
 import { ReportListComponent } from './reports/reports-list';
+import { CasesListComponent } from './cases/cases-list';
 
 const appRoutes: Routes = [
     { path: '', component: MasterPageComponent, canActivate: [CanActivateGuard],
@@ -40,6 +41,12 @@ const appRoutes: Routes = [
                     { path: 'alert-detail', component: AlertDetailComponent, canActivate: [CanActivateGuard] },
                     { path: 'alert-detail-chargeback', component: AlertDetailChargeBackComponent, canActivate: [CanActivateGuard] }
                 ],
+            },
+            {
+                path: 'cases', component: null, canActivate: [CanActivateGuard], children:
+                [
+                    { path: 'cases-list', component: CasesListComponent, canActivate: [CanActivateGuard] }
+                ]
             },
             {
                 path: 'log', component: null, canActivate: [CanActivateGuard], children:

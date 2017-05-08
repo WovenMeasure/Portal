@@ -21,6 +21,9 @@
             <span><a [ngClass]="{'selected': contextService.currentSection == 'locations'}" [routerLink]="['/location/location-list']">Locations</a></span>
         </div>
         <div class="menu-item">
+            <span><a [ngClass]="{'selected': contextService.currentSection == 'cases'}" [routerLink]="['/cases/cases-list']">Chargebacks/<br />Disputes</a></span>
+        </div>
+        <div class="menu-item">
             <span><a [ngClass]="{'selected': contextService.currentSection == 'logs'}" [routerLink]="['/log/job-log-list']">Imports</a></span>
         </div>
         <div class="menu-item">
