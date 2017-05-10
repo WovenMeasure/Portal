@@ -63,6 +63,14 @@
                 <label for="discoverSE">Discover SE</label>
                 <input type="text" class="form-control" id="discoverSE" name="discoverSE" placeholder="Discover SE" [(ngModel)]="location.discoverSE">
             </div>         
+            <div class="form-group col-md-6">
+                <label for="ccProcessor">Credit Card Processor</label>
+                <input type="text" class="form-control" id="ccProcessor" name="ccProcessor" placeholder="Credit Card Processor" [(ngModel)]="location.creditCardProcessor">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="gwProcessor">Gateway Processor</label>
+                <input type="text" class="form-control" id="gwProcessor" name="gwProcessor" placeholder="Gateway Process" [(ngModel)]="location.gatewayProcessor">
+            </div>         
             
             <div class="row col-md-12">
                 <div class="small bold" style="color:red" *ngIf="!myForm.valid">All fields preceeded by an asterisk, *, must be filled in before the save button will be available.</div>
