@@ -49,6 +49,10 @@
         <hr />
         <h3>Work</h3>
         <div *ngIf="alert && alert.chargeBack" style="padding: 10px 0 10px 0">
+            <div class="form-group col-md-6" style="clear:both;">
+                <label for="dueDate">Due Date</label>
+                <input type="date" class="form-control" name="dueDate" id="dueDate" placeholder="Due Date" [ngModel]="alert.chargeBack.dueDate | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.dueDate = $event" />
+            </div>
             <div class="form-group col-md-6">
                 <label for="chargeBackNoticeDate">Charge Back Notice Date</label>
                 <input type="date" class="form-control" name="chargeBackNoticeDate" id="chargeBackNoticeDate" placeholder="Charge Back Notice Date" [ngModel]="alert.chargeBack.chargeBackNoticeDate | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.chargeBackNoticeDate = $event" />
@@ -76,19 +80,19 @@
                         <input class="radio-inline" type="radio" name="faxedOrUploaded" value="U" [(ngModel)]="alert.chargeBack.faxedOrUploaded" />Uploaded
                     </label>
                 </div>
-            </div>
+            </div>        
             <div class="form-group col-md-6">
-                <label for="approvedChargeBackAmount">Approved Charge Back Amount</label>
-                $<input currencyMask type="text" class="form-control" name="approvedChargeBackAmount" id="approvedChargeBackAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.approvedChargeBackAmount">
-
+                <label for="disputedAndWonAmount">Disputed Amount</label>
+                $<input currencyMask type="text" class="form-control" name="disputedAmount" id="disputedAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.disputedAmount">
             </div>
             <div class="form-group col-md-6">
                 <label for="automaticLossAmount">Automatic Loss Amount</label>
                 $<input currencyMask type="text" class="form-control" name="automaticLossAmount" id="automaticLossAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.automaticLossAmount">
             </div>
             <div class="form-group col-md-6">
-                <label for="disputedAndWonAmount">Disputed Amount</label>
-                $<input currencyMask type="text" class="form-control" name="disputedAmount" id="disputedAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.disputedAmount">
+                <label for="approvedChargeBackAmount">Approved Charge Back Amount</label>
+                $<input currencyMask type="text" class="form-control" name="approvedChargeBackAmount" id="approvedChargeBackAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.approvedChargeBackAmount">
+
             </div>
             <div class="form-group col-md-6">
                 <label for="disputedAndWonAmount">Disputed and Won Amount</label>

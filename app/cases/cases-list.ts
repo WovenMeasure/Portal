@@ -9,8 +9,8 @@ import { LookupService } from '../common/services/lookup-service';
 import {Constants } from "../common/constants";
 import { ProxyService } from "../common/services/proxy-service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {SelectItem} from 'primeng/primeng';
-import { Message, ConfirmationService, ConfirmDialogModule} from 'primeng/primeng';
+import { SelectItem } from 'primeng/primeng';
+import { Message, ConfirmationService, ConfirmDialogModule, DataTable } from 'primeng/primeng';
 
 @Component({
     templateUrl: 'cases-list.html',
@@ -34,14 +34,74 @@ export class CasesListComponent {
     msgs: Message[] = [];    
     cases: any[];
     loaded: boolean = false;
-   
+    localStorageGridOptionsKey: string;
+    gridOptions = {
+        first: 0,
+        rows: 10,
+        sortField: 'title',
+        sortOrder: 1,
+        filter: ''
+    };
+
+    @ViewChild(DataTable) dataTable: DataTable;
+
+    loadGridSortOptions() {
+        var saved = this.contextService.getGridOption(this.localStorageGridOptionsKey);
+        if (saved) {
+            setTimeout(() => {
+                this.gridOptions = saved;
+                this.dataTable.globalFilter.value = this.gridOptions.filter;
+                this.dataTable.sortField = this.gridOptions.sortField;
+                this.dataTable.sortOrder = this.gridOptions.sortOrder;
+            }, 0);
+        }
+        else {
+            this.gridOptions.first = 1;
+            this.gridOptions.rows = 20;
+        }
+    }
+
+    loadGridPageOptions() {
+        var saved = this.contextService.getGridOption(this.localStorageGridOptionsKey);
+        if (saved) {
+            setTimeout(() => {
+                this.dataTable.filter("", "", "");
+                this.dataTable.paginate(this.gridOptions);
+            }, 0);
+        }
+        else {
+            this.gridOptions.first = 1;
+            this.gridOptions.rows = 20;
+        }
+
+    }
+
+    onSort(e: { field: string, order: number }) {
+        this.gridOptions.sortField = e.field;
+        this.gridOptions.sortOrder = e.order;
+        this.gridOptions.first = 0;
+        this.contextService.setGridOption(this.localStorageGridOptionsKey, this.gridOptions);
+    }
+
+    onPage(e: { first: number, rows: number }) {
+        this.gridOptions.rows = e.rows;
+        this.gridOptions.first = e.first;
+        this.contextService.setGridOption(this.localStorageGridOptionsKey, this.gridOptions);
+    }
+
+    onFilter(e) {
+        this.gridOptions.filter = this.dataTable.globalFilter.value;
+        this.contextService.setGridOption(this.localStorageGridOptionsKey, this.gridOptions);
+    }
+
     ngOnInit() {
+        this.localStorageGridOptionsKey = "caseslist";
         this.contextService.currentSection = "cases";
         this.loadCases();
-    }   
-
+    }       
 
     loadCases() {
+        this.loadGridSortOptions();
         this.spinnerService.postStatus('Loading Chargebacks/Disputes');
         let $observable = this.proxyService.Get("cases");
         $observable.subscribe(
@@ -49,6 +109,7 @@ export class CasesListComponent {
                 if (data.success) {
                     this.cases = data.cases;
                     this.loaded = true;
+                    this.loadGridPageOptions();
                 }
                 else {
                     this.msgs.push({ severity: 'error', summary: data.errorMessage });

@@ -104,6 +104,18 @@ export class ContextService {
         window.localStorage.setItem("currentTab", value);
     }
 
+
+    public getGridOption(key: string) {
+        var option = window.localStorage.getItem(key);
+        if (option)
+            return JSON.parse(option);
+    }
+
+    public setGridOption(key: string, gridOption: any) {
+        return window.localStorage.setItem(key, JSON.stringify(gridOption));
+    }
+
+
     public get showInProgressOnly(): boolean {
         let val: string = window.localStorage.getItem("showInProgressOnly");
         if (null == val)

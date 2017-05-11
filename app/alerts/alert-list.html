@@ -12,7 +12,7 @@
     <label class="col-md-offset-2"><input class="checkbox" style="display:inline" type="checkbox" value="Show In Progress Only" [(ngModel)]="inProgressOnly" (click)="toggleShowInProgress()"/>&nbsp;&nbsp;Show in progress only</label>
     <input #gb type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>
     <div class="clearfix"></div>
-    <p-dataTable scrollable="true" scrollHeight="700px" [pageLinks]="5" selectionMode="single" (onRowSelect)="onRowSelect($event)" [value]="alerts" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="20" [globalFilter]="gb">
+    <p-dataTable (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" scrollable="true" scrollHeight="700px" [pageLinks]="5" selectionMode="single" (onRowSelect)="onRowSelect($event)" [value]="alerts" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="20" [globalFilter]="gb">
        <p-column field="alertDateTime" sortable="true" styleClass="col-md-2">
            <template pTemplate="header">
                Alert Date Time   
@@ -27,7 +27,7 @@
            </template>
        </p-column>
        <p-column *ngIf="alertService.currentAlertType.constant == 'CREDC'" field="location.merchantID" header="MerchantID" sortable="true" styleClass="col-md-1"></p-column>
-       <p-column *ngIf="alertService.currentAlertType.constant == 'CREDC'" field="alert.chargeBack.caseNumber" header="Case Number" sortable="true" styleClass="col-md-1"></p-column>
+       <p-column *ngIf="alertService.currentAlertType.constant == 'CREDC' || alertService.currentAlertType.constant == 'CREDCDISPUTES'" field="alert.chargeBack.caseNumber" header="Case Number" sortable="true" styleClass="col-md-1"></p-column>
        <p-column field="alert.alertStatus.description" header="Status" sortable="true" styleClass="col-md-1"></p-column>
        <p-column field="alert.ruleType.description" header="Rule" sortable="true" styleClass="col-md-2"></p-column>     
        <p-column header="Commands" styleClass="col-md-1">

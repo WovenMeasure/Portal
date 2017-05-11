@@ -1,5 +1,5 @@
 ﻿//our root app component
-import {Component, ComponentRef, ViewChild, ComponentFactoryResolver, ViewContainerRef} from '@angular/core';
+import { Component, ComponentRef, ViewChild, ElementRef, ComponentFactoryResolver, ViewContainerRef, Renderer } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {AuthenticationService} from '../common/services/authentication-service';
 import { SpinnerService } from '../common/services/spinner-service';
@@ -9,7 +9,7 @@ import {Constants } from "../common/constants";
 import { ProxyService } from "../common/services/proxy-service";
 import {AlertService } from "./alert-service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SelectItem, Message} from 'primeng/primeng';
+import { SelectItem, Message, DataTable } from 'primeng/primeng';
 
 @Component({
     templateUrl: 'alert-list.html'
@@ -25,26 +25,37 @@ export class AlertListComponent {
                 private constants: Constants,
                 private alertService: AlertService,
                 private ngbModal: NgbModal,
-                private translationService: TranslationService) {
+                private translationService: TranslationService,
+                private renderer: Renderer) {
 
     }    
-
+    @ViewChild(DataTable) dataTable: DataTable;
     msgs: Message[] = [];
     alerts: any[];
     allAlerts: any[];
-    alertFromDate: Date;
+    alertFromDate: Date; 
     alertToDate: Date;
-    inProgressOnly: boolean = false;
+    filterText: string;
+    inProgressOnly: boolean = false;    
+    localStorageGridOptionsKey: string;
+    gridOptions = {
+        first: 0,
+        rows: 10,
+        sortField: 'title',
+        sortOrder: 1,
+        filter: ''
+    };
 
-    ngOnInit() {
+     
+    ngOnInit() {        
         this.contextService.currentSection = "alerts";
-
         let tab: string = this.contextService.currentTab;
         this.inProgressOnly = this.contextService.showInProgressOnly;
         if (tab)
             this.alertService.currentAlertType = this.constants.getAlertTypeByConstant(tab);
 
-
+        this.localStorageGridOptionsKey = this.alertService.currentAlertType.constant + "_alertList";
+     
         this.alertFromDate = this.contextService.currentAlertFilterFromDate;
         this.alertToDate = this.contextService.currentAlertFilterToDate;
 
@@ -52,7 +63,58 @@ export class AlertListComponent {
         this.loadAlerts();
     }       
 
+    loadGridSortOptions() {
+        var saved = this.contextService.getGridOption(this.localStorageGridOptionsKey);
+        if (saved) {
+            setTimeout(() => {
+                this.gridOptions = saved;
+                this.dataTable.globalFilter.value = this.gridOptions.filter;
+                this.dataTable.sortField = this.gridOptions.sortField;
+                this.dataTable.sortOrder = this.gridOptions.sortOrder;
+            }, 0);
+        }
+        else {
+            this.gridOptions.first = 1;
+            this.gridOptions.rows = 20;
+        }
+
+    }
+    loadGridPageOptions() {
+        var saved = this.contextService.getGridOption(this.localStorageGridOptionsKey);
+        if (saved) {          
+            this.gridOptions = saved;
+            setTimeout(() => {
+                this.dataTable.filter("", "", "");
+                this.dataTable.paginate(this.gridOptions);                 
+            }, 0);
+        }
+        else {
+            this.gridOptions.first = 1;
+            this.gridOptions.rows = 20;
+        }
+
+    }
+
+    onSort(e: { field: string, order: number }) {
+        this.gridOptions.sortField = e.field;
+        this.gridOptions.sortOrder = e.order;
+        this.gridOptions.first = 0;
+        this.contextService.setGridOption(this.localStorageGridOptionsKey, this.gridOptions);
+    }
+
+    onPage(e: { first: number, rows: number }) {
+        this.gridOptions.rows = e.rows;
+        this.gridOptions.first = e.first;
+        this.contextService.setGridOption(this.localStorageGridOptionsKey, this.gridOptions);
+    }
+
+    onFilter(e) {
+        this.gridOptions.filter = this.dataTable.globalFilter.value;
+        this.contextService.setGridOption(this.localStorageGridOptionsKey, this.gridOptions);
+    }
+    
     loadAlerts() {
+        this.loadGridSortOptions();
         this.spinnerService.postStatus('Loading Alerts');
         let observable$ = this.alertService.loadAlerts(this.alertFromDate, this.alertToDate);
         observable$.subscribe(
@@ -66,12 +128,14 @@ export class AlertListComponent {
                     else {
                         this.alerts = this.allAlerts;
                     }
+                     
+                    this.loadGridPageOptions();
                 }
             },
             (err) => { },
             () => {
                 this.spinnerService.finishCurrentStatus();
-            });   
+            });    
     }
 
     toggleShowInProgress() {
@@ -90,12 +154,13 @@ export class AlertListComponent {
     filterByDate() {
         this.contextService.currentAlertFilterFromDate = this.alertFromDate;
         this.contextService.currentAlertFilterToDate = this.alertToDate;
-        this.loadAlerts();
+        this.loadAlerts(); 
     }
 
     tabClick(tab: string) {
         this.alertService.currentAlertType = this.constants.getAlertTypeByConstant(tab);
         this.contextService.currentTab = tab;
+        this.localStorageGridOptionsKey = this.alertService.currentAlertType.constant + "_alertList";
         this.loadAlerts();
     }
 
@@ -134,6 +199,7 @@ export class AlertListComponent {
                 this.spinnerService.finishCurrentStatus();
             });   
     }
+    
     
 
 }
