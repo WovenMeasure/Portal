@@ -2,7 +2,7 @@
 <div class="col-md-12">
     <div *ngIf="!addingLocation">
         <div class="col-md-4">
-            <h2><strong>Charge Back - {{location?.name}}</strong></h2>
+            <h2><strong>Charge Back - {{location?.name}} - Status - {{chargeBack?.workItemStatus.description}}</strong></h2>
         </div>
         <div style="clear:both"></div>
         <table class="table-condensed table-striped table-bordered col-md-6 col-sm-12">           
@@ -84,7 +84,9 @@
                 $<input currencyMask type="text" class="form-control" name="approvedChargeBackAmount" id="approvedChargeBackAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="chargeBack.approvedChargeBackAmount">
             </div>
             <div class="row col-md-12">
-                <button type="button" class="col-md-1 btn btn-primary" (click)="onSaveWork()">Save</button>
+                <button type="button" class="col-md-1 btn btn-primary" (click)="onSaveWork()">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                <button *ngIf="locationChargebackID > 0" [disabled]="chargeBack.workItemStatusID == constants.alertStatusInProgress" (click)="markInProgress()" style="margin-left:10px" class="col-md-1 btn btn-primary">Mark in Progress</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button *ngIf="locationChargebackID > 0" [disabled]="chargeBack.workItemStatusID != constants.alertStatusInProgress" (click)="markResolved()" style="margin-left:10px"  class="col-md-1 btn btn-primary">Mark Resolved</button>
             </div>
         </div>
         <div style="clear:both"></div>

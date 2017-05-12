@@ -99,6 +99,7 @@
         <input #gb type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>
         <p-dataTable (onRowSelect)="onCaseSelect($event)"  [value]="cases" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb">
             <p-column field="caseNumber" header="Case Number" sortable="true" styleClass="col-md-2"></p-column>
+            <p-column field="workItemStatusDescription" header="Status" sortable="true" styleClass="col-md-2"></p-column>
             <p-column field="chargeBackNoticeDate" sortable="true" styleClass="col-md-3">
                 <template pTemplate="header">
                     Charge Back Notice Date
@@ -106,7 +107,12 @@
                 <template let-chargeBack="rowData" pTemplate="body">
                     {{chargeBackNoticeDate | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
                 </template>
-            </p-column>          
+            </p-column>         
+            <p-column header="Commands" styleClass="col-md-1">
+                <template let-case="rowData" pTemplate="body">
+                    <i *ngIf="case.type == 2" class="fa fa-2x fa-times-circle-o" title="Delete Case" (click)="dismiss(case)"></i>
+                </template>
+            </p-column>
         </p-dataTable>  
         <hr />
         <strong>Transactions</strong>

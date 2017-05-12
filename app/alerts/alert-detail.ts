@@ -96,8 +96,8 @@ export class AlertDetailComponent {
             data => {
                 if (data.success) {
                     this.msgs.push({ severity: 'success', summary: "Alert Set To In Progress" });
-                    this.alert.alertStatusID = _self.constants.alertStatusInProgress;
-                    this.alert.alertStatus.description = "In Progress";
+                    this.alert.workItemStatusID = _self.constants.alertStatusInProgress;
+                    this.alert.workItemStatus.description = "In Progress";
                 }
                 else {
                     this.msgs.push({ severity: 'error', summary: data.errorMessage });

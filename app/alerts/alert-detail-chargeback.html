@@ -2,10 +2,10 @@
 <div class="col-md-12">
     <div *ngIf="!addingLocation">
         <div class="col-md-4">
-            <h2><strong>Alert Status: {{alert?.alertStatus?.description}}</strong></h2>
+            <h2><strong>Alert Status: {{alert?.workItemStatus?.description}}</strong></h2>
         </div>
-        <div class="col-md-offset-2 col-md-4"><button [disabled]="alert?.alertStatusID == constants.alertStatusInProgress" (click)="markInProgress()" class="btn btn-primary">Mark in Progress</button>&nbsp;&nbsp;
-        <button [disabled]="alert?.alertStatusID != constants.alertStatusInProgress" (click)="markResolved()" class="btn btn-primary">Mark Resolved</button></div>
+        <div class="col-md-offset-2 col-md-4"><button [disabled]="alert?.workItemStatusID == constants.alertStatusInProgress" (click)="markInProgress()" class="btn btn-primary">Mark in Progress</button>&nbsp;&nbsp;
+        <button [disabled]="alert?.workItemStatusID != constants.alertStatusInProgress" (click)="markResolved()" class="btn btn-primary">Mark Resolved</button></div>
         <div style="clear:both"></div>
         <table class="table-condensed table-striped table-bordered col-md-6 col-sm-12">
             <tr>

@@ -28,7 +28,7 @@
        </p-column>
        <p-column *ngIf="alertService.currentAlertType.constant == 'CREDC'" field="location.merchantID" header="MerchantID" sortable="true" styleClass="col-md-1"></p-column>
        <p-column *ngIf="alertService.currentAlertType.constant == 'CREDC' || alertService.currentAlertType.constant == 'CREDCDISPUTES'" field="alert.chargeBack.caseNumber" header="Case Number" sortable="true" styleClass="col-md-1"></p-column>
-       <p-column field="alert.alertStatus.description" header="Status" sortable="true" styleClass="col-md-1"></p-column>
+       <p-column field="alert.workItemStatus.description" header="Status" sortable="true" styleClass="col-md-1"></p-column>
        <p-column field="alert.ruleType.description" header="Rule" sortable="true" styleClass="col-md-2"></p-column>     
        <p-column header="Commands" styleClass="col-md-1">
            <template let-alert="rowData" pTemplate="body">

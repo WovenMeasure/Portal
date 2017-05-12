@@ -249,4 +249,32 @@ export class LocationDetailComponent {
     addChargeback() {
         this.router.navigate(['/location/location-chargeback'], { queryParams: { i: 0, l: this.locationId } });
     }
+
+    dismiss(chargeBack: any) {
+        var _self = this;
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to mark delete this case?',
+            accept: () => {
+                this.spinnerService.postStatus('Deleting case');
+                let $observable = this.proxyService.Delete("cases/delete/" + chargeBack.id);
+                $observable.subscribe(
+                    data => {
+                        if (data.success) {
+                            this.msgs.push({ severity: 'success', summary: "Case deleted" });
+                            var index = this.cases.indexOf(chargeBack);
+                            this.cases.splice(index, 1);
+                        }
+                        else {
+                            this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                        }
+                    },
+                    (err) => {
+                        this.msgs.push({ severity: 'error', summary: err });
+                    },
+                    () => {
+                        this.spinnerService.finishCurrentStatus();
+                    });
+            }
+        });
+    }
 }

@@ -123,7 +123,7 @@ export class AlertListComponent {
                     this.alerts = data.alerts;
                     this.allAlerts = data.alerts;
                     if (this.inProgressOnly) {
-                        this.alerts = this.allAlerts.filter((a) => { return a.alert.alertStatusID == this.constants.alertStatusInProgress });
+                        this.alerts = this.allAlerts.filter((a) => { return a.alert.workItemStatusID == this.constants.alertStatusInProgress });
                     }
                     else {
                         this.alerts = this.allAlerts;
@@ -142,7 +142,7 @@ export class AlertListComponent {
         this.inProgressOnly = !this.inProgressOnly;
         this.contextService.showInProgressOnly = this.inProgressOnly;
         if (this.inProgressOnly) {
-            this.alerts = this.allAlerts.filter((a) => { return a.alert.alertStatusID == this.constants.alertStatusInProgress });
+            this.alerts = this.allAlerts.filter((a) => { return a.alert.workItemStatusID == this.constants.alertStatusInProgress });
         }
         else {
             this.alerts = this.allAlerts;

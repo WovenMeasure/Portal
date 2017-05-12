@@ -5,15 +5,24 @@
     <div style="clear:both"></div>
     <p-dataTable (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" (onRowSelect)="onCaseSelect($event)"  [value]="cases" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb">
         <p-column field="caseNumber" header="Case Number" sortable="true" styleClass="col-md-2"></p-column>
+        <p-column field="workItemStatusDescription" header="Status" sortable="true" styleClass="col-md-2"></p-column>
         <p-column field="locationID" header="Location" sortable="true" styleClass="col-md-2"></p-column>
-        <p-column field="chargeBackNoticeDate" sortable="true" styleClass="col-md-3">
+        <p-column field="dueDate" sortable="true" styleClass="col-md-3">
             <template pTemplate="header">
-                Charge Back Notice Date
+                Due Date
             </template>
             <template let-chargeBack="rowData" pTemplate="body">
-                {{chargeBackNoticeDate | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
+                {{chargeBack.dueDate | moment: 'format': 'MM/DD/YYYY' }}
             </template>
-        </p-column>          
+        </p-column>     
+        <p-column field="chargeBackNoticeDate" sortable="true" styleClass="col-md-3">
+            <template pTemplate="header">
+                Notice Date
+            </template>
+            <template let-chargeBack="rowData" pTemplate="body">
+                {{chargeBack.chargeBackNoticeDate | moment: 'format': 'MM/DD/YYYY' }}
+            </template>
+        </p-column>
     </p-dataTable>  
 </div>
 

@@ -144,4 +144,58 @@ export class LocationChargeBackComponent {
                 this.spinnerService.finishCurrentStatus();
             });
     }
+
+
+    markInProgress() {
+        var _self = this;
+        this.spinnerService.postStatus('Marking Chargeback In Progress');
+        var request = { locationChargebackID: this.locationChargebackID };
+        let $observable = this.proxyService.Post("cases/inprogress/", request);
+        $observable.subscribe(
+            data => {
+                if (data.success) {
+                    this.msgs.push({ severity: 'success', summary: "Chargeback Set To In Progress" });
+                    this.chargeBack.workItemStatusID = _self.constants.alertStatusInProgress;
+                    this.chargeBack.workItemStatus.description = "In Progress";
+                }
+                else {
+                    this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                }
+            },
+            (err) => {
+                this.msgs.push({ severity: 'error', summary: err });
+            },
+            () => {
+                this.spinnerService.finishCurrentStatus();
+            });
+
+    }
+
+    markResolved() {
+        var _self = this;
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to mark this chargeback resolved?',
+            accept: () => {
+                this.spinnerService.postStatus('Marking Chargeback Resolved');
+                var request = { locationChargebackID: this.locationChargebackID };
+                let $observable = this.proxyService.Post("cases/resolve/", request);
+                $observable.subscribe(
+                    data => {
+                        if (data.success) {
+                            this.msgs.push({ severity: 'success', summary: "Chargeback Resolved" });
+                            this.router.navigate(['/location/location-detail'], { queryParams: { i: this.location.locationID } });
+                        }
+                        else {
+                            this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                        }
+                    },
+                    (err) => {
+                        this.msgs.push({ severity: 'error', summary: err });
+                    },
+                    () => {
+                        this.spinnerService.finishCurrentStatus();
+                    });
+            }
+        });
+    }
 }
