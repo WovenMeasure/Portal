@@ -60,7 +60,8 @@ export class ProxyService {
         let body = new URLSearchParams();
         body.set('username', userName);
         body.set('password', password);
-        body.set('grant_type', 'password');
+        body.set('rc', 'Laz:Audit-Portal');;
+        body.set('grant_type', 'passwordAndClaim');
         let observable = this.http.post(this.baseUrl + url, body).map(res => res.json()).catch((error) => { return this.HandleError(error); }).share(); //make 'em hot
         return observable;
     }

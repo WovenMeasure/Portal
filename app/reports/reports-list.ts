@@ -34,6 +34,10 @@ export class ReportListComponent {
             {
                 name: 'Credit Card Chargeback Disputes',
                 url: 'http://portal-laz.wovenmeasure.com/ReportServer/Pages/ReportViewer.aspx?%2fReport+Project1%2fCCChargeBackDispute&rs:Command=Render'
+            },
+            {
+                name: 'No Credit Card Activity Report',
+                url: 'http://portal-laz.wovenmeasure.com/ReportServer/Pages/ReportViewer.aspx?%2fReport+Project1%2fNoCreditCardActivityReport&rs:Command=Render'
             }
         );
     }       

@@ -87,7 +87,32 @@ export class AlertDetailChargeBackComponent {
                 this.spinnerService.finishCurrentStatus();
             });   
     }
-
+    deleteNote(note) {
+        var _self = this;
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to remove this note?',
+            accept: () => {
+                this.spinnerService.postStatus('Removing Note');
+                let $observable = this.proxyService.Delete("alert/removeNote/" + note.noteID);
+                $observable.subscribe(
+                    data => {
+                        if (data.success) {
+                            this.msgs.push({ severity: 'success', summary: "Note removed" });
+                            this.alert.notes.splice(this.alert.notes.indexOf(note), 1);
+                        }
+                        else {
+                            this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                        }
+                    },
+                    (err) => {
+                        this.msgs.push({ severity: 'error', summary: err });
+                    },
+                    () => {
+                        this.spinnerService.finishCurrentStatus();
+                    });
+            }
+        });
+    }
     onSaveWork() {
         var _self = this;
         this.spinnerService.postStatus('Saving Work');

@@ -80,11 +80,25 @@
                         <input class="radio-inline" type="radio" name="faxedOrUploaded" value="U" [(ngModel)]="alert.chargeBack.faxedOrUploaded" />Uploaded
                     </label>
                 </div>
-            </div>        
+            </div>     
+            <div style="clear:both"></div>
+            <div class="form-group col-md-6">
+               <label for="typeOfFieldResponse">Type of Field Response&nbsp;&nbsp;</label>
+                <div class="radio-inline">
+                    <label>
+                        <input class="radio-inline" type="radio" name="typeOfFieldResponse" value="N/A" [(ngModel)]="alert.chargeBack.typeOfFieldResponse" />N/A
+                    </label>
+                </div>
+                <div class="radio-inline">
+                    <label>
+                        <input class="radio-inline" type="radio" name="typeOfFieldResponse" value="N/R" [(ngModel)]="alert.chargeBack.typeOfFieldResponse" />N/R
+                    </label>
+                </div>
+            </div>      
             <div class="form-group col-md-6">
                 <label for="disputedAndWonAmount">Disputed Amount</label>
                 $<input currencyMask type="text" class="form-control" name="disputedAmount" id="disputedAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.disputedAmount">
-            </div>
+            </div> 
             <div class="form-group col-md-6">
                 <label for="automaticLossAmount">Automatic Loss Amount</label>
                 $<input currencyMask type="text" class="form-control" name="automaticLossAmount" id="automaticLossAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.automaticLossAmount">
@@ -126,6 +140,11 @@
                 <template let-note="rowData" pTemplate="body">
                     <div [innerHTML]="note.note">
                     </div>
+                </template>
+            </p-column>
+            <p-column header="Commands" styleClass="col-md-1">
+                <template let-note="rowData" pTemplate="body">
+                    <i class="fa fa-2x fa-trash-o" title="Delete Note" (click)="deleteNote(note)"></i>
                 </template>
             </p-column>
         </p-dataTable>      
