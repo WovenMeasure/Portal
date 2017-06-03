@@ -34,11 +34,11 @@ export class FormatDatePipe implements PipeTransform {
 
         var dateValue = new Date(value);
         var datewithouttimezone = new Date(dateValue.getUTCFullYear(),
-            dateValue.getUTCMonth(),
-            dateValue.getUTCDate(),
-            dateValue.getUTCHours(),
-            dateValue.getUTCMinutes(),
-            dateValue.getUTCSeconds());
+                dateValue.getUTCMonth(),
+                dateValue.getUTCDate(),
+                dateValue.getUTCHours(),
+                dateValue.getUTCMinutes(),
+                dateValue.getUTCSeconds());
         return datewithouttimezone;
     }
 

@@ -51,23 +51,20 @@
         <div *ngIf="alert && alert.chargeBack" style="padding: 10px 0 10px 0">
             <div class="form-group col-md-6" style="clear:both;">
                 <label for="dueDate">Due Date</label>
-                <input type="date" class="form-control" name="dueDate" id="dueDate" placeholder="Due Date" [ngModel]="alert.chargeBack.dueDate | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.dueDate = $event" />
+                <p-calendar [utc]="true"  [(ngModel)]="alert.chargeBack.dueDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>
             </div>
             <div class="form-group col-md-6">
                 <label for="chargeBackNoticeDate">Charge Back Notice Date</label>
-                <input type="date" class="form-control" name="chargeBackNoticeDate" id="chargeBackNoticeDate" placeholder="Charge Back Notice Date" [ngModel]="alert.chargeBack.chargeBackNoticeDate | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.chargeBackNoticeDate = $event" />
-            </div>
+                <p-calendar [utc]="true"  [(ngModel)]="alert.chargeBack.chargeBackNoticeDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>      </div>
             <div class="form-group col-md-6">
-                <label for="dateSubmittedOrFaxed">Date Emailed To Field</label>
-                <input type="date" class="form-control" name="dateEmailedToField" id="dateEmailedToField" placeholder="Date Emailed To Field" [ngModel]="alert.chargeBack.dateEmailedToField | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.dateEmailedToField = $event" />
-            </div>
+                <label for="dateEmailedToField">Date Emailed To Field</label>
+                <p-calendar [utc]="true"  [(ngModel)]="alert.chargeBack.dateEmailedToField" [showIcon]="true" [showOnFocus]="false"></p-calendar>     </div>
             <div class="form-group col-md-6">
                 <label for="dateSubmittedOrFaxed">Date Submitted or Faxed</label>
-                <input type="date" class="form-control" name="dateSubmittedOrFaxed" id="dateSubmittedOrFaxed" placeholder="Date Submitted or Faxed" [ngModel]="alert.chargeBack.dateSubmittedOrFaxed | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.dateSubmittedOrFaxed = $event" />
-            </div>
+                <p-calendar [utc]="true"  [(ngModel)]="alert.chargeBack.dateSubmittedOrFaxed" [showIcon]="true" [showOnFocus]="false"></p-calendar>      </div>
             <div class="form-group col-md-6">
                 <label for="dateOfFieldResponse">Date of Field Response</label>
-                <input type="date" class="form-control" name="dateOfFieldResponse" id="dateOfFieldResponse" placeholder="Date of Field Response" [ngModel]="alert.chargeBack.dateOfFieldResponse | formatDate | date:'yyyy-MM-dd'" (ngModelChange)="alert.chargeBack.dateOfFieldResponse = $event" />
+                <p-calendar [utc]="true"  [(ngModel)]="alert.chargeBack.dateOfFieldResponse" [showIcon]="true" [showOnFocus]="false"></p-calendar>
             </div>
             <div class="form-group col-md-6">
                 <div class="radio-inline">

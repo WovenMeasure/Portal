@@ -10,6 +10,8 @@ import { ProxyService } from "../common/services/proxy-service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SelectItem } from 'primeng/primeng';
 import { Message, ConfirmationService, ConfirmDialogModule, EditorModule, SharedModule } from 'primeng/primeng';
+import * as moment from 'moment';
+
 
 @Component({
     templateUrl: 'location-chargeback.html',
@@ -58,7 +60,22 @@ export class LocationChargeBackComponent {
         $observable.subscribe(
             data => {
                 if (data.success) {
-                    this.chargeBack = data.chargeBack;
+                    this.chargeBack = data.chargeBack;  
+                    if (data.chargeBack.dueDate)
+                        this.chargeBack.dueDate = new Date(data.chargeBack.dueDate);
+
+                    if (data.chargeBack.chargeBackNoticeDate)
+                        this.chargeBack.chargeBackNoticeDate = new Date(data.chargeBack.chargeBackNoticeDate);
+
+                    if (data.chargeBack.dateEmailedToField)
+                        this.chargeBack.dateEmailedToField = new Date(data.chargeBack.dateEmailedToField);
+
+                    if (data.chargeBack.dateSubmittedOrFaxed)
+                        this.chargeBack.dateSubmittedOrFaxed = new Date(data.chargeBack.dateSubmittedOrFaxed);
+
+                    if (data.chargeBack.dateOfFieldResponse)
+                        this.chargeBack.dateOfFieldResponse = new Date(data.chargeBack.dateOfFieldResponse);
+
                 }
                 else {
                     this.msgs.push({ severity: 'error', summary: data.errorMessage });

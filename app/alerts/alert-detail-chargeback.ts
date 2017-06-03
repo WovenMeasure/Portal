@@ -11,6 +11,7 @@ import {AlertService } from "./alert-service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SelectItem } from 'primeng/primeng';
 import { Message, ConfirmationService, ConfirmDialogModule, EditorModule, SharedModule } from 'primeng/primeng';
+import { DatepickerModule } from 'ng2-bootstrap';
 
 @Component({
     templateUrl: 'alert-detail-chargeback.html',
@@ -40,12 +41,11 @@ export class AlertDetailChargeBackComponent {
     location: any;
 
     ngOnInit() {
-     
         this.contextService.currentSection = "alerts";
         this.alertId = this.route.snapshot.queryParams['i'];
         this.loadAlertDetail();      
     }   
-    
+
     loadAlertDetail() {
         this.spinnerService.postStatus('Loading');
         let observable$ = this.alertService.loadAlertDetail(this.alertId);
@@ -53,6 +53,21 @@ export class AlertDetailChargeBackComponent {
             data => {
                 if (data.success) {
                     this.alert = data.alert;
+                    if (data.alert.chargeBack.dueDate)
+                        this.alert.chargeBack.dueDate = new Date(data.alert.chargeBack.dueDate);
+
+                    if (data.alert.chargeBack.chargeBackNoticeDate)
+                        this.alert.chargeBack.chargeBackNoticeDate = new Date(data.alert.chargeBack.chargeBackNoticeDate);
+
+                    if (data.alert.chargeBack.dateEmailedToField)
+                        this.alert.chargeBack.dateEmailedToField = new Date(data.alert.chargeBack.dateEmailedToField);
+
+                    if (data.alert.chargeBack.dateSubmittedOrFaxed)
+                        this.alert.chargeBack.dateSubmittedOrFaxed = new Date(data.alert.chargeBack.dateSubmittedOrFaxed);
+
+                    if (data.alert.chargeBack.dateOfFieldResponse)
+                        this.alert.chargeBack.dateOfFieldResponse = new Date(data.alert.chargeBack.dateOfFieldResponse);
+
                     this.transactions = data.transactions;
                     this.location = data.location;
                 }
