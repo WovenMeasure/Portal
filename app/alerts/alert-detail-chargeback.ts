@@ -68,6 +68,9 @@ export class AlertDetailChargeBackComponent {
                     if (data.alert.chargeBack.dateOfFieldResponse)
                         this.alert.chargeBack.dateOfFieldResponse = new Date(data.alert.chargeBack.dateOfFieldResponse);
 
+                    if (data.alert.chargeBack.resultsNoticeDate)
+                        this.alert.chargeBack.resultsNoticeDate = new Date(data.alert.chargeBack.resultsNoticeDate);
+
                     this.transactions = data.transactions;
                     this.location = data.location;
                 }

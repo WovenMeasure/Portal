@@ -108,7 +108,6 @@ export class CasesListComponent {
             data => {
                 if (data.success) {
                     this.cases = data.cases;
-                    this.loaded = true;
                     this.loadGridPageOptions();
                 }
                 else {

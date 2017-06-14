@@ -76,6 +76,9 @@ export class LocationChargeBackComponent {
                     if (data.chargeBack.dateOfFieldResponse)
                         this.chargeBack.dateOfFieldResponse = new Date(data.chargeBack.dateOfFieldResponse);
 
+                    if (data.chargeBack.resultsNoticeDate)
+                        this.chargeBack.resultsNoticeDate = new Date(data.chargeBack.resultsNoticeDate);
+
                 }
                 else {
                     this.msgs.push({ severity: 'error', summary: data.errorMessage });

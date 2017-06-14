@@ -48,25 +48,26 @@
         <div class="clearfix">&nbsp;</div>
         <hr />
         <h3>Work</h3>
-        <div *ngIf="alert && alert.chargeBack" style="padding: 10px 0 10px 0">
+        <div *ngIf="alert && alert.chargeBack" style="padding: 10px 0 10px 0" class="form-horizontal">
             <div class="form-group col-md-6" style="clear:both;">
-                <label for="dueDate">Due Date</label>
-                <p-calendar [utc]="true"  [(ngModel)]="alert.chargeBack.dueDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>
+                <label class="col-xs-2" for="dueDate">Due Date</label>
+                <p-calendar class="col-xs-10" [(ngModel)]="alert.chargeBack.dueDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>
             </div>
             <div class="form-group col-md-6">
-                <label for="chargeBackNoticeDate">Charge Back Notice Date</label>
-                <p-calendar [utc]="true"  [(ngModel)]="alert.chargeBack.chargeBackNoticeDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>      </div>
+                <label class="col-xs-2" for="chargeBackNoticeDate">Charge Back Notice Date</label>
+                <p-calendar class="col-xs-10" [(ngModel)]="alert.chargeBack.chargeBackNoticeDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>      </div>
             <div class="form-group col-md-6">
-                <label for="dateEmailedToField">Date Emailed To Field</label>
-                <p-calendar [utc]="true"  [(ngModel)]="alert.chargeBack.dateEmailedToField" [showIcon]="true" [showOnFocus]="false"></p-calendar>     </div>
+                <label class="col-xs-2" for="dateEmailedToField">Date Emailed To Field</label>
+                <p-calendar class="col-xs-10" [(ngModel)]="alert.chargeBack.dateEmailedToField" [showIcon]="true" [showOnFocus]="false"></p-calendar>     </div>
             <div class="form-group col-md-6">
-                <label for="dateSubmittedOrFaxed">Date Submitted or Faxed</label>
-                <p-calendar [utc]="true"  [(ngModel)]="alert.chargeBack.dateSubmittedOrFaxed" [showIcon]="true" [showOnFocus]="false"></p-calendar>      </div>
+                <label class="col-xs-2" for="dateSubmittedOrFaxed">Date Submitted or Faxed</label>
+                <p-calendar class="col-xs-10" [(ngModel)]="alert.chargeBack.dateSubmittedOrFaxed" [showIcon]="true" [showOnFocus]="false"></p-calendar>      </div>
             <div class="form-group col-md-6">
-                <label for="dateOfFieldResponse">Date of Field Response</label>
-                <p-calendar [utc]="true"  [(ngModel)]="alert.chargeBack.dateOfFieldResponse" [showIcon]="true" [showOnFocus]="false"></p-calendar>
+                <label class="col-xs-2" for="dateOfFieldResponse">Date of Field Response</label>
+                <p-calendar class="col-xs-10" [(ngModel)]="alert.chargeBack.dateOfFieldResponse" [showIcon]="true" [showOnFocus]="false"></p-calendar>
             </div>
             <div class="form-group col-md-6">
+                <label class="col-xs-2" for="typeOfFieldResponse">Sent Method&nbsp;&nbsp;</label>
                 <div class="radio-inline">
                     <label>
                         <input class="radio-inline" type="radio" name="faxedOrUploaded" value="F" [(ngModel)]="alert.chargeBack.faxedOrUploaded" />Faxed
@@ -80,7 +81,7 @@
             </div>     
             <div style="clear:both"></div>
             <div class="form-group col-md-6">
-               <label for="typeOfFieldResponse">Type of Field Response&nbsp;&nbsp;</label>
+               <label class="col-xs-2" for="typeOfFieldResponse">Type of Field Response&nbsp;&nbsp;</label>
                 <div class="radio-inline">
                     <label>
                         <input class="radio-inline" type="radio" name="typeOfFieldResponse" value="N/A" [(ngModel)]="alert.chargeBack.typeOfFieldResponse" />N/A
@@ -91,27 +92,40 @@
                         <input class="radio-inline" type="radio" name="typeOfFieldResponse" value="N/R" [(ngModel)]="alert.chargeBack.typeOfFieldResponse" />N/R
                     </label>
                 </div>
-            </div>      
+            </div>    
             <div class="form-group col-md-6">
-                <label for="disputedAndWonAmount">Disputed Amount</label>
-                $<input currencyMask type="text" class="form-control" name="disputedAmount" id="disputedAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.disputedAmount">
+                <label class="col-xs-2" for="dateOfFieldResponse">Results Notice Date</label>
+                <p-calendar class="col-xs-9" [(ngModel)]="alert.chargeBack.resultsNoticeDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="col-xs-2" for="disputedAndWonAmount">Disputed Amount</label>
+                <div class="col-xs-9">
+                    <input currencyMask type="text" style="width:30%" class="form-control" name="disputedAmount" id="disputedAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.disputedAmount">
+                </div>
             </div> 
             <div class="form-group col-md-6">
-                <label for="automaticLossAmount">Automatic Loss Amount</label>
-                $<input currencyMask type="text" class="form-control" name="automaticLossAmount" id="automaticLossAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.automaticLossAmount">
+                <label class="col-xs-2" for="automaticLossAmount">Automatic Loss Amount</label>
+                <div class="col-xs-9">
+                    <input currencyMask type="text" style="width:30%" class="form-control" name="automaticLossAmount" id="automaticLossAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.automaticLossAmount">
+                </div>
             </div>
             <div class="form-group col-md-6">
-                <label for="approvedChargeBackAmount">Approved Charge Back Amount</label>
-                $<input currencyMask type="text" class="form-control" name="approvedChargeBackAmount" id="approvedChargeBackAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.approvedChargeBackAmount">
-
+                <label class="col-xs-2"  for="approvedChargeBackAmount">Approved Charge Back Amount</label>
+                <div class="col-xs-9">
+                    <input currencyMask type="text" style="width:30%" class="form-control" name="approvedChargeBackAmount" id="approvedChargeBackAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.approvedChargeBackAmount">
+                </div>
             </div>
             <div class="form-group col-md-6">
-                <label for="disputedAndWonAmount">Disputed and Won Amount</label>
-                $<input currencyMask type="text" class="form-control" name="disputedAndWonAmount" id="disputedAndWonAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.disputedAndWonAmount">
+                <label class="col-xs-2"  for="disputedAndWonAmount">Disputed and Won Amount</label>
+                <div class="col-xs-9">
+                    <input currencyMask type="text" class="form-control" style="width:30%" name="disputedAndWonAmount" id="disputedAndWonAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.disputedAndWonAmount">
+                </div>
             </div>
             <div class="form-group col-md-6">
-                <label for="disputedAndLostAmount">Disputed and Lost Amount</label>
-                $<input currencyMask type="text" class="form-control" name="disputedAndLostAmount" id="disputedAndLostAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.disputedAndLostAmount">
+                <label class="col-xs-2"  for="disputedAndLostAmount">Disputed and Lost Amount</label>
+                <div class="col-xs-9">
+                    <input currencyMask type="text" class="form-control" style="width:30%" name="disputedAndLostAmount" id="disputedAndLostAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="alert.chargeBack.disputedAndLostAmount">
+                </div>
             </div>
             <div class="row col-md-12">
                 <button type="button" class="col-md-1 btn btn-primary" (click)="onSaveWork()">Save</button>
