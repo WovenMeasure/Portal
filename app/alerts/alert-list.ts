@@ -186,7 +186,18 @@ export class AlertListComponent {
             data => {
                 if (data.success) {
                     this.msgs.push({ severity: 'success', summary: "Alert dismissed" });
-                    this.alerts.splice(this.alerts.indexOf(alert), 1);
+
+                    var index = -1;
+                    for (var x = 0; x < this.alerts.length; x++) {
+                        if (this.alerts[x].alert == alert)
+                        {
+                            index = x;
+                            break;
+                        }
+                    }
+
+                    console.log(index);
+                    this.alerts.splice(index, 1);
                 }
                 else {
                     this.msgs.push({ severity: 'error', summary: data.errorMessage });
