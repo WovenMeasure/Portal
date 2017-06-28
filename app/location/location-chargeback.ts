@@ -127,6 +127,9 @@ export class LocationChargeBackComponent {
                 if (data.success) {
                     this.msgs.push({ severity: 'success', summary: "Charge Back Work Saved" });
                     this.locationChargebackID = data.recordID;
+                    if (this.chargeBack.workItemStatusId == 1) {
+                        this.chargeBack.workItemStatus = { description: "New" };
+                    }
                 }
                 else {
                     this.msgs.push({ severity: 'error', summary: data.errorMessage });
@@ -203,7 +206,7 @@ export class LocationChargeBackComponent {
                 if (data.success) {
                     this.msgs.push({ severity: 'success', summary: "Chargeback Set To In Progress" });
                     this.chargeBack.workItemStatusID = _self.constants.alertStatusInProgress;
-                    this.chargeBack.workItemStatus.description = "In Progress";
+                    this.chargeBack.workItemStatus = { description: "In Progress" };
                 }
                 else {
                     this.msgs.push({ severity: 'error', summary: data.errorMessage });
