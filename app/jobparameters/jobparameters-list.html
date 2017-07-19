@@ -1,7 +1,7 @@
 ﻿<p-growl [value]="msgs"></p-growl>
 <div class="col-md-12">
     <h2 class="col-md-4"><strong>Job Parameters</strong></h2>
-    <p-dataTable [value]="jobParameters" selectionMode="single" [(selection)]="selectedParam" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
+    <p-dataTable [immutable]="false" [value]="jobParameters" selectionMode="single" [(selection)]="selectedParam" (onRowSelect)="onRowSelect($event)" [paginator]="true" rows="15" [responsive]="true">
         <p-column field="jobName" header="Job" [sortable]="true"></p-column>
         <p-column field="key" header="Key" [sortable]="true"></p-column>
         <p-column styleClass="col-md-2" field="value" header="Value" [sortable]="true"></p-column>

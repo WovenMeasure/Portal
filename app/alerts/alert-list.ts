@@ -85,7 +85,7 @@ export class AlertListComponent {
             this.gridOptions = saved;
             setTimeout(() => {
                 this.dataTable.filter("", "", "");
-                this.dataTable.paginate(this.gridOptions);                 
+                this.dataTable.paginate();                 
             }, 0);
         }
         else {

@@ -48,7 +48,7 @@
         <div class="clearfix">&nbsp;</div>
         <hr />
         <strong>Transactions</strong>
-        <p-dataTable [value]="transactions" tableStyleClass="table-striped">
+        <p-dataTable [immutable]="false" [value]="transactions" tableStyleClass="table-striped">
             <p-column field="customerAccountNumber" header="Customer Account" sortable="true" styleClass="col-md-1"></p-column>
             <p-column field="trans_DateTime" sortable="true" styleClass="col-md-2">
                 <template pTemplate="header">
@@ -71,7 +71,7 @@
         <p-editor [(ngModel)]="newNote" [style]="{'height':'100px'}"></p-editor>
         <h4><button class="btn btn-primary" [disabled]="!newNote || newNote.length == 0" (click)="saveNewNote()"><i class="fa fa-save"></i>&nbsp;&nbsp;Save New Note</button></h4>
         <hr />
-        <p-dataTable [value]="alert?.notes" tableStyleClass="table-striped pull-right">
+        <p-dataTable [immutable]="false" [value]="alert?.notes" tableStyleClass="table-striped pull-right">
             <p-column field="noteDateTime" sortable="true" styleClass="col-md-2">
                 <template pTemplate="header">
                     Note Date Time

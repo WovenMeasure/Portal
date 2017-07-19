@@ -97,7 +97,7 @@
         <hr />
         <div><strong>Credit Card Cases</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary btn-sm" (click)="addChargeback()">Add Chargeback</button>
         <input #gb type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>
-        <p-dataTable (onRowSelect)="onCaseSelect($event)"  [value]="cases" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb">
+        <p-dataTable [immutable]="false" (onRowSelect)="onCaseSelect($event)"  [value]="cases" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb">
             <p-column field="caseNumber" header="Case Number" sortable="true" styleClass="col-md-2"></p-column>
             <p-column field="workItemStatusDescription" header="Status" sortable="true" styleClass="col-md-2"></p-column>
             <p-column field="chargeBackNoticeDate" sortable="true" styleClass="col-md-3">
@@ -117,7 +117,7 @@
         <hr />
         <strong>Transactions</strong>
         <input #gb2 type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>
-        <p-dataTable [value]="transactions"  [pageLinks]="5" selectionMode="single"tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb2">
+        <p-dataTable [immutable]="false" [value]="transactions"  [pageLinks]="5" selectionMode="single"tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb2">
             <p-column field="customerAccountNumber" header="Customer Account" sortable="true" styleClass="col-md-1"></p-column>
             <p-column field="trans_DateTime" sortable="true" styleClass="col-md-2">
                 <template pTemplate="header">

@@ -11,7 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SelectItem } from 'primeng/primeng';
 import { Message, ConfirmationService, ConfirmDialogModule, EditorModule, SharedModule } from 'primeng/primeng';
 import * as moment from 'moment';
-
+import { FileUploadComponent } from "../shared/fileupload/fileupload";
 
 @Component({
     templateUrl: 'location-chargeback.html',
@@ -38,6 +38,11 @@ export class LocationChargeBackComponent {
     newNote: string;
     locationID: any;
     location: any;
+    addingAttachment: boolean = false;
+    attachments: any[];
+    attachmentShortDescription: string;
+
+    @ViewChild(FileUploadComponent) private _fileUpload: FileUploadComponent;
 
     ngOnInit() {     
         this.contextService.currentSection = "locations";
@@ -79,6 +84,7 @@ export class LocationChargeBackComponent {
                     if (data.chargeBack.resultsNoticeDate)
                         this.chargeBack.resultsNoticeDate = new Date(data.chargeBack.resultsNoticeDate);
 
+                    this.attachments = data.attachments;
                 }
                 else {
                     this.msgs.push({ severity: 'error', summary: data.errorMessage });
@@ -130,6 +136,38 @@ export class LocationChargeBackComponent {
                     if (this.chargeBack.workItemStatusId == 1) {
                         this.chargeBack.workItemStatus = { description: "New" };
                     }
+                }
+                else {
+                    this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                }
+            },
+            (err) => {
+                this.msgs.push({ severity: 'error', summary: err });
+            },
+            () => {
+                this.spinnerService.finishCurrentStatus();
+            });
+    }
+
+    saveAttachment() {
+        var data = {
+            attachment: {
+                entityID: this.locationChargebackID,
+                shortDescription: this.attachmentShortDescription,
+                fileTrueName: this._fileUpload.fileName,
+                mimeType: this._fileUpload.mimeType
+            },
+            fileBytes: this._fileUpload.base64Response
+        }; 
+        this.spinnerService.postStatus('Adding Attachment');
+        let $observable = this.proxyService.Put("attachment", data);
+        $observable.subscribe(
+            data => {
+                if (data.success) {
+                    this.msgs.push({ severity: 'success', summary: "Attachment added" });
+                    this.attachments.push(data.attachment);
+                    this.attachmentShortDescription = "";
+                    this._fileUpload.reset();
                 }
                 else {
                     this.msgs.push({ severity: 'error', summary: data.errorMessage });

@@ -78,7 +78,7 @@ export class AlertDetailLocationComponent {
 
     loadAlertDetail() {
         this.spinnerService.postStatus('Loading');
-        let observable$ = this.alertService.loadAlertDetail(this.alertId);
+        let observable$ = this.alertService.loadAlertDetail(this.alertId, false);
         observable$.subscribe(
             data => {
                 if (data.success) {

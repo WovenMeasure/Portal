@@ -15,7 +15,7 @@
      </div>
      <input #gb type="text" style="margin-top:20px" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-top:20px;margin-right:10px" aria-hidden="true"></i>
     <div class="clearfix"></div>
-    <p-dataTable (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" scrollable="true" scrollHeight="700px" [pageLinks]="5" selectionMode="single" (onRowSelect)="onRowSelect($event)" [value]="locations" tableStyleClass="table-striped pull-right" [paginator]="true" [rows]="100" [globalFilter]="gb">
+    <p-dataTable [immutable]="false" (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" scrollable="true" scrollHeight="700px" [pageLinks]="5" selectionMode="single" (onRowSelect)="onRowSelect($event)" [value]="locations" tableStyleClass="table-striped pull-right" [paginator]="true" [rows]="100" [globalFilter]="gb">
        <p-column field="locationID" header="ID" sortable="true" styleClass="col-md-2"></p-column>
        <p-column field="name" header="Name" sortable="true" styleClass="col-md-4"></p-column>
        <p-column field="contactName" header="Contact" sortable="true" styleClass="col-md-3"></p-column>

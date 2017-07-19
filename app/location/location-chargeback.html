@@ -127,7 +127,7 @@
             <p-editor [(ngModel)]="newNote" [style]="{'height':'100px'}"></p-editor>
             <h4><button class="btn btn-primary" [disabled]="!newNote || newNote.length == 0" (click)="saveNewNote()"><i class="fa fa-save"></i>&nbsp;&nbsp;Save New Note</button></h4>
             <hr />
-            <p-dataTable [value]="chargeBack?.notes" tableStyleClass="table-striped pull-right">
+            <p-dataTable [immutable]="false" [value]="chargeBack?.notes" tableStyleClass="table-striped pull-right">
                 <p-column field="noteDateTime" sortable="true" styleClass="col-md-2">
                     <template pTemplate="header">
                         Note Date Time
@@ -150,8 +150,38 @@
                 </p-column>
             </p-dataTable>
         </div>
+        <div style="clear:both"></div>
+        <hr />
+        <h3>Attachments</h3><h4><button class="btn btn-primary" (click)="addingAttachment=true"><i class="fa fa-upload">&nbsp;&nbsp;Add Attachment</i></button></h4>
+        <div *ngIf="addingAttachment" style="border:1px solid #C7C7C7; padding:5px;">
+            <div class="col-md-3">Description: <input [(ngModel)]="attachmentShortDescription" /></div>
+            <div class="col-md-4">
+                <file-upload [(fileName)]="fileName" [(mimeType)]="mimeType" [(base64Response)]="base64Response"></file-upload>
+            </div>
+            <button [disabled]="!fileName || fileName.length == 0 || attachmentShortDescription.length == 0" class="btn btn-sm btn-primary pull-left" (click)="saveAttachment()">Save Attachment</button>
+            <div style="clear:both"></div>
+        </div>
+        <p-dataTable [immutable]="false" *ngIf="attachments" [value]="attachments" tableStyleClass="table-striped pull-right">
+            <p-column field="fileTrueName" header="File" sortable="true" styleClass="col-md-2"></p-column>
+            <p-column field="shortDescription" header="Description" sortable="true" styleClass="col-md-3"></p-column>
+            <p-column field="addDateTime" sortable="true" styleClass="col-md-1">
+                <template pTemplate="header">
+                    Added Date Time
+                </template>
+                <template let-attachment="rowData" pTemplate="body">
+                    {{attachment.addDateTime | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
+                </template>
+            </p-column>
+            <p-column field="addedByUser.userName" header="User" sortable="true" styleClass="col-md-2"></p-column>
+            <p-column header="Commands" styleClass="col-md-1">
+                <template let-attachment="rowData" pTemplate="body">
+                    <a href="{{constants.BaseAttachmentUri + attachment.attachmentID}}"><i class="fa fa-2x fa-download" title="Download" (click)="getAttachment(attachment)"></i></a>
+                </template>
+            </p-column>
+        </p-dataTable>      
         <p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>
     </div>
+    <br />
 </div>
 
 

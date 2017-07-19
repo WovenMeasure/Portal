@@ -1,5 +1,5 @@
 ﻿//our root app component
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import { Component, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
 import { ContextService } from '../../common/services/context-service';
 import { LoggerService } from '../../common/services/logger-service';
 import { SpinnerService } from '../../common/services/spinner-service';
@@ -39,9 +39,10 @@ export class FileUploadComponent {
     }
 
     reset() {
-        $("#chooseFile").removeData(this.fileName);
-        //$("#chooseFile").val(null);
+        this.el.nativeElement.value = null;
     }
+
+    @ViewChild('fileChoose') el: ElementRef;
 
     filechosen($event): void {
         var self = this;
@@ -52,7 +53,7 @@ export class FileUploadComponent {
             var buffer = reader.result;
             var binary = '';
             var bytes = new Uint8Array(buffer);
-            var len = bytes.byteLength;
+            var len = bytes.byteLength; 
             for (var i = 0; i < len; i++) {
                 binary += String.fromCharCode(bytes[i]);
             }

@@ -3,7 +3,7 @@
     <h2 class="col-md-4"><strong>Credit Card Cases</strong></h2>
     <input #gb type="text" style="margin-top:20px;" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-top:20px;margin-right:10px" aria-hidden="true"></i>
     <div style="clear:both"></div>
-    <p-dataTable (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" (onRowSelect)="onCaseSelect($event)"  [value]="cases" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb">
+    <p-dataTable [immutable]="false" (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" (onRowSelect)="onCaseSelect($event)"  [value]="cases" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb">
         <p-column field="caseNumber" header="Case Number" sortable="true" styleClass="col-md-2"></p-column>
         <p-column field="workItemStatusDescription" header="Status" sortable="true" styleClass="col-md-2"></p-column>
         <p-column field="locationID" header="Location" sortable="true" styleClass="col-md-2"></p-column>

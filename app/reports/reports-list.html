@@ -3,7 +3,7 @@
     <h2 class="col-md-4"><strong>Reports</strong></h2>
     <input #gb type="text" style="margin-top:20px" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-top:20px;margin-right:10px" aria-hidden="true"></i>
     <div class="clearfix"></div>
-    <p-dataTable scrollable="true" scrollHeight="700px" [pageLinks]="5" [value]="reports" tableStyleClass="table-striped" [paginator]="true" [rows]="100" [globalFilter]="gb">
+    <p-dataTable [immutable]="false" scrollable="true" scrollHeight="700px" [pageLinks]="5" [value]="reports" tableStyleClass="table-striped" [paginator]="true" [rows]="100" [globalFilter]="gb">
        <p-column field="name" header="Report" sortable="true" styleClass="col-md-3"></p-column>
        <p-column field="url" styleClass="col-md-2">
            <template pTemplate="header">

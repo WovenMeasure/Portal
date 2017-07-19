@@ -12,7 +12,7 @@
     <label class="col-md-offset-2"><input class="checkbox" style="display:inline" type="checkbox" value="Show In Progress Only" [(ngModel)]="inProgressOnly" (click)="toggleShowInProgress()"/>&nbsp;&nbsp;Show in progress only</label>
     <input #gb type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>
     <div class="clearfix"></div>
-    <p-dataTable (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" scrollable="true" scrollHeight="700px" [pageLinks]="5" selectionMode="single" (onRowSelect)="onRowSelect($event)" [value]="alerts" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="20" [globalFilter]="gb">
+    <p-dataTable [immutable]="false" (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" scrollable="true" scrollHeight="700px" [pageLinks]="5" selectionMode="single" (onRowSelect)="onRowSelect($event)" [value]="alerts" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="20" [globalFilter]="gb">
        <p-column field="alertDateTime" sortable="true" styleClass="col-md-2">
            <template pTemplate="header">
                Alert Date Time   

@@ -113,7 +113,7 @@ export class LocationDetailComponent {
                     }
                 }
                 else {
-                    this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                    this.msgs.push({ severity: 'error', summary: data.responseMessage });
                 }
             },
             (err) => {

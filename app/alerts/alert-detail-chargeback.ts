@@ -12,10 +12,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SelectItem } from 'primeng/primeng';
 import { Message, ConfirmationService, ConfirmDialogModule, EditorModule, SharedModule } from 'primeng/primeng';
 import { DatepickerModule } from 'ng2-bootstrap';
+import { FileUploadComponent } from "../shared/fileupload/fileupload";
 
 @Component({
     templateUrl: 'alert-detail-chargeback.html',
-    providers: [ConfirmationService]
+    providers: [ConfirmationService, FileUploadComponent]
 })
 export class AlertDetailChargeBackComponent {    
     constructor(private router: Router, 
@@ -39,6 +40,11 @@ export class AlertDetailChargeBackComponent {
     newNote: string;
     transactions: any[] = [];
     location: any;
+    addingAttachment: boolean = false;
+    attachments: any[];
+    attachmentShortDescription: string;
+
+    @ViewChild(FileUploadComponent) private _fileUpload: FileUploadComponent;
 
     ngOnInit() {
         this.contextService.currentSection = "alerts";
@@ -48,7 +54,7 @@ export class AlertDetailChargeBackComponent {
 
     loadAlertDetail() {
         this.spinnerService.postStatus('Loading');
-        let observable$ = this.alertService.loadAlertDetail(this.alertId);
+        let observable$ = this.alertService.loadAlertDetail(this.alertId, false);
         observable$.subscribe(
             data => {
                 if (data.success) {
@@ -73,6 +79,8 @@ export class AlertDetailChargeBackComponent {
 
                     this.transactions = data.transactions;
                     this.location = data.location;
+                    this.attachments = data.attachments;
+
                 }
             },
             (err) => { },
@@ -80,6 +88,38 @@ export class AlertDetailChargeBackComponent {
                 this.spinnerService.finishCurrentStatus();
             });   
     }   
+
+    saveAttachment() {
+        var data = {
+            attachment: {
+                entityID: this.alert.alertID,
+                shortDescription: this.attachmentShortDescription,
+                fileTrueName: this._fileUpload.fileName,
+                mimeType: this._fileUpload.mimeType
+            },
+            fileBytes: this._fileUpload.base64Response
+        };
+        this.spinnerService.postStatus('Adding Attachment');
+        let $observable = this.proxyService.Put("attachment", data);
+        $observable.subscribe(
+            data => {
+                if (data.success) {
+                    this.msgs.push({ severity: 'success', summary: "Attachment added" });
+                    this.attachments.push(data.attachment);
+                    this.attachmentShortDescription = "";
+                    this._fileUpload.reset();
+                }
+                else {
+                    this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                }
+            },
+            (err) => {
+                this.msgs.push({ severity: 'error', summary: err });
+            },
+            () => {
+                this.spinnerService.finishCurrentStatus();
+            });   
+    }
 
     saveNewNote() {
         var data = {

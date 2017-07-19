@@ -34,8 +34,8 @@ export class AlertService {
         return observable$;
     }
 
-    public loadAlertDetail(alertId: string): Observable<any> {
-        let observable$ = this.proxyService.Get("alert/detail/" + alertId);
+    public loadAlertDetail(alertId: string, includeTransactions: boolean): Observable<any> {
+        let observable$ = this.proxyService.Get("alert/detail/" + alertId + "/" + includeTransactions);
         return observable$;
     }
    

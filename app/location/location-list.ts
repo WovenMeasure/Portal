@@ -60,7 +60,7 @@ export class LocationListComponent {
         if (saved) {
             setTimeout(() => {
                 this.dataTable.filter("", "", "");
-                this.dataTable.paginate(this.gridOptions);               
+                this.dataTable.paginate();               
             }, 0);
         }
         else {
