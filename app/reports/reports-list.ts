@@ -32,12 +32,24 @@ export class ReportListComponent {
         this.reports = new Array();
         this.reports.push(
             {
+                name: 'Armored Car Report',
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fArmoredCarReport'
+            },
+            {
+                name: 'Credit Card Activity Spike Report',
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fSpikeCreditCardActivityReport'
+            },
+            {
                 name: 'Credit Card Chargeback Disputes',
-                url: 'http://portal-laz.wovenmeasure.com/ReportServer/Pages/ReportViewer.aspx?%2fReport+Project1%2fCCChargeBackDispute&rs:Command=Render'
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fCCChargeBackDispute&rs:Command=Render'
+            },
+            {
+                name: 'Location Bank Account Report',
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fLocationBankAccounts&rs:Command=Render'
             },
             {
                 name: 'No Credit Card Activity Report',
-                url: 'http://portal-laz.wovenmeasure.com/ReportServer/Pages/ReportViewer.aspx?%2fReport+Project1%2fNoCreditCardActivityReport&rs:Command=Render'
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fNoCreditCardActivityReport&rs:Command=Render'
             }
         );
     }       
