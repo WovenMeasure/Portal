@@ -50,7 +50,11 @@ export class AlertDetailChargeBackComponent {
         this.contextService.currentSection = "alerts";
         this.alertId = this.route.snapshot.queryParams['i'];
         this.loadAlertDetail();      
-    }   
+    }  
+    
+    addLocation() {
+        this.router.navigate(['/location/add-location']);
+    }
 
     loadAlertDetail() {
         this.spinnerService.postStatus('Loading');

@@ -55,6 +55,9 @@ export class LocationListComponent {
         }
 
     }
+    addLocation() {
+        this.router.navigate(['/location/add-location']);
+    }
     loadGridPageOptions() {
         var saved = this.contextService.getGridOption(this.localStorageGridOptionsKey);
         if (saved) {

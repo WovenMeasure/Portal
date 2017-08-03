@@ -1,0 +1,69 @@
+﻿<p-growl [value]="msgs"></p-growl>
+<div class="col-md-12">
+    <div>
+        <h2>Add Location</h2>
+        <form #myForm="ngForm" (ngSubmit)="onAddLocation($event)" autocomplete="false">
+            <div class="form-group col-md-12">
+                <label for="name">Location ID *</label>
+                <input required type="text" class="form-control" name="locationID" id="locationID" placeholder="LocationID" [(ngModel)]="newLocation.locationId">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="name">Name *</label>
+                <input required type="text" class="form-control" name="name" id="name" placeholder="Name" [(ngModel)]="newLocation.name">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="address1">Address *</label>
+                <input required type="text" class="form-control" name="address1" id="address1" placeholder="Address" [(ngModel)]="newLocation.address1">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="city">City *</label>
+                <input required type="text" class="form-control" name="city" id="city" placeholder="City" [(ngModel)]="newLocation.city">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="state">State *</label>
+                <p-dropdown placeholder="Select a state" name="state" [required]="true" [options]="states" [filter]="true" [(ngModel)]="newLocation.state"></p-dropdown>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="zip">Zip *</label>
+                <input required type="text" class="form-control" name="zip" id="zip" placeholder="Zip" [(ngModel)]="newLocation.zip">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="region">Region *</label>
+                <p-dropdown placeholder="Select region" name="region" [required]="true" [options]="regions" [filter]="true" [(ngModel)]="newLocation.regionID"></p-dropdown>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="corpName">Corp Name</label>
+                <input type="text" class="form-control" name="corpName" id="corpName" placeholder="Corp Name" [(ngModel)]="newLocation.corpName">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="contactName">Contact Name *</label>
+                <input required type="text" class="form-control" name="contactName" id="contactName" placeholder="Contact Name" [(ngModel)]="newLocation.contactName">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="merchantID">Merchant ID *</label>
+                <input type="text" required class="form-control" id="merchantID" name="merchantID" placeholder="Merchant ID" [(ngModel)]="newLocation.merchantID">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="abaNum">ABA #</label>
+                <input type="text" class="form-control" name="abaNum" id="abaNum" placeholder="ABA #" [(ngModel)]="newLocation.abaNo">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="amexSE">Amex SE</label>
+                <input type="text" class="form-control" id="amexSE" name="amexSE" placeholder="AMEX SE" [(ngModel)]="newLocation.amexSE">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="corpName">DDA Act Number</label>
+                <input type="text" class="form-control" id="ddA_Account_No" name="ddA_Account_No" placeholder="DDA Account #" [(ngModel)]="newLocation.ddA_Account_No">
+            </div> 
+            <div class="form-group col-md-6">
+                <label for="discoverSE">Discover SE</label>
+                <input type="text" class="form-control" id="discoverSE" name="discoverSE" placeholder="Discover SE" [(ngModel)]="newLocation.discoverSE">
+            </div>         
+            <div class="small bold" style="color:red" *ngIf="!myForm.valid">All fields preceeded by an asterisk, *, must be filled in before the save button will be available.</div>
+            <button type="submit" class="col-md-1 btn btn-default" *ngIf="myForm.valid" [ngClass]="{ 'btn-default' : !myForm.valid, 'btn-primary': myForm.valid }">Save</button>
+        </form>
+    </div>   
+</div>
+
+
+

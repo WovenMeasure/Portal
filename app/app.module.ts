@@ -57,6 +57,7 @@ import { LocationChargeBackComponent } from './location/location-chargeback';
 import { JobParametersListComponent } from './jobparameters/jobparameters-list';
 import { ReportListComponent } from './reports/reports-list';
 import { CasesListComponent } from './cases/cases-list';
+import { AddLocationComponent } from './location/add-location';
 
 /*************************************************************Directives/dto*******************************************************************/
 import { CanActivateGuard } from "./app.authguard"; 
@@ -72,7 +73,7 @@ import { PasswordValidator} from './changePassword/changePassword.directive';
         MasterPageComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent, LocationChargeBackComponent,
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, LocationDetailComponent, JobParametersListComponent,
         PasswordValidator, FileUploadComponent, DashboardMainComponent, JobLogListComponent, LocationListComponent, ReportListComponent,
-        CasesListComponent
+        CasesListComponent, AddLocationComponent
        ],
 
     entryComponents: [],
