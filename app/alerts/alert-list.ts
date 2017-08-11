@@ -180,7 +180,8 @@ export class AlertListComponent {
         this.edit(event.data);
     }
 
-    dismiss(alert: any) {
+    dismiss($event: any, alert: any) {
+        $event.stopPropagation();
         let $observable = this.proxyService.Post("alert/dismiss", { alertID: alert.alertID });
         $observable.subscribe(
             data => {

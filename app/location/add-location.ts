@@ -86,7 +86,7 @@ export class AddLocationComponent {
             data => {
                 if (data.success) {
                     this.msgs.push({ severity: 'success', summary: "Location added" });
-                    _self.router.navigate(['/alert/alert-list']);
+                    _self.router.navigate(['/location/location-detail'], { queryParams: { i: data.recordIDString } });
                 }
                 else {
                     this.msgs.push({ severity: 'error', summary: data.errorMessage });
@@ -145,7 +145,7 @@ export class AddLocationComponent {
                             _self.router.navigate(['/alert/alert-list']);
                         }
                         else {
-                            this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                            this.msgs.push({ severity: 'error', summary: data.responseMessage });
                         }
                     },
                     (err) => {

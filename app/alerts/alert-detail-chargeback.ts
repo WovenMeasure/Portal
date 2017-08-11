@@ -235,7 +235,7 @@ export class AlertDetailChargeBackComponent {
                     data => {
                         if (data.success) {
                             this.msgs.push({ severity: 'success', summary: "Alert Resolved" });
-                            _self.router.navigate(['/alert/alert-list']);
+                            _self.router.navigate(['/cases/cases-list']);
                         }
                         else {
                             this.msgs.push({ severity: 'error', summary: data.errorMessage });

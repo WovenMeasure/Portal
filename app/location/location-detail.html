@@ -70,6 +70,14 @@
             <div class="form-group col-md-6">
                 <label for="gwProcessor">Gateway Processor</label>
                 <input type="text" class="form-control" id="gwProcessor" name="gwProcessor" placeholder="Gateway Processor" [(ngModel)]="location.gatewayProcessor">
+            </div>                      
+            <div class="form-group col-md-2">
+                <label for="acct">Use Client Account</label>&nbsp;
+                <input type="checkbox" class="checkbox-inline" id="acct" name="acct" placeholder="Use Client Account" [(ngModel)]="location.useClientAccount">
+            </div> 
+            <div class="form-group col-md-4">
+                <label for="acctNm">Client Account Number</label>
+                <input [disabled]="!location.useClientAccount" type="text" class="form-control" id="acctNm" name="acctNm" placeholder="Client Account Number" [(ngModel)]="location.clientAccount">
             </div> 
             <div class="form-group col-md-6">
                 <label for="acar">Armored Car Company</label>
@@ -109,12 +117,12 @@
                     Charge Back Notice Date
                 </template>
                 <template let-chargeBack="rowData" pTemplate="body">
-                    {{chargeBackNoticeDate | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
+                    {{chargeBack.chargeBackNoticeDate | moment: 'format': 'MM/DD/YYYY' }}
                 </template>
             </p-column>         
             <p-column header="Commands" styleClass="col-md-1">
                 <template let-case="rowData" pTemplate="body">
-                    <i *ngIf="case.type == 2" class="fa fa-2x fa-times-circle-o" title="Delete Case" (click)="dismiss(case)"></i>
+                    <i class="fa fa-2x fa-times-circle-o" title="Delete Case" (click)="dismiss($event, case)"></i>
                 </template>
             </p-column>
         </p-dataTable>  

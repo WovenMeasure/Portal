@@ -59,6 +59,18 @@
                 <label for="discoverSE">Discover SE</label>
                 <input type="text" class="form-control" id="discoverSE" name="discoverSE" placeholder="Discover SE" [(ngModel)]="newLocation.discoverSE">
             </div>         
+            <div class="form-group col-md-2">
+                <label for="acct">Use Client Account</label>&nbsp;
+                <input type="checkbox" class="checkbox-inline" id="acct" name="acct" placeholder="Use Client Account" [(ngModel)]="newLocation.useClientAccount">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="acctNm">Client Account Number</label>
+                <input [disabled]="!newLocation.useClientAccount" type="text" class="form-control" id="acctNm" name="acctNm" placeholder="Client Account Number" [(ngModel)]="newLocation.clientAccount">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="acar">Armored Car Company</label>
+                <input type="text" class="form-control" id="acar" name="acar" placeholder="Armored Car Company" [(ngModel)]="newLocation.armoredCarCompany">
+            </div> 
             <div class="small bold" style="color:red" *ngIf="!myForm.valid">All fields preceeded by an asterisk, *, must be filled in before the save button will be available.</div>
             <button type="submit" class="col-md-1 btn btn-default" *ngIf="myForm.valid" [ngClass]="{ 'btn-default' : !myForm.valid, 'btn-primary': myForm.valid }">Save</button>
         </form>

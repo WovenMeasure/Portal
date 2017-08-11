@@ -41,11 +41,13 @@ export class LocationDetailComponent {
     regions: SelectItem[];
     newLocationID: string = '';
     ngOnInit() {
+        var _self = this;
         this.contextService.currentSection = "locations";
         this.locationId = this.route.snapshot.queryParams['i'];
-        this.loadLocationDetail();
         this.loadStates();
-        this.loadRegions();
+        this.loadRegions().then(function () {
+            _self.loadLocationDetail();
+        })
     }   
 
     loadStates() { 
@@ -57,17 +59,24 @@ export class LocationDetailComponent {
     }
 
     loadRegions() {
-        this.regions = [];
-        let observable$ = this.lookupService.loadRegions();
-        observable$.subscribe(
-            data => {
-                if (data.success) {
-                    this.regions.push({ label: 'Select Region', value: null });
-                    for (let n: number = 0; n < data.regions.length; n++) {
-                        this.regions.push({ label: data.regions[n].regionDesc, value: data.regions[n].strRegionID });
+        let promise = new Promise((resolve, reject) => {
+            this.regions = [];
+            let observable$ = this.lookupService.loadRegions();
+            observable$.subscribe(
+                data => {
+                    if (data.success) {
+                        this.regions.push({ label: 'Select Region', value: null });
+                        for (let n: number = 0; n < data.regions.length; n++) {
+                            this.regions.push({ label: data.regions[n].regionDesc, value: data.regions[n].strRegionID });
+                        }
+                        resolve();
                     }
-                }
-            });   
+                    else {
+                        reject();
+                    }
+                });
+        });
+        return promise;     
     }
 
     loadLocationDetail() {
@@ -250,13 +259,14 @@ export class LocationDetailComponent {
         this.router.navigate(['/location/location-chargeback'], { queryParams: { i: 0, l: this.locationId } });
     }
 
-    dismiss(chargeBack: any) {
+    dismiss($event: any, chargeBack: any) {
+        $event.stopPropagation();
         var _self = this;
         this.confirmationService.confirm({
             message: 'Are you sure that you want to mark delete this case?',
             accept: () => {
                 this.spinnerService.postStatus('Deleting case');
-                let $observable = this.proxyService.Delete("cases/delete/" + chargeBack.id);
+                let $observable = this.proxyService.Delete("cases/delete/" + chargeBack.cbid + "/" + chargeBack.type);
                 $observable.subscribe(
                     data => {
                         if (data.success) {
