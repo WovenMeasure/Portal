@@ -18,10 +18,12 @@ import { WVDatepickerModule } from './shared/datepicker/datepicker.module';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
 import {
     InputTextModule, DataTableModule, ButtonModule, DialogModule, GrowlModule, DropdownModule, ConfirmDialogModule, ConfirmationService,
-    CalendarModule, EditorModule, SharedModule, InputMaskModule, FileUploadModule
+    CalendarModule, EditorModule, SharedModule, InputMaskModule, FileUploadModule, TabViewModule
 } from 'primeng/primeng';
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
+
+import { TabsModule, ModalModule } from 'ngx-bootstrap';
 
 
 /*************************************************************Service*******************************************************************/
@@ -58,25 +60,27 @@ import { JobParametersListComponent } from './jobparameters/jobparameters-list';
 import { ReportListComponent } from './reports/reports-list';
 import { CasesListComponent } from './cases/cases-list';
 import { AddLocationComponent } from './location/add-location';
+import { AddReturnComponent } from "./location/add-return";
 
 /*************************************************************Directives/dto*******************************************************************/
 import { CanActivateGuard } from "./app.authguard"; 
-import { PasswordValidator} from './changePassword/changePassword.directive';
-
+import { PasswordValidator } from './changePassword/changePassword.directive';
+ 
  
 
 @NgModule({
     imports: [BrowserAnimationsModule, BrowserModule, routing, HttpModule, JsonpModule, FormsModule, Ng2PaginationModule, Ng2PageScrollModule.forRoot(), NgbModule.forRoot(), WVDatepickerModule.forRoot(), DateValueAccessorModule,
-        DataTableModule, GrowlModule, DropdownModule, CalendarModule, ConfirmDialogModule, DialogModule, EditorModule, SharedModule, InputMaskModule, CurrencyMaskModule, FileUploadModule],
+        DataTableModule, GrowlModule, DropdownModule, CalendarModule, ConfirmDialogModule, DialogModule, EditorModule, SharedModule, InputMaskModule, CurrencyMaskModule, FileUploadModule, TabsModule.forRoot(), ModalModule.forRoot()],
     declarations: [
         AppComponent, SafePipe, MomentPipe, FormatDatePipe, HeaderComponent, ImageCropperComponent, AlertDetailChargeBackComponent,
         MasterPageComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent, LocationChargeBackComponent,
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, LocationDetailComponent, JobParametersListComponent,
         PasswordValidator, FileUploadComponent, DashboardMainComponent, JobLogListComponent, LocationListComponent, ReportListComponent,
-        CasesListComponent, AddLocationComponent
+        CasesListComponent, AddLocationComponent, AddReturnComponent
        ],
 
-    entryComponents: [],
+    entryComponents: [AddReturnComponent
+    ],
 
     bootstrap: [AppComponent],
 

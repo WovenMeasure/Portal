@@ -2,152 +2,208 @@
 <div class="col-md-12">
     <div *ngIf="loaded">
         <h2>Location {{location.locationID}}</h2>
-        <form #myForm="ngForm" (ngSubmit)="onSaveLocation($event)" autocomplete="false">         
-            <div class="form-group col-md-6">
-                <label for="name">New Location ID</label>
-                <input type="text" class="form-control" name="newLocationID" id="newLocationID"  [(ngModel)]="newLocationID">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="address1">Old Location ID</label>
-                <input type="text" class="form-control" name="oldLocationID" id="oldLocationID"  [(ngModel)]="location.oldLocationID">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="name">Name *</label>
-                <input required type="text" class="form-control" name="name" id="name" placeholder="Name" [(ngModel)]="location.name">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="address1">Address *</label>
-                <input required type="text" class="form-control" name="address1" id="address1" placeholder="Address" [(ngModel)]="location.address1">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="city">City *</label>
-                <input required type="text" class="form-control" name="city" id="city" placeholder="City" [(ngModel)]="location.city">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="state">State *</label>
-                <p-dropdown placeholder="Select a state" name="state" [required]="true" [options]="states" [filter]="true" [(ngModel)]="location.state"></p-dropdown>
-            </div>
-            <div class="form-group col-md-6">
-                <label for="zip">Zip *</label>
-                <input required type="text" class="form-control" name="zip" id="zip" placeholder="Zip" [(ngModel)]="location.zip">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="region">Region *</label>
-                <p-dropdown placeholder="Select region" name="region" [required]="true" [options]="regions" [filter]="true" [(ngModel)]="location.regionID"></p-dropdown>
-            </div>
-            <div class="form-group col-md-6">
-                <label for="corpName">Corp Name</label>
-                <input type="text" class="form-control" name="corpName" id="corpName" placeholder="Corp Name" [(ngModel)]="location.corpName">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="contactName">Contact Name *</label>
-                <input required type="text" class="form-control" name="contactName" id="contactName" placeholder="Contact Name" [(ngModel)]="location.contactName">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="merchantID">Merchant ID</label>
-                <input type="text" class="form-control" id="merchantID" name="merchantID" placeholder="Merchant ID" [(ngModel)]="location.merchantID">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="abaNum">ABA #</label>
-                <input type="text" class="form-control" name="abaNum" id="abaNum" placeholder="ABA #" [(ngModel)]="location.abaNo">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="amexSE">Amex SE</label>
-                <input type="text" class="form-control" id="amexSE" name="amexSE" placeholder="AMEX SE" [(ngModel)]="location.amexSE">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="corpName">DDA Act Number</label>
-                <input type="text" class="form-control" id="ddA_Account_No" name="ddA_Account_No" placeholder="DDA Account #" [(ngModel)]="location.ddA_Account_No">
-            </div>    
-            <div class="form-group col-md-6">
-                <label for="discoverSE">Discover SE</label>
-                <input type="text" class="form-control" id="discoverSE" name="discoverSE" placeholder="Discover SE" [(ngModel)]="location.discoverSE">
-            </div>         
-            <div class="form-group col-md-6">
-                <label for="ccProcessor">Credit Card Processor</label>
-                <input type="text" class="form-control" id="ccProcessor" name="ccProcessor" placeholder="Credit Card Processor" [(ngModel)]="location.creditCardProcessor">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="gwProcessor">Gateway Processor</label>
-                <input type="text" class="form-control" id="gwProcessor" name="gwProcessor" placeholder="Gateway Processor" [(ngModel)]="location.gatewayProcessor">
-            </div>                      
-            <div class="form-group col-md-2">
-                <label for="acct">Use Client Account</label>&nbsp;
-                <input type="checkbox" class="checkbox-inline" id="acct" name="acct" placeholder="Use Client Account" [(ngModel)]="location.useClientAccount">
-            </div> 
-            <div class="form-group col-md-4">
-                <label for="acctNm">Client Account Number</label>
-                <input [disabled]="!location.useClientAccount" type="text" class="form-control" id="acctNm" name="acctNm" placeholder="Client Account Number" [(ngModel)]="location.clientAccount">
-            </div> 
-            <div class="form-group col-md-6">
-                <label for="acar">Armored Car Company</label>
-                <input type="text" class="form-control" id="acar" name="acar" placeholder="Armored Car Company" [(ngModel)]="location.armoredCarCompany">
-            </div> 
+        <tabset>
+            <tab heading="Details">
+                    <br />
+                    <form #myForm="ngForm" (ngSubmit)="onSaveLocation($event)" autocomplete="false">         
+                        <div class="form-group col-md-6">
+                            <label for="name">New Location ID</label>
+                            <input type="text" class="form-control" name="newLocationID" id="newLocationID"  [(ngModel)]="newLocationID">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="address1">Old Location ID</label>
+                            <input type="text" class="form-control" name="oldLocationID" id="oldLocationID"  [(ngModel)]="location.oldLocationID">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="name">Name *</label>
+                            <input required type="text" class="form-control" name="name" id="name" placeholder="Name" [(ngModel)]="location.name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="address1">Address *</label>
+                            <input required type="text" class="form-control" name="address1" id="address1" placeholder="Address" [(ngModel)]="location.address1">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="city">City *</label>
+                            <input required type="text" class="form-control" name="city" id="city" placeholder="City" [(ngModel)]="location.city">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="state">State *</label>
+                            <p-dropdown placeholder="Select a state" name="state" [required]="true" [options]="states" [filter]="true" [(ngModel)]="location.state"></p-dropdown>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="zip">Zip *</label>
+                            <input required type="text" class="form-control" name="zip" id="zip" placeholder="Zip" [(ngModel)]="location.zip">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="region">Region *</label>
+                            <p-dropdown placeholder="Select region" name="region" [required]="true" [options]="regions" [filter]="true" [(ngModel)]="location.regionID"></p-dropdown>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="corpName">Corp Name</label>
+                            <input type="text" class="form-control" name="corpName" id="corpName" placeholder="Corp Name" [(ngModel)]="location.corpName">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="contactName">Contact Name *</label>
+                            <input required type="text" class="form-control" name="contactName" id="contactName" placeholder="Contact Name" [(ngModel)]="location.contactName">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="merchantID">Merchant ID</label>
+                            <input type="text" class="form-control" id="merchantID" name="merchantID" placeholder="Merchant ID" [(ngModel)]="location.merchantID">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="abaNum">ABA #</label>
+                            <input type="text" class="form-control" name="abaNum" id="abaNum" placeholder="ABA #" [(ngModel)]="location.abaNo">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="amexSE">Amex SE</label>
+                            <input type="text" class="form-control" id="amexSE" name="amexSE" placeholder="AMEX SE" [(ngModel)]="location.amexSE">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="corpName">DDA Act Number</label>
+                            <input type="text" class="form-control" id="ddA_Account_No" name="ddA_Account_No" placeholder="DDA Account #" [(ngModel)]="location.ddA_Account_No">
+                        </div>    
+                        <div class="form-group col-md-6">
+                            <label for="discoverSE">Discover SE</label>
+                            <input type="text" class="form-control" id="discoverSE" name="discoverSE" placeholder="Discover SE" [(ngModel)]="location.discoverSE">
+                        </div>         
+                        <div class="form-group col-md-6">
+                            <label for="ccProcessor">Credit Card Processor</label>
+                            <input type="text" class="form-control" id="ccProcessor" name="ccProcessor" placeholder="Credit Card Processor" [(ngModel)]="location.creditCardProcessor">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="gwProcessor">Gateway Processor</label>
+                            <input type="text" class="form-control" id="gwProcessor" name="gwProcessor" placeholder="Gateway Processor" [(ngModel)]="location.gatewayProcessor">
+                        </div>                      
+                        <div class="form-group col-md-2">
+                            <label for="acct">Use Client Account</label>&nbsp;
+                            <input type="checkbox" class="checkbox-inline" id="acct" name="acct" placeholder="Use Client Account" [(ngModel)]="location.useClientAccount">
+                        </div> 
+                        <div class="form-group col-md-4">
+                            <label for="acctNm">Client Account Number</label>
+                            <input [disabled]="!location.useClientAccount" type="text" class="form-control" id="acctNm" name="acctNm" placeholder="Client Account Number" [(ngModel)]="location.clientAccount">
+                        </div> 
+                        <div class="form-group col-md-6">
+                            <label for="acar">Armored Car Company</label>
+                            <input type="text" class="form-control" id="acar" name="acar" placeholder="Armored Car Company" [(ngModel)]="location.armoredCarCompany">
+                        </div> 
             
-            <div class="row col-md-12">
-                <div class="small bold" style="color:red" *ngIf="!myForm.valid">All fields preceeded by an asterisk, *, must be filled in before the save button will be available.</div>
-                <button type="submit" class="col-md-1 btn btn-default" *ngIf="myForm.valid" [ngClass]="{ 'btn-default' : !myForm.valid, 'btn-primary': myForm.valid }">Save</button>
-                <div class="form-group col-md-3 pull-right" *ngIf="location.terminated > 0">
-                    <strong>This location is terminated.</strong>
-                    <button class="btn btn-primary btn-xs" type="button" (click)="markActive(location)">Mark Location Active</button>
-                </div>
-                <div class="form-group col-md-3 pull-right" *ngIf="location.terminated <= 0">
-                    <strong>This location is active.</strong>
-                    <button class="btn btn-primary btn-xs" type="button" (click)="markTerminated(location)">Mark Location Terminated</button>
-                </div>
-                <div class="form-group col-md-3 col-md-offset-1  pull-right" *ngIf="location.ignored">
-                    <strong>This location is ignored.</strong>
-                    <button class="btn btn-primary btn-xs" type="button" (click)="markNotIgnored(location)">Mark Location Not Ignored</button>
-                </div>
-                <div class="form-group col-md-3 col-md-offset-1  pull-right" *ngIf="!location.ignored">
-                    <strong>This location is not ignored.</strong>
-                    <button class="btn btn-primary btn-xs" type="button" (click)="markIgnored(location)">Mark Location Ignored</button>
-                </div>
-            </div>
-       </form>
-        <div style="clear:both"></div>
-        <hr />
-        <div><strong>Credit Card Cases</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary btn-sm" (click)="addChargeback()">Add Chargeback</button>
-        <input #gb type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>
-        <p-dataTable [immutable]="false" (onRowSelect)="onCaseSelect($event)"  [value]="cases" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb">
-            <p-column field="caseNumber" header="Case Number" sortable="true" styleClass="col-md-2"></p-column>
-            <p-column field="workItemStatusDescription" header="Status" sortable="true" styleClass="col-md-2"></p-column>
-            <p-column field="chargeBackNoticeDate" sortable="true" styleClass="col-md-3">
-                <template pTemplate="header">
-                    Charge Back Notice Date
-                </template>
-                <template let-chargeBack="rowData" pTemplate="body">
-                    {{chargeBack.chargeBackNoticeDate | moment: 'format': 'MM/DD/YYYY' }}
-                </template>
-            </p-column>         
-            <p-column header="Commands" styleClass="col-md-1">
-                <template let-case="rowData" pTemplate="body">
-                    <i class="fa fa-2x fa-times-circle-o" title="Delete Case" (click)="dismiss($event, case)"></i>
-                </template>
-            </p-column>
-        </p-dataTable>  
-        <hr />
-        <strong>Transactions</strong>
-        <input #gb2 type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>
-        <p-dataTable [immutable]="false" [value]="transactions"  [pageLinks]="5" selectionMode="single"tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb2">
-            <p-column field="customerAccountNumber" header="Customer Account" sortable="true" styleClass="col-md-1"></p-column>
-            <p-column field="trans_DateTime" sortable="true" styleClass="col-md-2">
-                <template pTemplate="header">
-                    Transaction Date
-                </template>
-                <template let-transaction="rowData" pTemplate="body">
-                    {{transaction.trans_DateTime | moment: 'format': 'MM/DD/YYYY' }}
-                </template>
-            </p-column>
-            <p-column field="transactionType.transactionDescription" header="Type" sortable="true" styleClass="col-md-2"></p-column>
-            <p-column header="Amount" styleClass="col-md-1">
-                <template let-transaction="rowData" pTemplate="body">
-                    {{transaction.transactionAmount | currency:'USD':true}}
-                </template>
-            </p-column>
-            <p-column field="notes" header="Notes" sortable="true" styleClass="col-md-3"></p-column>
-        </p-dataTable>  
-    </div>   
+                        <div class="row col-md-12">
+                            <div class="small bold" style="color:red" *ngIf="!myForm.valid">All fields preceeded by an asterisk, *, must be filled in before the save button will be available.</div>
+                            <button type="submit" class="col-md-1 btn btn-default" *ngIf="myForm.valid" [ngClass]="{ 'btn-default' : !myForm.valid, 'btn-primary': myForm.valid }">Save</button>
+                            <div class="form-group col-md-3 pull-right" *ngIf="location.terminated > 0">
+                                <strong>This location is terminated.</strong>
+                                <button class="btn btn-primary btn-xs" type="button" (click)="markActive(location)">Mark Location Active</button>
+                            </div>
+                            <div class="form-group col-md-3 pull-right" *ngIf="location.terminated <= 0">
+                                <strong>This location is active.</strong>
+                                <button class="btn btn-primary btn-xs" type="button" (click)="markTerminated(location)">Mark Location Terminated</button>
+                            </div>
+                            <div class="form-group col-md-3 col-md-offset-1  pull-right" *ngIf="location.ignored">
+                                <strong>This location is ignored.</strong>
+                                <button class="btn btn-primary btn-xs" type="button" (click)="markNotIgnored(location)">Mark Location Not Ignored</button>
+                            </div>
+                            <div class="form-group col-md-3 col-md-offset-1  pull-right" *ngIf="!location.ignored">
+                                <strong>This location is not ignored.</strong>
+                                <button class="btn btn-primary btn-xs" type="button" (click)="markIgnored(location)">Mark Location Ignored</button>
+                            </div>
+                        </div>
+                   </form>
+                    <div style="clear:both"></div>
+                    <hr />
+                    <div><strong>Credit Card Cases</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary btn-sm" (click)="addChargeback()">Add Chargeback</button>
+                    <input #gb type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>
+                    <p-dataTable [immutable]="false" (onRowSelect)="onCaseSelect($event)"  [value]="cases" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb">
+                        <p-column field="caseNumber" header="Case Number" sortable="true" styleClass="col-md-2"></p-column>
+                        <p-column field="workItemStatusDescription" header="Status" sortable="true" styleClass="col-md-2"></p-column>
+                        <p-column field="chargeBackNoticeDate" sortable="true" styleClass="col-md-3">
+                            <template pTemplate="header">
+                                Charge Back Notice Date
+                            </template>
+                            <template let-chargeBack="rowData" pTemplate="body">
+                                {{chargeBack.chargeBackNoticeDate | moment: 'format': 'MM/DD/YYYY' }}
+                            </template>
+                        </p-column>         
+                        <p-column header="Commands" styleClass="col-md-1">
+                            <template let-case="rowData" pTemplate="body">
+                                <i class="fa fa-2x fa-times-circle-o" title="Delete Case" (click)="dismiss($event, case)"></i>
+                            </template>
+                        </p-column>
+                    </p-dataTable>  
+                    <hr />
+                    <strong>Transactions</strong>
+                    <input #gb2 type="text" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-right:10px" aria-hidden="true"></i>
+                    <p-dataTable [immutable]="false" [value]="transactions"  [pageLinks]="5" selectionMode="single"tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb2">
+                        <p-column field="customerAccountNumber" header="Customer Account" sortable="true" styleClass="col-md-1"></p-column>
+                        <p-column field="trans_DateTime" sortable="true" styleClass="col-md-2">
+                            <template pTemplate="header">
+                                Transaction Date
+                            </template>
+                            <template let-transaction="rowData" pTemplate="body">
+                                {{transaction.trans_DateTime | moment: 'format': 'MM/DD/YYYY' }}
+                            </template>
+                        </p-column>
+                        <p-column field="transactionType.transactionDescription" header="Type" sortable="true" styleClass="col-md-2"></p-column>
+                        <p-column header="Amount" styleClass="col-md-1">
+                            <template let-transaction="rowData" pTemplate="body">
+                                {{transaction.transactionAmount | currency:'USD':true}}
+                            </template>
+                        </p-column>
+                        <p-column field="notes" header="Notes" sortable="true" styleClass="col-md-3"></p-column>
+                    </p-dataTable>  
+                </div>   
+            </tab>
+            <tab heading="Disbursements and Returns"><br />
+                <h4><strong>Disbursements</strong></h4>
+                <p-dataTable [immutable]="false" [value]="location.arpLocationDisbursements" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
+                    <p-column field="disbursement.dateRequested" sortable="true" styleClass="col-md-2">
+                        <template pTemplate="header">
+                            Date Requested
+                        </template>
+                        <template let-locationDisbursement="rowData" pTemplate="body">
+                            {{locationDisbursement.disbursement.dateRequested | moment: 'format': 'MM/DD/YYYY' }}
+                        </template>
+                    </p-column>
+                    <p-column field="disbursement.checkDate" sortable="true" styleClass="col-md-2">
+                        <template pTemplate="header">
+                            Check Date
+                        </template>
+                        <template let-locationDisbursement="rowData" pTemplate="body">
+                            {{locationDisbursement.disbursement.checkDate | moment: 'format': 'MM/DD/YYYY' }}
+                        </template>
+                    </p-column>        
+                    <p-column header="Amount" styleClass="col-md-2">
+                        <template let-locationDisbursement="rowData" pTemplate="body">
+                            {{locationDisbursement.disbursement.amount | currency:'USD':true}}
+                        </template>
+                    </p-column>
+                    <p-column field="disbursement.payableTo" header="Payable To" sortable="true" styleClass="col-md-2"></p-column>
+                </p-dataTable>  
+                <br /><br />
+                <h4 class="col-md-1"><strong>Returns&nbsp;&nbsp;</strong></h4><button class="pull-left btn btn-primary btm-sm" (click)="addReturn()">Add Return</button><div style="clear:both">&nbsp;</div>
+                <p-dataTable [immutable]="false" [value]="location.arpLocationReturns" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
+                    <p-column field="disbursement.dateRequested" sortable="true" styleClass="col-md-2">
+                        <template pTemplate="header">
+                            Date Returned
+                        </template>
+                        <template let-locationReturn="rowData" pTemplate="body">
+                            {{locationReturn.dateReturned | moment: 'format': 'MM/DD/YYYY' }}
+                        </template>
+                    </p-column>                 
+                    <p-column header="Change Fund Returned" styleClass="col-md-2">
+                        <template let-locationReturn="rowData" pTemplate="body">
+                            {{locationReturn.changeFundReturned | currency:'USD':true}}
+                        </template>
+                    </p-column>
+                    <p-column header="Petty Cash Returned" styleClass="col-md-2">
+                        <template let-locationReturn="rowData" pTemplate="body">
+                            {{locationReturn.pettyCashReturned | currency:'USD':true}}
+                        </template>
+                    </p-column>
+                    <p-column field="whoSignedReturn" header="Who Signed For" sortable="true" styleClass="col-md-2"></p-column>
+                    <p-column field="reasonReturned" header="Return Reason" sortable="true" styleClass="col-md-2"></p-column>
+                </p-dataTable>  
+            </tab>
+        </tabset>
   </div>
 </div>
 <p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>

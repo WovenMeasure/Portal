@@ -1,0 +1,48 @@
+﻿    <div class="modal-header">
+        <h4 class="modal-title pull-left">ADD RETURN</h4>
+        <i style="cursor:pointer" class="fa fa-2x fa-times pull-right" (click)="close()"></i>
+        <div style="clear:both"></div>
+    </div>
+    <form novalidate (ngSubmit)="save()" #form="ngForm">
+        <div class="modal-body">
+            <div class="form-group col-md-12">
+                <label for="dateReturned">Date Returned *</label>
+                <input required type="date" class="form-control" name="dateReturned" id="dateReturned" placeholder="Date Returned" [(ngModel)]="arpReturn.dateReturned" #dateReturned="ngModel" />
+            </div>
+            <div class="form-group col-md-12"> 
+                <label for="changeFundReturned">Change Fund Returned *</label><span [hidden]="changeFundReturned.valid || changeFundReturned.pristine">Change Fund Returned is required.</span>
+                <input required type="number" class="form-control" name="changeFundReturned" id="changeFundReturned" placeholder="Change Fund Returned" [(ngModel)]="arpReturn.changeFundReturned" #changeFundReturned="ngModel"/>
+            </div>
+            <div class="form-group col-md-12" (ngSubmit)="save()">
+                <label for="pettyCashReturned">Petty Cash Returned *</label><span [hidden]="pettyCashReturned.valid || pettyCashReturned.pristine">Petty Cash Returned is required.</span>
+                <input required type="number" class="form-control" name="pettyCashReturned" id="pettyCashReturned" placeholder="Petty Cash Returned" [(ngModel)]="arpReturn.pettyCashReturned" #pettyCashReturned="ngModel"/>
+            </div>        
+            <div class="form-group col-md-12">
+                <label for="whoSignedReturn">Who Signed For Return</label><span [hidden]="whoSignedReturn.valid || whoSignedReturn.pristine">Who signed for return is required.</span>
+                <input required type="text" class="form-control" name="whoSignedReturn" id="whoSignedReturn" placeholder="Who Signed For Return" [(ngModel)]="arpReturn.whoSignedReturn" #whoSignedReturn="ngModel"/>
+            </div>
+      
+            <div class="form-group col-md-12">
+                <label for="reasonReturned">Reason Returned</label><span [hidden]="reasonReturned.valid || reasonReturned.pristine">Reason for return is required.</span>
+                <select required class="form-control" name="reasonReturned" id="reasonReturned" [(ngModel)]="arpReturn.reasonReturned" #reasonReturned="ngModel">
+                    <option selected value="">Please Choose</option>
+                    <option>Location Closing</option>
+                    <option>Overage</option>
+                    <option>Events Over</option>
+                    <option>Moved To Managed</option>
+                    <option>Moved To Leased</option>
+                    <option>Other - Explain</option>
+                </select>
+            </div>
+        
+            <div class="form-group col-md-12">
+                <label for="comments">Comments</label>
+                <textarea style="resize:none" rows="6" id="comments" name="comments" cols="60" class="form-control" [(ngModel)]="arpReturn.comments" #comments="ngModel"></textarea>
+            </div>
+            <div style="clear:both">&nbsp;</div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" [disabled]="!form.valid" type="submit">SAVE</button>
+        </div>
+    </form>
+   

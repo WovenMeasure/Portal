@@ -103,6 +103,12 @@
                 </div>
             </div>
             <div class="form-group col-md-6">
+                <label class="col-xs-2" for="approvedChargeBackAmount">Last 4 CC</label>
+                <div class="col-xs-9">
+                    <input type="text" style="width:30%" class="form-control" name="ccLast4" id="ccLast4" maxlength="4" [(ngModel)]="chargeBack.ccLast4">
+                </div>
+            </div>
+            <div class="form-group col-md-6">
                 <label class="col-xs-2" for="disputedAndWonAmount">Disputed and Won Amount</label>
                 <div class="col-xs-9">
                     <input currencyMask type="text" class="form-control" style="width:30%" name="disputedAndWonAmount" id="disputedAndWonAmount" [options]="{ align:'left', allowNegative: false }" [(ngModel)]="chargeBack.disputedAndWonAmount">

@@ -104,7 +104,7 @@ export class LocationListComponent {
     loadLocations() {
         this.loadGridSortOptions();
         this.spinnerService.postStatus('Loading Locations');
-        let $observable = this.proxyService.Get("location/list/0/3000/" + this.terminated);
+        let $observable = this.proxyService.Get("location/list/0/7000/" + this.terminated);
         $observable.subscribe(
             data => {
                 if (data.success) {

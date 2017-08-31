@@ -10,7 +10,8 @@ import {Constants } from "../common/constants";
 import { ProxyService } from "../common/services/proxy-service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {SelectItem} from 'primeng/primeng';
-import { Message, ConfirmationService, ConfirmDialogModule} from 'primeng/primeng';
+import { Message, ConfirmationService, ConfirmDialogModule } from 'primeng/primeng';
+import { AddReturnComponent } from "./add-return";
 
 @Component({
     templateUrl: 'location-detail.html',
@@ -40,6 +41,7 @@ export class LocationDetailComponent {
     states: SelectItem[];
     regions: SelectItem[];
     newLocationID: string = '';
+    addModal: any;
     ngOnInit() {
         var _self = this;
         this.contextService.currentSection = "locations";
@@ -263,10 +265,10 @@ export class LocationDetailComponent {
         $event.stopPropagation();
         var _self = this;
         this.confirmationService.confirm({
-            message: 'Are you sure that you want to mark delete this case?',
+            message: 'Are you sure that you want to delete this case?',
             accept: () => {
                 this.spinnerService.postStatus('Deleting case');
-                let $observable = this.proxyService.Delete("cases/delete/" + chargeBack.cbid + "/" + chargeBack.type);
+                let $observable = this.proxyService.Delete("cases/delete/" + chargeBack.cbid + "/" + chargeBack.type + "/" + this.locationId);
                 $observable.subscribe(
                     data => {
                         if (data.success) {
@@ -286,5 +288,26 @@ export class LocationDetailComponent {
                     });
             }
         });
+    }
+
+    addReturn() {
+        var _self = this;
+        this.addModal = this.ngbModal.open(AddReturnComponent, {
+            backdrop: 'static', keyboard: false, size: 'lg'
+        });
+
+        const contentComponentInstance = this.addModal.componentInstance;
+        contentComponentInstance.locationId = this.locationId;
+
+        this.addModal.result.then(function (ret: any) {
+                if (ret) {
+                    _self.msgs.push({ severity: 'success', summary: "Return Added" });
+                    _self.location.arpLocationReturns.push(ret);
+                }
+            },
+            function (dismissReason: any) {
+                _self.msgs.push({ severity: 'error', summary: dismissReason});
+            }
+        );
     }
 }
