@@ -12,9 +12,9 @@ import { SelectItem, Message, DataTable } from 'primeng/primeng';
 
 
 @Component({ 
-    templateUrl: 'add-return.html'
+    templateUrl: 'add-edit-disbursement.html'
 })
-export class AddReturnComponent {    
+export class AddEditDisbursementComponent {    
 
     constructor(private router: Router, 
                 private componentFactoryResolver: ComponentFactoryResolver,
@@ -26,16 +26,19 @@ export class AddReturnComponent {
                 private constants: Constants,
                 private activeModal: NgbActiveModal,
                 private translationService: TranslationService) {
-        this.arpReturn = {};
-        this.arpReturn.returnID = 0;
+      
 
     }   
 
+    arpDisbursementLocation: any;
+    arpDisbursement: any;
     locationId: any;
-    arpReturn: any;
 
     ngOnInit() {
-        this.arpReturn.locationId = this.locationId;
+        if (this.arpDisbursement.disbursementId <= 0) {
+            this.arpDisbursement.locationDisbursements = [];
+            this.arpDisbursement.locationDisbursements.push({ disbursementLocationId: 0, disbursementId: this.arpDisbursement.disbursementId, locationId: this.locationId })
+        }
     }
     
 
@@ -44,25 +47,25 @@ export class AddReturnComponent {
     }
 
     save() {
-        if (this.arpReturn) {
+        if (this.arpDisbursement) {
             //save to db
             this.spinnerService.postStatus('Saving Work');
             var $observable;
 
-            if (this.arpReturn.returnID > 0) {
-                $observable = this.proxyService.Post("disbursement/updateReturn/", this.arpReturn);
+            if (this.arpDisbursement.disbursementId > 0) {
+                $observable = this.proxyService.Post("disbursement/updateDisbursement/", this.arpDisbursement);
             }
             else {
-                $observable = this.proxyService.Put("disbursement/addReturn/", this.arpReturn);
+                $observable = this.proxyService.Put("disbursement/addDisbursement", this.arpDisbursement);
             }
 
             $observable.subscribe(
                 data => {
                     if (data.success) {
-                        if (this.arpReturn.returnID == 0)
-                            this.arpReturn.returnID = parseInt(data.recordIDString);
+                        if (this.arpDisbursement.disbursementId == 0)
+                            this.arpDisbursement.disbursementId = parseInt(data.recordIDString);
 
-                        this.activeModal.close(this.arpReturn);
+                        this.activeModal.close(this.arpDisbursement);
                     }
                     else {
                         this.activeModal.dismiss(data.errorMessage)
@@ -75,6 +78,15 @@ export class AddReturnComponent {
                     this.spinnerService.finishCurrentStatus();
                 });            
         }     
+    }
+
+    removeLocation(event, index) {
+        this.arpDisbursement.locationDisbursements.splice(index, 1);
+    }
+
+    addLocation(event) {
+        event.stopPropagation();
+        this.arpDisbursement.locationDisbursements.push({ disbursementLocationId: 0, disbursementId: this.arpDisbursement.disbursementId })
     }
 
 }

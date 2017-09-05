@@ -1,0 +1,76 @@
+﻿<div class="modal-header">
+    <h4 class="modal-title pull-left" *ngIf="arpDisbursement.disbursementId==0">ADD DISBURSEMENT</h4>
+    <h4 class="modal-title pull-left" *ngIf="arpDisbursement.disbursementId>0">EDIT DISBURSEMENT</h4>
+    <i style="cursor:pointer" class="fa fa-2x fa-times pull-right" (click)="close()"></i>
+    <div style="clear:both"></div>
+</div>
+<form novalidate (ngSubmit)="save()" #dbForm="ngForm">
+    <div class="modal-body" style="padding:0 10px 0 10px" *ngIf="arpDisbursement">
+        <h3>Disbursement</h3>
+        <div>
+            <div class="form-group col-md-6">
+                <label for="dateReturned">Date Requested *</label>
+                <p-calendar [ngModelOptions]="{standalone: true}" hourFormat="12" [(ngModel)]="arpDisbursement.dateRequested"></p-calendar>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="dateReturned">Check Date *</label>
+                <p-calendar [ngModelOptions]="{standalone: true}" hourFormat="12" [(ngModel)]="arpDisbursement.checkDate"></p-calendar>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="checkNumber">Check Number</label><span [hidden]="checkNumber.valid || checkNumber.pristine">Check number is required.</span>
+                <input required type="text" class="form-control" name="checkNumber" id="checkNumber" placeholder="Check Number" [(ngModel)]="arpDisbursement.checkNumber" #checkNumber="ngModel" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="payableTo">Payable To</label><span [hidden]="payableTo.valid || payableTo.pristine">Payable To is required.</span>
+                <input required type="text" class="form-control" name="payableTo" id="payableTo" placeholder="Payable To" [(ngModel)]="arpDisbursement.payableTo" #payableTo="ngModel" />
+            </div>
+            <div class="form-group col-md-6" (ngSubmit)="save()">
+                <label for="amount">Amount *</label><span [hidden]="amount.valid || amount.pristine">Check Amount Returned is required.</span>
+                <input required type="number" class="form-control" name="amount" id="amount" placeholder="Check Amount" [(ngModel)]="arpDisbursement.amount" #amount="ngModel" />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="comments">Comments</label>
+                <textarea style="resize:none" rows="2" id="comments" name="comments" cols="60" class="form-control" [(ngModel)]="arpDisbursement.comments" #comments="ngModel"></textarea>
+            </div>
+            <div style="clear:both">&nbsp;</div>
+        </div>         
+        <div>
+         <h3>For Location(s)<button type="button" class="btn btn-primary btn-sm" style="margin-left:15px" (click)="addLocation($event)">Add Location</button></h3>
+            <table class="table table-bordered table-condensed form-group col-md-12">
+                    <tr>
+                        <td class="col-md-1">Location</td>
+                        <td class="col-md-1">Applied to Change Fund</td>
+                        <td class="col-md-1">Applied to Petty Cash</td>
+                        <td class="col-md-2">Date Signed For</td>
+                        <td class="col-md-3">Who Signed For</td>
+                        <td class="col-md-2"></td>
+                    </tr>
+                    <tr *ngFor="let item of arpDisbursement.locationDisbursements; index as i;">
+                        <td>
+                            <input style="width:110px" name="{{'locationId_' + i.toString()}}" required type="text" [(ngModel)]="item.locationId" />
+                        </td>
+                        <td>
+                            <input style="width:110px" name="{{'amountAppliedToChangeFund_' + i.toString()}}" type="number" [(ngModel)]="item.amountAppliedToChangeFund" />
+                        </td>
+                        <td>
+                            <input style="width:110px" name="{{'amountAppliedToPettyCash_' + i.toString()}}" type="number" [(ngModel)]="item.amountAppliedToPettyCash" />
+                        </td>
+                        <td>
+                            <p-calendar [ngModelOptions]="{standalone: true}" hourFormat="12" [(ngModel)]="item.dateSignedFor"></p-calendar>
+                        </td>
+                        <td>
+                            <input style="width:170px" name="{{'whosigned_' + i.toString()}}" type="text" [(ngModel)]="item.whoSignedFor" />
+                        </td>
+                        <td>
+                            <i *ngIf="arpDisbursement.locationDisbursements.length > 1" class="fa fa-2x fa-times-circle-o" (click)="removeLocation($event, i)"></i>
+                        </td>
+                    </tr>
+                </table>
+            <div style="clear:both">&nbsp;</div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" [disabled]="!dbForm.valid" type="submit">SAVE</button>
+        </div>
+        
+    </div>
+</form>

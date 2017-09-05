@@ -11,7 +11,9 @@ import { ProxyService } from "../common/services/proxy-service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {SelectItem} from 'primeng/primeng';
 import { Message, ConfirmationService, ConfirmDialogModule } from 'primeng/primeng';
-import { AddReturnComponent } from "./add-return";
+import { AddEditReturnComponent } from "./add-edit-return";
+import { AddEditDisbursementComponent } from './add-edit-disbursement';
+import * as _ from 'underscore';
 
 @Component({
     templateUrl: 'location-detail.html',
@@ -36,6 +38,7 @@ export class LocationDetailComponent {
     locationId: any;
     location: any;
     transactions: any[];
+    disbursements: any[];
     cases: any[];
     loaded: boolean = false;
     states: SelectItem[];
@@ -90,6 +93,7 @@ export class LocationDetailComponent {
                     this.location = data.location;
                     this.transactions = data.transactions;
                     this.cases = data.cases;
+                    this.disbursements = data.disbursements;
                     this.loaded = true;
                 }
                 else {
@@ -161,7 +165,7 @@ export class LocationDetailComponent {
                     });
             }
         });
-    }
+    } 
 
     markActive(location) {
         var _self = this;
@@ -290,14 +294,94 @@ export class LocationDetailComponent {
         });
     }
 
-    addReturn() {
+    onDisbReturnSelect(event) {
         var _self = this;
-        this.addModal = this.ngbModal.open(AddReturnComponent, {
+      
+        this.addModal = this.ngbModal.open(AddEditDisbursementComponent, {
             backdrop: 'static', keyboard: false, size: 'lg'
         });
 
         const contentComponentInstance = this.addModal.componentInstance;
+        if (event.data.dateRequested) {
+            event.data.dateRequested = new Date(event.data.dateRequested);
+        }
+        if (event.data.checkDate) {
+            event.data.checkDate = new Date(event.data.checkDate);
+        }
+
+        _.each(event.data.locationDisbursements, function (e) {
+            if (e.dateSignedFor)
+                e.dateSignedFor = new Date(e.dateSignedFor);
+        });
+
+        contentComponentInstance.arpDisbursement = event.data;
+
+        this.addModal.result.then(function (ret: any) {
+            if (ret) {
+                _self.msgs.push({ severity: 'success', summary: "Disbursement Updated" });
+            }
+        },
+            function (dismissReason: any) {
+                _self.msgs.push({ severity: 'error', summary: dismissReason });
+            }
+        );
+    }
+
+    addDisbursement() {
+        var _self = this;
+        this.addModal = this.ngbModal.open(AddEditDisbursementComponent, {
+            backdrop: 'static', keyboard: false, size: 'lg'
+        });
+
+        const contentComponentInstance = this.addModal.componentInstance;
+        contentComponentInstance.arpDisbursement = { disbursementId: 0 };
         contentComponentInstance.locationId = this.locationId;
+
+        this.addModal.result.then(function (ret: any) {
+            if (ret) {
+                _self.msgs.push({ severity: 'success', summary: "Disbursement Added" });
+                _self.disbursements.push(ret);
+            }
+        },
+            function (dismissReason: any) {
+                _self.msgs.push({ severity: 'error', summary: dismissReason });
+            }
+        );
+    }
+
+
+
+    onReturnSelect(event) {
+        var _self = this;
+        this.addModal = this.ngbModal.open(AddEditReturnComponent, {
+            backdrop: 'static', keyboard: false, size: 'lg'
+        });
+
+        const contentComponentInstance = this.addModal.componentInstance;
+        if (event.data.dateReturned) {
+            event.data.dateReturned = new Date(event.data.dateReturned);
+        }        
+        contentComponentInstance.arpReturn = event.data;
+
+        this.addModal.result.then(function (ret: any) {
+            if (ret) {
+                _self.msgs.push({ severity: 'success', summary: "Return Updated" });
+            }
+        },
+            function (dismissReason: any) {
+                _self.msgs.push({ severity: 'error', summary: dismissReason });
+            }
+        );
+    }
+
+    addReturn() {
+        var _self = this;
+        this.addModal = this.ngbModal.open(AddEditReturnComponent, {
+            backdrop: 'static', keyboard: false, size: 'lg'
+        });
+
+        const contentComponentInstance = this.addModal.componentInstance;
+        contentComponentInstance.arpReturn = { returnID: 0, locationId: this.locationId };
 
         this.addModal.result.then(function (ret: any) {
                 if (ret) {

@@ -60,11 +60,12 @@ import { JobParametersListComponent } from './jobparameters/jobparameters-list';
 import { ReportListComponent } from './reports/reports-list';
 import { CasesListComponent } from './cases/cases-list';
 import { AddLocationComponent } from './location/add-location';
-import { AddReturnComponent } from "./location/add-return";
+import { AddEditReturnComponent } from "./location/add-edit-return";
 
 /*************************************************************Directives/dto*******************************************************************/
 import { CanActivateGuard } from "./app.authguard"; 
 import { PasswordValidator } from './changePassword/changePassword.directive';
+import { AddEditDisbursementComponent } from "./location/add-edit-disbursement";
  
  
 
@@ -76,11 +77,10 @@ import { PasswordValidator } from './changePassword/changePassword.directive';
         MasterPageComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent, LocationChargeBackComponent,
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, LocationDetailComponent, JobParametersListComponent,
         PasswordValidator, FileUploadComponent, DashboardMainComponent, JobLogListComponent, LocationListComponent, ReportListComponent,
-        CasesListComponent, AddLocationComponent, AddReturnComponent
+        CasesListComponent, AddLocationComponent, AddEditReturnComponent, AddEditDisbursementComponent
        ],
 
-    entryComponents: [AddReturnComponent
-    ],
+    entryComponents: [AddEditReturnComponent, AddEditDisbursementComponent],
 
     bootstrap: [AppComponent],
 

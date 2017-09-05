@@ -153,34 +153,35 @@
                 </div>   
             </tab>
             <tab heading="Disbursements and Returns"><br />
-                <h4><strong>Disbursements</strong></h4>
-                <p-dataTable [immutable]="false" [value]="location.arpLocationDisbursements" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
-                    <p-column field="disbursement.dateRequested" sortable="true" styleClass="col-md-2">
+                <h4 class="col-md-2"><strong>Disbursements&nbsp;&nbsp;</strong></h4><button class="pull-left btn btn-primary btm-sm" (click)="addDisbursement()">Add Disbursement</button><div style="clear:both">&nbsp;</div>
+                <p-dataTable (onRowSelect)="onDisbReturnSelect($event)" [immutable]="false" [value]="disbursements" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
+                    <p-column field="dateRequested" sortable="true" styleClass="col-md-2">
                         <template pTemplate="header">
                             Date Requested
                         </template>
-                        <template let-locationDisbursement="rowData" pTemplate="body">
-                            {{locationDisbursement.disbursement.dateRequested | moment: 'format': 'MM/DD/YYYY' }}
+                        <template let-disbursement="rowData" pTemplate="body">
+                            {{disbursement.dateRequested | moment: 'format': 'MM/DD/YYYY' }}
                         </template>
                     </p-column>
-                    <p-column field="disbursement.checkDate" sortable="true" styleClass="col-md-2">
+                    <p-column field="checkNumber"  sortable="true" styleClass="col-md-1">></p-column>
+                    <p-column field="checkDate" sortable="true" styleClass="col-md-2">
                         <template pTemplate="header">
                             Check Date
                         </template>
-                        <template let-locationDisbursement="rowData" pTemplate="body">
-                            {{locationDisbursement.disbursement.checkDate | moment: 'format': 'MM/DD/YYYY' }}
+                        <template let-disbursement="rowData" pTemplate="body">
+                            {{disbursement.checkDate | moment: 'format': 'MM/DD/YYYY' }}
                         </template>
                     </p-column>        
                     <p-column header="Amount" styleClass="col-md-2">
-                        <template let-locationDisbursement="rowData" pTemplate="body">
-                            {{locationDisbursement.disbursement.amount | currency:'USD':true}}
+                        <template let-disbursement="rowData" pTemplate="body">
+                            {{disbursement.amount | currency:'USD':true}}
                         </template>
                     </p-column>
-                    <p-column field="disbursement.payableTo" header="Payable To" sortable="true" styleClass="col-md-2"></p-column>
+                    <p-column field="payableTo" header="Payable To" sortable="true" styleClass="col-md-2"></p-column>
                 </p-dataTable>  
                 <br /><br />
-                <h4 class="col-md-1"><strong>Returns&nbsp;&nbsp;</strong></h4><button class="pull-left btn btn-primary btm-sm" (click)="addReturn()">Add Return</button><div style="clear:both">&nbsp;</div>
-                <p-dataTable [immutable]="false" [value]="location.arpLocationReturns" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
+                <h4 class="col-md-2"><strong>Returns&nbsp;&nbsp;</strong></h4><button class="pull-left btn btn-primary btm-sm" (click)="addReturn()">Add Return</button><div style="clear:both">&nbsp;</div>
+                <p-dataTable (onRowSelect)="onReturnSelect($event)" [immutable]="false" [value]="location.arpLocationReturns" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
                     <p-column field="disbursement.dateRequested" sortable="true" styleClass="col-md-2">
                         <template pTemplate="header">
                             Date Returned
@@ -200,7 +201,7 @@
                         </template>
                     </p-column>
                     <p-column field="whoSignedReturn" header="Who Signed For" sortable="true" styleClass="col-md-2"></p-column>
-                    <p-column field="reasonReturned" header="Return Reason" sortable="true" styleClass="col-md-2"></p-column>
+                    <p-column field="reasonReturned" header="Return Reason" sortable="true" styleClass="col-md-2"></p-column>                  
                 </p-dataTable>  
             </tab>
         </tabset>
