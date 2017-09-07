@@ -64,6 +64,11 @@ export class Constants {
                 constant: "WEBDCR",
                 alertTypeID: 4,
                 description: "WebDCR"
+            },
+            {
+                constant: "REFUNDS",
+                alertTypeID: 6,
+                description: "Refunds"
             }
         ];
 

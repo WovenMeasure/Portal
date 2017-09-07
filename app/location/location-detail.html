@@ -204,6 +204,38 @@
                     <p-column field="reasonReturned" header="Return Reason" sortable="true" styleClass="col-md-2"></p-column>                  
                 </p-dataTable>  
             </tab>
+            <tab heading="Refunds">
+                <br />
+                <h4><strong>Refunds&nbsp;&nbsp;</strong></h4>
+                <p-dataTable [immutable]="false" [value]="location.arpLocationRefunds" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
+                    <p-column sortable="true" styleClass="col-md-1">
+                        <template pTemplate="header">
+                           Report Date
+                        </template> 
+                        <template let-locationRefund="rowData" pTemplate="body">
+                            {{locationRefund.reportDate | moment: 'format': 'MM/DD/YYYY' }}
+                        </template>
+                    </p-column>
+                    <p-column header="Amount" styleClass="col-md-1">
+                        <template let-locationRefund="rowData" pTemplate="body">
+                            {{locationRefund.amountRefunded | currency:'USD':true}}
+                        </template>
+                    </p-column>
+                    <p-column sortable="true" styleClass="col-md-1">
+                        <template pTemplate="header">
+                            Transaction Date
+                        </template>
+                        <template let-locationRefund="rowData" pTemplate="body">
+                            {{locationRefund.transDate | moment: 'format': 'MM/DD/YYYY' }}
+                        </template>
+                    </p-column>
+                    <p-column field="transType" header="Type" sortable="true" styleClass="col-md-1"></p-column>                 
+                    <p-column field="creditCard" header="Card" sortable="true" styleClass="col-md-1"></p-column>
+                    <p-column field="ccNumPartial" header="Partial" sortable="true" styleClass="col-md-2"></p-column>
+                    <p-column field="approved" header="Approved" sortable="true" styleClass="col-md-1"></p-column>
+                    <p-column field="approvalCode" header="ApprovalCode" sortable="true" styleClass="col-md-2"></p-column>
+                </p-dataTable>
+            </tab>
         </tabset>
   </div>
 </div>
