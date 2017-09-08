@@ -62,8 +62,12 @@ export class AddEditDisbursementComponent {
             $observable.subscribe(
                 data => {
                     if (data.success) {
-                        if (this.arpDisbursement.disbursementId == 0)
+                        if (this.arpDisbursement.disbursementId == 0) {
                             this.arpDisbursement.disbursementId = parseInt(data.recordIDString);
+                            for (var n = 0; n < this.arpDisbursement.locationDisbursements.length; n++) {
+                                this.arpDisbursement.locationDisbursements[n].disbursementId = this.arpDisbursement.disbursementId;
+                            }
+                        }
 
                         this.activeModal.close(this.arpDisbursement);
                     }
