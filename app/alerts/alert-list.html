@@ -24,7 +24,7 @@
        </p-column> 
        <p-column field="alert.locationID" header="Location" sortable="true" styleClass="col-md-1">
            <template let-alert="rowData" pTemplate="body">
-               <a [routerLink]="['/location/location-detail']" [queryParams]="{i:alert.alert.locationID}">{{alert.alert.locationID}}</a>
+               <a [routerLink]="['/location/location-detail']" [queryParams]="{i:alert.alert.locationID, t:alertService.currentAlertType.constant}">{{alert.alert.locationID}}</a>
            </template>
        </p-column>
        <p-column *ngIf="alertService.currentAlertType.constant == 'CREDC'" field="location.merchantID" header="MerchantID" sortable="true" styleClass="col-md-1"></p-column>

@@ -1,5 +1,5 @@
 ﻿//our root app component
-import {Component, ComponentRef, ViewChild, ComponentFactoryResolver, ViewContainerRef} from '@angular/core';
+import { Component, ComponentRef, ViewChild, ComponentFactoryResolver, ViewContainerRef, AfterViewInit, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import {AuthenticationService} from '../common/services/authentication-service';
 import { SpinnerService } from '../common/services/spinner-service';
@@ -15,11 +15,13 @@ import { AddEditReturnComponent } from "./add-edit-return";
 import { AddEditDisbursementComponent } from './add-edit-disbursement';
 import * as _ from 'underscore';
 
+import { TabsModule, ModalModule, TabsetComponent } from 'ngx-bootstrap';
+
 @Component({
     templateUrl: 'location-detail.html',
     providers: [ConfirmationService]
 })
-export class LocationDetailComponent {   
+export class LocationDetailComponent implements AfterViewInit, OnInit {   
     constructor(private router: Router, 
                 private componentFactoryResolver: ComponentFactoryResolver,
                 private proxyService: ProxyService,
@@ -34,6 +36,8 @@ export class LocationDetailComponent {
                 private confirmationService: ConfirmationService) {
     }    
 
+    @ViewChild('staticTabs') staticTabs: TabsetComponent;
+
     msgs: Message[] = [];
     locationId: any;
     location: any;
@@ -44,16 +48,22 @@ export class LocationDetailComponent {
     states: SelectItem[];
     regions: SelectItem[];
     newLocationID: string = '';
+    initialTab: string = '';
     addModal: any;
     ngOnInit() {
         var _self = this;
         this.contextService.currentSection = "locations";
         this.locationId = this.route.snapshot.queryParams['i'];
+        this.initialTab = this.route.snapshot.queryParams['t'];
         this.loadStates();
         this.loadRegions().then(function () {
             _self.loadLocationDetail();
         })
+
     }   
+
+    ngAfterViewInit() {
+    }
 
     loadStates() { 
         this.states = [];
@@ -85,6 +95,7 @@ export class LocationDetailComponent {
     }
 
     loadLocationDetail() {
+        var _self = this;
         this.spinnerService.postStatus('Loading Location');
         let $observable = this.proxyService.Get("location/" + this.locationId);
         $observable.subscribe(
@@ -95,6 +106,16 @@ export class LocationDetailComponent {
                     this.cases = data.cases;
                     this.disbursements = data.disbursements;
                     this.loaded = true;
+                    setTimeout(function () { //give static tabs a cycle to render
+                        if (_self.initialTab) {
+                            if (_self.initialTab === 'CREDCDISPUTES')
+                                _self.staticTabs.tabs[1].active = true;
+                            if (_self.initialTab === 'CREDC')
+                                _self.staticTabs.tabs[2].active = true;
+                            else if (_self.initialTab === 'REFUNDS')
+                                _self.staticTabs.tabs[4].active = true;
+                        }
+                    }, 10);
                 }
                 else {
                     this.msgs.push({ severity: 'error', summary: data.errorMessage });
