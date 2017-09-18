@@ -61,6 +61,7 @@ import { ReportListComponent } from './reports/reports-list';
 import { CasesListComponent } from './cases/cases-list';
 import { AddLocationComponent } from './location/add-location';
 import { AddEditReturnComponent } from "./location/add-edit-return";
+import { AddEditTheftComponent } from "./location/add-edit-theft";
 
 /*************************************************************Directives/dto*******************************************************************/
 import { CanActivateGuard } from "./app.authguard"; 
@@ -77,10 +78,10 @@ import { AddEditDisbursementComponent } from "./location/add-edit-disbursement";
         MasterPageComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent, LocationChargeBackComponent,
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, LocationDetailComponent, JobParametersListComponent,
         PasswordValidator, FileUploadComponent, DashboardMainComponent, JobLogListComponent, LocationListComponent, ReportListComponent,
-        CasesListComponent, AddLocationComponent, AddEditReturnComponent, AddEditDisbursementComponent
+        CasesListComponent, AddLocationComponent, AddEditReturnComponent, AddEditDisbursementComponent, AddEditTheftComponent
        ],
 
-    entryComponents: [AddEditReturnComponent, AddEditDisbursementComponent],
+    entryComponents: [AddEditReturnComponent, AddEditDisbursementComponent, AddEditTheftComponent],
 
     bootstrap: [AppComponent],
 

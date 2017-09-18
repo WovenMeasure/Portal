@@ -155,17 +155,70 @@
                     </p-column>
                     <p-column field="notes" header="Notes" sortable="true" styleClass="col-md-3"></p-column>
                 </p-dataTable>
-            </tab>
+            </tab>           
             <tab heading="Disbursements and Returns">
+                    <br />
+                    <h4 class="col-md-2"><strong>Disbursements&nbsp;&nbsp;</strong></h4><button class="pull-left btn btn-primary btm-sm" (click)="addDisbursement()">Add Disbursement</button><div style="clear:both">&nbsp;</div>
+                    <p-dataTable (onRowSelect)="onDisbReturnSelect($event)" [immutable]="false" [value]="disbursements" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
+                        <p-column field="dateRequested" sortable="true" styleClass="col-md-2">
+                            <template pTemplate="header">
+                                Date Requested
+                            </template>
+                            <template let-disbursement="rowData" pTemplate="body">
+                                {{disbursement.dateRequested | moment: 'format': 'MM/DD/YYYY' }}
+                            </template>
+                        </p-column>
+                        <p-column field="checkNumber" sortable="true" styleClass="col-md-1">></p-column>
+                        <p-column field="checkDate" sortable="true" styleClass="col-md-2">
+                            <template pTemplate="header">
+                                Check Date
+                            </template>
+                            <template let-disbursement="rowData" pTemplate="body">
+                                {{disbursement.checkDate | moment: 'format': 'MM/DD/YYYY' }}
+                            </template>
+                        </p-column>
+                        <p-column header="Amount" styleClass="col-md-2">
+                            <template let-disbursement="rowData" pTemplate="body">
+                                {{disbursement.amount | currency:'USD':true}}
+                            </template>
+                        </p-column>
+                        <p-column field="payableTo" header="Payable To" sortable="true" styleClass="col-md-2"></p-column>
+                    </p-dataTable>
+                    <br /><br />
+                    <h4 class="col-md-2"><strong>Returns&nbsp;&nbsp;</strong></h4><button class="pull-left btn btn-primary btm-sm" (click)="addReturn()">Add Return</button><div style="clear:both">&nbsp;</div>
+                    <p-dataTable (onRowSelect)="onReturnSelect($event)" [immutable]="false" [value]="location.arpLocationReturns" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
+                        <p-column field="disbursement.dateRequested" sortable="true" styleClass="col-md-2">
+                            <template pTemplate="header">
+                                Date Returned
+                            </template>
+                            <template let-locationReturn="rowData" pTemplate="body">
+                                {{locationReturn.dateReturned | moment: 'format': 'MM/DD/YYYY' }}
+                            </template>
+                        </p-column>
+                        <p-column header="Change Fund Returned" styleClass="col-md-2">
+                            <template let-locationReturn="rowData" pTemplate="body">
+                                {{locationReturn.changeFundReturned | currency:'USD':true}}
+                            </template>
+                        </p-column>
+                        <p-column header="Petty Cash Returned" styleClass="col-md-2">
+                            <template let-locationReturn="rowData" pTemplate="body">
+                                {{locationReturn.pettyCashReturned | currency:'USD':true}}
+                            </template>
+                        </p-column>
+                        <p-column field="whoSignedReturn" header="Who Signed For" sortable="true" styleClass="col-md-2"></p-column>
+                        <p-column field="reasonReturned" header="Return Reason" sortable="true" styleClass="col-md-2"></p-column>
+                    </p-dataTable>
+                </tab>
+            <tab heading="Replenished due to Theft">
                 <br />
-                <h4 class="col-md-2"><strong>Disbursements&nbsp;&nbsp;</strong></h4><button class="pull-left btn btn-primary btm-sm" (click)="addDisbursement()">Add Disbursement</button><div style="clear:both">&nbsp;</div>
-                <p-dataTable (onRowSelect)="onDisbReturnSelect($event)" [immutable]="false" [value]="disbursements" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
+                <h4 class="col-md-2"><strong>Replenished due to Theft&nbsp;&nbsp;</strong></h4><button class="pull-left btn btn-primary btm-sm" (click)="addTheft()">Add</button><div style="clear:both">&nbsp;</div>
+                <p-dataTable (onRowSelect)="onTheftSelect($event)" [immutable]="false" [value]="location.arpTheftReplenishments" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
                     <p-column field="dateRequested" sortable="true" styleClass="col-md-2">
                         <template pTemplate="header">
                             Date Requested
                         </template>
-                        <template let-disbursement="rowData" pTemplate="body">
-                            {{disbursement.dateRequested | moment: 'format': 'MM/DD/YYYY' }}
+                        <template let-theft="rowData" pTemplate="body">
+                            {{theft.dateRequested | moment: 'format': 'MM/DD/YYYY' }}
                         </template>
                     </p-column>
                     <p-column field="checkNumber" sortable="true" styleClass="col-md-1">></p-column>
@@ -173,75 +226,51 @@
                         <template pTemplate="header">
                             Check Date
                         </template>
-                        <template let-disbursement="rowData" pTemplate="body">
-                            {{disbursement.checkDate | moment: 'format': 'MM/DD/YYYY' }}
+                        <template let-theft="rowData" pTemplate="body">
+                            {{theft.checkDate | moment: 'format': 'MM/DD/YYYY' }}
                         </template>
                     </p-column>
                     <p-column header="Amount" styleClass="col-md-2">
-                        <template let-disbursement="rowData" pTemplate="body">
-                            {{disbursement.amount | currency:'USD':true}}
+                        <template let-theft="rowData" pTemplate="body">
+                            {{theft.amount | currency:'USD':true}}
                         </template>
                     </p-column>
                     <p-column field="payableTo" header="Payable To" sortable="true" styleClass="col-md-2"></p-column>
                 </p-dataTable>
-                <br /><br />
-                <h4 class="col-md-2"><strong>Returns&nbsp;&nbsp;</strong></h4><button class="pull-left btn btn-primary btm-sm" (click)="addReturn()">Add Return</button><div style="clear:both">&nbsp;</div>
-                <p-dataTable (onRowSelect)="onReturnSelect($event)" [immutable]="false" [value]="location.arpLocationReturns" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
-                    <p-column field="disbursement.dateRequested" sortable="true" styleClass="col-md-2">
-                        <template pTemplate="header">
-                            Date Returned
-                        </template>
-                        <template let-locationReturn="rowData" pTemplate="body">
-                            {{locationReturn.dateReturned | moment: 'format': 'MM/DD/YYYY' }}
-                        </template>
-                    </p-column>
-                    <p-column header="Change Fund Returned" styleClass="col-md-2">
-                        <template let-locationReturn="rowData" pTemplate="body">
-                            {{locationReturn.changeFundReturned | currency:'USD':true}}
-                        </template>
-                    </p-column>
-                    <p-column header="Petty Cash Returned" styleClass="col-md-2">
-                        <template let-locationReturn="rowData" pTemplate="body">
-                            {{locationReturn.pettyCashReturned | currency:'USD':true}}
-                        </template>
-                    </p-column>
-                    <p-column field="whoSignedReturn" header="Who Signed For" sortable="true" styleClass="col-md-2"></p-column>
-                    <p-column field="reasonReturned" header="Return Reason" sortable="true" styleClass="col-md-2"></p-column>
-                </p-dataTable>
             </tab>
             <tab heading="Refunds">
-                <br />
-                <h4><strong>Refunds&nbsp;&nbsp;</strong></h4>
-                <p-dataTable [immutable]="false" [value]="location.arpLocationRefunds" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
-                    <p-column sortable="true" styleClass="col-md-1">
-                        <template pTemplate="header">
-                            Report Date
-                        </template>
-                        <template let-locationRefund="rowData" pTemplate="body">
-                            {{locationRefund.reportDate | moment: 'format': 'MM/DD/YYYY' }}
-                        </template>
-                    </p-column>
-                    <p-column header="Amount" styleClass="col-md-1">
-                        <template let-locationRefund="rowData" pTemplate="body">
-                            {{locationRefund.amountRefunded | currency:'USD':true}}
-                        </template>
-                    </p-column>
-                    <p-column sortable="true" styleClass="col-md-1">
-                        <template pTemplate="header">
-                            Transaction Date
-                        </template>
-                        <template let-locationRefund="rowData" pTemplate="body">
-                            {{locationRefund.transDate | moment: 'format': 'MM/DD/YYYY' }}
-                        </template>
-                    </p-column>
-                    <p-column field="transType" header="Type" sortable="true" styleClass="col-md-1"></p-column>
-                    <p-column field="creditCard" header="Card" sortable="true" styleClass="col-md-1"></p-column>
-                    <p-column field="ccNumPartial" header="Partial" sortable="true" styleClass="col-md-2"></p-column>
-                    <p-column field="approved" header="Approved" sortable="true" styleClass="col-md-1"></p-column>
-                    <p-column field="approvalCode" header="ApprovalCode" sortable="true" styleClass="col-md-2"></p-column>
-                </p-dataTable>
-            </tab>
-        </tabset>
+                    <br />
+                    <h4><strong>Refunds&nbsp;&nbsp;</strong></h4>
+                    <p-dataTable [immutable]="false" [value]="location.arpLocationRefunds" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
+                        <p-column sortable="true" styleClass="col-md-1">
+                            <template pTemplate="header">
+                                Report Date
+                            </template>
+                            <template let-locationRefund="rowData" pTemplate="body">
+                                {{locationRefund.reportDate | moment: 'format': 'MM/DD/YYYY' }}
+                            </template>
+                        </p-column>
+                        <p-column header="Amount" styleClass="col-md-1">
+                            <template let-locationRefund="rowData" pTemplate="body">
+                                {{locationRefund.amountRefunded | currency:'USD':true}}
+                            </template>
+                        </p-column>
+                        <p-column sortable="true" styleClass="col-md-1">
+                            <template pTemplate="header">
+                                Transaction Date
+                            </template>
+                            <template let-locationRefund="rowData" pTemplate="body">
+                                {{locationRefund.transDate | moment: 'format': 'MM/DD/YYYY' }}
+                            </template>
+                        </p-column>
+                        <p-column field="transType" header="Type" sortable="true" styleClass="col-md-1"></p-column>
+                        <p-column field="creditCard" header="Card" sortable="true" styleClass="col-md-1"></p-column>
+                        <p-column field="ccNumPartial" header="Partial" sortable="true" styleClass="col-md-2"></p-column>
+                        <p-column field="approved" header="Approved" sortable="true" styleClass="col-md-1"></p-column>
+                        <p-column field="approvalCode" header="ApprovalCode" sortable="true" styleClass="col-md-2"></p-column>
+                    </p-dataTable>
+                </tab>
+</tabset>
 </div>
 </div>
 <p-confirmDialog header="Confirmation" icon="fa fa-question-circle" width="425"></p-confirmDialog>

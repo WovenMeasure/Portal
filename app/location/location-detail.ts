@@ -16,6 +16,7 @@ import { AddEditDisbursementComponent } from './add-edit-disbursement';
 import * as _ from 'underscore';
 
 import { TabsModule, ModalModule, TabsetComponent } from 'ngx-bootstrap';
+import { AddEditTheftComponent } from "./add-edit-theft";
 
 @Component({
     templateUrl: 'location-detail.html',
@@ -412,6 +413,56 @@ export class LocationDetailComponent implements AfterViewInit, OnInit {
             },
             function (dismissReason: any) {
                 _self.msgs.push({ severity: 'error', summary: dismissReason});
+            }
+        );
+    }
+
+
+
+
+    onTheftSelect(event) {
+        var _self = this;
+        this.addModal = this.ngbModal.open(AddEditTheftComponent, {
+            backdrop: 'static', keyboard: false, size: 'lg'
+        });
+
+        const contentComponentInstance = this.addModal.componentInstance;
+        if (event.data.dateRequested) {
+            event.data.dateRequested = new Date(event.data.dateRequested);
+        }
+        if (event.data.checkDate) {
+            event.data.checkDate = new Date(event.data.checkDate);
+        }
+        contentComponentInstance.arpTheft = event.data;
+
+        this.addModal.result.then(function (ret: any) {
+            if (ret) {
+                _self.msgs.push({ severity: 'success', summary: "Theft/Replenishment Updated" });
+            }
+        },
+            function (dismissReason: any) {
+                _self.msgs.push({ severity: 'error', summary: dismissReason });
+            }
+        );
+    }
+
+    addTheft() {
+        var _self = this;
+        this.addModal = this.ngbModal.open(AddEditTheftComponent, {
+            backdrop: 'static', keyboard: false, size: 'lg'
+        });
+
+        const contentComponentInstance = this.addModal.componentInstance;
+        contentComponentInstance.arpTheft = { theftReplenishId: 0, locationId: this.locationId };
+
+        this.addModal.result.then(function (ret: any) {
+            if (ret) {
+                _self.msgs.push({ severity: 'success', summary: "Theft/Replenishment Added" });
+                _self.location.arpTheftReplenishments.push(ret);
+            }
+        },
+            function (dismissReason: any) {
+                _self.msgs.push({ severity: 'error', summary: dismissReason });
             }
         );
     }
