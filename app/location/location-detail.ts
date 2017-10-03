@@ -372,6 +372,36 @@ export class LocationDetailComponent implements AfterViewInit, OnInit {
     }
 
 
+    dismissDisbursement($event: any, disbursement: any) {
+        $event.stopPropagation();
+        var _self = this;
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to delete this disbursement?',
+            accept: () => {
+                this.spinnerService.postStatus('Deleting disbursement');
+                let $observable = this.proxyService.Delete("disbursement/deleteDisbursement/" + disbursement.disbursementId);
+                $observable.subscribe(
+                    data => {
+                        if (data.success) {
+                            this.msgs.push({ severity: 'success', summary: "Disbursement deleted" });
+                            var index = this.disbursements.indexOf(disbursement);
+                            this.disbursements.splice(index, 1);
+                        }
+                        else {
+                            this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                        }
+                    },
+                    (err) => {
+                        this.msgs.push({ severity: 'error', summary: err });
+                    },
+                    () => {
+                        this.spinnerService.finishCurrentStatus();
+                    });
+            }
+        });
+    }
+
+
 
     onReturnSelect(event) {
         var _self = this;
@@ -419,7 +449,34 @@ export class LocationDetailComponent implements AfterViewInit, OnInit {
         );
     }
 
-
+    dismissReturn($event: any, locationReturn: any) {
+        $event.stopPropagation();
+        var _self = this;
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to delete this return?',
+            accept: () => {
+                this.spinnerService.postStatus('Deleting return');
+                let $observable = this.proxyService.Delete("disbursement/deleteReturn/" + locationReturn.returnID);
+                $observable.subscribe(
+                    data => {
+                        if (data.success) {
+                            this.msgs.push({ severity: 'success', summary: "Return deleted" });
+                            var index = this.location.arpLocationReturns.indexOf(locationReturn);
+                            this.location.arpLocationReturns.splice(index, 1);
+                        }
+                        else {
+                            this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                        }
+                    },
+                    (err) => {
+                        this.msgs.push({ severity: 'error', summary: err });
+                    },
+                    () => {
+                        this.spinnerService.finishCurrentStatus();
+                    });
+            }
+        });
+    }
 
 
     onTheftSelect(event) {
