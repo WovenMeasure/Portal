@@ -384,7 +384,7 @@ export class LocationDetailComponent implements AfterViewInit, OnInit {
             event.data.dateReturned = new Date(event.data.dateReturned);
         }        
         contentComponentInstance.arpReturn = event.data;
-        contentComponentInstance.disbursements = _self.disbursements;
+        contentComponentInstance.disbursements = _.sortBy(_self.disbursements, "checkNumber");
 
         this.addModal.result.then(function (ret: any) {
             if (ret) {
@@ -405,7 +405,7 @@ export class LocationDetailComponent implements AfterViewInit, OnInit {
 
         const contentComponentInstance = this.addModal.componentInstance;
         contentComponentInstance.arpReturn = { returnID: 0, locationId: this.locationId };
-        contentComponentInstance.disbursements = _self.disbursements;
+        contentComponentInstance.disbursements = _.sortBy(_self.disbursements, "checkNumber");
 
         this.addModal.result.then(function (ret: any) {
                 if (ret) {
