@@ -10,6 +10,12 @@
                 <label for="dateReturned">Date Returned *</label>
                 <p-calendar [ngModelOptions]="{standalone: true}" hourFormat="12" [(ngModel)]="arpReturn.dateReturned"></p-calendar>
             </div>
+            <div class="form-group col-md-12">
+                <label for="disbCheckNumber">Disbursement Check Number</label>
+                <select name="disbCheckNumber" required [(ngModel)]="arpReturn.disbursementId">
+                    <option *ngFor="let c of disbursements" [ngValue]="c.disbursementId">{{c.checkNumber}}</option>
+                </select>
+            </div>  
             <div class="form-group col-md-12"> 
                 <label for="changeFundReturned">Change Fund Returned *</label><span [hidden]="changeFundReturned.valid || changeFundReturned.pristine">Change Fund Returned is required.</span>
                 <input required type="number" class="form-control" name="changeFundReturned" id="changeFundReturned" placeholder="Change Fund Returned" [(ngModel)]="arpReturn.changeFundReturned" #changeFundReturned="ngModel"/>

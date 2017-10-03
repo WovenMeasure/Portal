@@ -31,6 +31,7 @@ export class AddEditReturnComponent {
     }   
 
     arpReturn: any;
+    disbursements: any[];
 
     ngOnInit() {
 
