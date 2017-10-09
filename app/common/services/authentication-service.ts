@@ -21,6 +21,8 @@ export class AuthenticationService {
                 this.contextService.ContextInfo.email = data.email;
                 this.contextService.ContextInfo.token = data.access_token;
                 this.contextService.ContextInfo.tokenExpires = data[".expires"];
+                this.contextService.ContextInfo.claims = data["claims"];
+
                 this.contextService.LoggedIn = true;
             },
             () => { }

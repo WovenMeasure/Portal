@@ -35,4 +35,5 @@ export class MasterPageComponent {
     back() {
         this.location.back();
     }
+    
 }

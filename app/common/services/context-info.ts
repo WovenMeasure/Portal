@@ -7,7 +7,9 @@ export class ContextInfo {
     public displayName: string;
     public fullName: string;
     public userId: string;
+    public claims: Array<string>;
     
     constructor() {
     }
+    
 }

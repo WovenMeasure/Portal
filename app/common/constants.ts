@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable() 
 export class Constants {
-    public get BaseApiUri(): string { return "http://api-laz.wovenmeasure.com/api/"; }
-    public get BaseApiUriLocal(): string { return "http://laz.webapi/api/"; }
+    public get BaseApiUriProd(): string { return "http://api-laz.wovenmeasure.com/api/"; }
+    public get BaseApiUri(): string { return "http://laz.webapi/api/"; }
 
     public get BaseAttachmentUri(): string { return this.BaseApiUri + "attachment/getFile/"; }
 
@@ -14,6 +14,9 @@ export class Constants {
     public alertStatusInProgress: number = 4;
 
     public alertRuleTypeChargeBackOrDispute: number = 5;
+
+    public permissionBankReconcile: string = "BankReconcile";
+    public permissionAudit: string = "Audit"; 
 
 
     public get US_States() {

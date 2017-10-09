@@ -128,4 +128,12 @@ export class ContextService {
         window.localStorage.setItem("showInProgressOnly", value.toString());
     }
 
+
+    public hasPermission(claimValue: string): boolean {
+        if (!this.ContextInfo.claims)
+            return false;
+
+        return (this.ContextInfo.claims.indexOf(claimValue) > 0);
+    }
+
 }
