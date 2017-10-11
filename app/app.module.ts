@@ -67,6 +67,7 @@ import { AddEditTheftComponent } from "./location/add-edit-theft";
 import { CanActivateGuard } from "./app.authguard"; 
 import { PasswordValidator } from './changePassword/changePassword.directive';
 import { AddEditDisbursementComponent } from "./location/add-edit-disbursement";
+import { DcrReconcilesListComponent } from "./dcrreconcile/dcr-reconcile";
  
  
 
@@ -78,7 +79,8 @@ import { AddEditDisbursementComponent } from "./location/add-edit-disbursement";
         MasterPageComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent, LocationChargeBackComponent,
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, LocationDetailComponent, JobParametersListComponent,
         PasswordValidator, FileUploadComponent, DashboardMainComponent, JobLogListComponent, LocationListComponent, ReportListComponent,
-        CasesListComponent, AddLocationComponent, AddEditReturnComponent, AddEditDisbursementComponent, AddEditTheftComponent
+        CasesListComponent, AddLocationComponent, AddEditReturnComponent, AddEditDisbursementComponent, AddEditTheftComponent,
+        DcrReconcilesListComponent
        ],
 
     entryComponents: [AddEditReturnComponent, AddEditDisbursementComponent, AddEditTheftComponent],

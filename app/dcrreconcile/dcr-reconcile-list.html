@@ -1,0 +1,51 @@
+﻿<p-growl [value]="msgs"></p-growl>
+<div class="col-md-12">
+    <h2 class="col-md-4"><strong>Bank Reconciliations</strong></h2>
+<div class="col-md-12">
+    <div class="col-md-3 col-sm-6 form-group">
+        <label for="filterLocationName">Location Name:&nbsp;</label>
+        <input type="text" [(ngModel)]="filterLocationName" name="filterLocationName" id="filterLocationName" placeholder="Name" />
+    </div>
+    <div class="col-md-3 col-sm-6 form-group">
+        <label for="filterLocationId">Location ID:&nbsp;</label>
+        <input type="text" [(ngModel)]="filterLocationId"  name="filterLocationId" id="filterLocationId" placeholder="Location ID"/>
+    </div>
+    <div class="col-md-3 col-sm-6 form-group">
+        <label for="filterMerchantId">Merchant ID:&nbsp;</label>
+        <input type="text" [(ngModel)]="filterMerchantId"  name="filterMerchantId" id="filterMerchantId" placeholder="Merchant ID"/>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <button class="btn btn-primary" (click)="filter()">Filter</button>
+    </div> 
+    <table class="table table-condensed table-striped col-md-12">
+         <tr>
+             <th>Source</th>
+             <th>Location</th>
+             <th>Date</th>
+             <th>Credit Card Type</th>
+             <th>Total</th>
+         </tr>
+         <ng-container *ngFor="let reconcile of filtered">
+             <tr>
+                 <td>DCR</td>
+                 <td>{{reconcile.dcrData.locationNum}}</td>
+                 <td>{{reconcile.dcrData.depositDate | moment: 'format': 'MM/DD/YYYY'}}</td>
+                 <td></td>
+                 <td>{{reconcile.dcrData.depositAmt | currency:'USD':true}}</td>
+             </tr>
+             <tr *ngIf="reconcile.transactionDetail">
+                 <td style="padding-left:30px"><img src="/app/images/child_arrow.svg" style="width:20px;position:relative;top:-8px;left:-5px" />Cash Deposit</td>
+                 <td>&nbsp;</td>
+                 <td>{{reconcile.transactionDetail.asOfDate | moment: 'format': 'MM/DD/YYYY'}}</td>
+                 <td></td>
+                 <td>{{reconcile.transactionDetail.amount | currency:'USD':true}}</td>
+             </tr>
+             <tr *ngIf="!reconcile.transactionDetail">
+               <td colspan="5">&nbsp;</td>
+             </tr>
+         </ng-container>
+    </table>
+</div>
+
+
+

@@ -36,7 +36,7 @@
             <span><a [ngClass]="{'selected': contextService.currentSection == 'reports'}" [routerLink]="['/reports/report-list']">Reports</a></span>
         </div>  
         <div class="menu-item" *ngIf="contextService.hasPermission(constants.permissionBankReconcile)">
-            <span><a [ngClass]="{'selected': contextService.currentSection == 'bankreconcile'}">Bank Reconcilation</a></span>
+            <span><a [ngClass]="{'selected': contextService.currentSection == 'bankreconcile'}" [routerLink]="['/dcr-reconcile/dcr-reconcile-list']">Bank Reconcilation</a></span>
         </div>  
     </div>
     <div class="main" ui-view="screens">

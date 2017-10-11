@@ -19,6 +19,7 @@ import { LocationChargeBackComponent } from './location/location-chargeback';
 import { JobParametersListComponent } from './jobparameters/jobparameters-list';
 import { ReportListComponent } from './reports/reports-list';
 import { CasesListComponent } from './cases/cases-list';
+import { DcrReconcilesListComponent } from "./dcrreconcile/dcr-reconcile";
 
 const appRoutes: Routes = [
     { path: '', component: MasterPageComponent, canActivate: [CanActivateGuard],
@@ -48,6 +49,12 @@ const appRoutes: Routes = [
                 path: 'cases', component: null, canActivate: [CanActivateGuard], children:
                 [
                     { path: 'cases-list', component: CasesListComponent, canActivate: [CanActivateGuard] }
+                ]
+            },
+            {
+                path: 'dcr-reconcile', component: null, canActivate: [CanActivateGuard], children:
+                [
+                    { path: 'dcr-reconcile-list', component: DcrReconcilesListComponent, canActivate: [CanActivateGuard] }
                 ]
             },
             {
