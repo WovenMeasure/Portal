@@ -52,6 +52,26 @@ export class AlertDetailComponent {
             data => {
                 if (data.success) {
                     this.alert = data.alert;
+                    if (!this.alert.alertExtended) {
+                        this.alert.alertExtended = {
+                            dateEmailedToField: null,
+                            dateMIDClosed: null,
+                            monthsHittingFees: null,
+                            netSalesAmount: null,
+                            adjustments: null,
+                            fees: null,
+                            deposit: null
+                        };
+                    }
+                    else {
+                        if (data.alert.alertExtended.dateEmailedToField)
+                            this.alert.alertExtended.dateEmailedToField = new Date(data.alert.alertExtended.dateEmailedToField);
+
+                        if (data.alert.alertExtended.dateMIDClosed)
+                            this.alert.alertExtended.dateMIDClosed = new Date(data.alert.alertExtended.dateMIDClosed);
+
+                    }
+
                     this.transactions = data.transactions;
                     this.location = data.location;
                 }
@@ -61,6 +81,31 @@ export class AlertDetailComponent {
                 this.spinnerService.finishCurrentStatus();
             });   
     }   
+
+    saveExtended() {
+        var data = {
+            alertID: this.alert.alertID,
+            alertExtended: this.alert.alertExtended
+        }
+        this.spinnerService.postStatus('Saving Extension Data');
+        let $observable = this.proxyService.Post("alert/saveExtended", data);
+        $observable.subscribe(
+            data => {
+                if (data.success) {
+                    this.msgs.push({ severity: 'success', summary: "Extended Information Saved" });
+                    this.newNote = "";
+                }
+                else {
+                    this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                }
+            },
+            (err) => {
+                this.msgs.push({ severity: 'error', summary: err });
+            },
+            () => {
+                this.spinnerService.finishCurrentStatus();
+            });   
+    }
 
     saveNewNote() {
         var data = {

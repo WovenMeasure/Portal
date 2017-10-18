@@ -7,7 +7,7 @@
         <div class="col-md-offset-2 col-md-4"><button [disabled]="alert?.workItemStatusID == constants.alertStatusInProgress" (click)="markInProgress()" class="btn btn-primary">Mark in Progress</button>&nbsp;&nbsp;
         <button [disabled]="alert?.workItemStatusID != constants.alertStatusInProgress" (click)="markResolved()" class="btn btn-primary">Mark Resolved</button></div>
         <div style="clear:both"></div>
-        <table class="table-condensed table-striped table-bordered col-md-6 col-sm-12">
+        <table class="table-condensed table-striped table-bordered col-md-12 col-sm-12">
             <tr>
                 <td>Alerted On</td><td>{{alert?.alertDateTime | moment: 'utc' |  moment: 'format': 'MM/DD/YYYY hh:mm A'  }}</td>
             </tr>
@@ -45,6 +45,42 @@
             <strong>{{alert?.detail}}</strong>
             {{alert?.detailedSummary}}
         </div>
+        <div class="clearfix">&nbsp;</div>
+        <hr />
+        <form class="col-xs-12" style="border: 1px solid #DDDDDD; padding: 10px 0 10px 0" #myForm="ngForm" *ngIf="alert && alert.ruleType.ruleTypeID==10" (ngSubmit)="saveExtended($event)" autocomplete="false">
+            <h4 class="col-xs-12" style="background-color:#DDDDDD;padding:5px;margin: 0 0 10px 0"><strong>Extended Information</strong></h4><br />
+            <div class="form-group col-md-6">
+                <label class="col-xs-3" for="dateEmailedToField">Date Emailed to Field</label>
+                <p-calendar class="col-xs-9" [(ngModel)]="alert.alertExtended.dateEmailedToField" name="dateEmailedToField" [showIcon]="true" [showOnFocus]="false"></p-calendar>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="col-xs-3" for="dateMIDClosed">Date MID was closed</label>
+                <p-calendar class="col-xs-9" [(ngModel)]="alert.alertExtended.dateMIDClosed" name="dateMIDClosed" [showIcon]="true" [showOnFocus]="false"></p-calendar>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="monthsHittingFees"># of months of fees hitting</label>
+                <input type="number" class="form-control" name="monthsHittingFees" id="monthsHittingFees" placeholder="Months Hitting Fees" [(ngModel)]="alert.alertExtended.monthsHittingFees">
+            </div>
+            <div style="clear:both"></div>
+            <div class="form-group col-md-3">
+                <label for="monthsHittingFees">Net Sales Amount</label>
+                <input type="number" class="form-control" name="monthsHittingFees" id="monthsHittingFees" placeholder="Net Sales Amount" [(ngModel)]="alert.alertExtended.netSalesAmount">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="adjustments">Adjustments</label>
+                <input type="number" class="form-control" name="adjustments" id="adjustments" placeholder="Adjustments" [(ngModel)]="alert.alertExtended.adjustments">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="fees">Fees</label>
+                <input type="number" class="form-control" name="fees" id="fees" placeholder="Fees" [(ngModel)]="alert.alertExtended.fees">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="deposit">Deposit</label>
+                <input type="number" class="form-control" name="deposit" id="deposit" placeholder="Deposit" [(ngModel)]="alert.alertExtended.deposit">
+            </div>
+            <button type="submit" class="col-xs-1 col-xs-offset-1 btn btn-default" *ngIf="myForm.valid" [ngClass]="{ 'btn-default' : !myForm.valid, 'btn-primary': myForm.valid }">Save Extended</button>
+            <br /><br />
+        </form>       
         <div class="clearfix">&nbsp;</div>
         <hr />
         <strong>Transactions</strong>
