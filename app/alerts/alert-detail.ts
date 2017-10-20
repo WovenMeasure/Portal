@@ -54,8 +54,8 @@ export class AlertDetailComponent {
                     this.alert = data.alert;
                     if (!this.alert.alertExtended) {
                         this.alert.alertExtended = {
-                            dateEmailedToField: null,
-                            dateMIDClosed: null,
+                            dateEmailedToField: new Date(0),
+                            dateMIDClosed: new Date(0),
                             monthsHittingFees: null,
                             netSalesAmount: null,
                             adjustments: null,
