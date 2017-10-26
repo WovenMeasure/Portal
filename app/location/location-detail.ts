@@ -103,6 +103,10 @@ export class LocationDetailComponent implements AfterViewInit, OnInit {
             data => {
                 if (data.success) {
                     this.location = data.location;
+                    var at = _.sortBy(this.location.arpLocationAudits, function (t) {
+                        return - (new Date(t.changeDate).getTime());
+                    });
+                    this.location.arpLocationAudits = at;
                     this.transactions = data.transactions;
                     this.cases = data.cases;
                     this.disbursements = data.disbursements;
@@ -147,6 +151,10 @@ export class LocationDetailComponent implements AfterViewInit, OnInit {
                         this.location.oldLocationID = this.location.locationID;
                         this.location.locationID = this.newLocationID;
                         this.newLocationID = '';
+                    }
+                    if (data.hasNewAuditRecord)
+                    {
+                        this.location.arpLocationAudits.unshift(data.newAuditRecord);
                     }
                 }
                 else {

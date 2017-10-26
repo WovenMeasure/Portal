@@ -280,6 +280,23 @@
                         <p-column field="approvalCode" header="ApprovalCode" sortable="true" styleClass="col-md-2"></p-column>
                     </p-dataTable>
                 </tab>
+
+            <tab heading="Audit History">
+                <br />
+                <h4><strong>Audit History&nbsp;&nbsp;</strong></h4>
+                <p-dataTable [immutable]="false" [value]="location.arpLocationAudits" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
+                    <p-column sortable="true" styleClass="col-md-1">
+                        <template pTemplate="header">
+                            Change Date
+                        </template>
+                        <template let-locationAudit="rowData" pTemplate="body">
+                            {{locationAudit.changeDate | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
+                        </template>
+                    </p-column>
+                    <p-column field="oldMerchantID" header="Old Merchant ID" sortable="true" styleClass="col-md-1"></p-column>
+                    <p-column field="newMerchantID" header="New Merchant ID" sortable="true" styleClass="col-md-1"></p-column>
+                </p-dataTable>
+            </tab>
 </tabset>
 </div>
 </div>
