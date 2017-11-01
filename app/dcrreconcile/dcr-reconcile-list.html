@@ -1,51 +1,95 @@
 ﻿<p-growl [value]="msgs"></p-growl>
 <div class="col-md-12">
     <h2 class="col-md-4"><strong>Bank Reconciliations</strong></h2>
+</div>
 <div class="col-md-12">
-    <div class="col-md-3 col-sm-6 form-group">
-        <label for="filterLocationName">Location Name:&nbsp;</label>
-        <input type="text" [(ngModel)]="filterLocationName" name="filterLocationName" id="filterLocationName" placeholder="Name" />
+    <div class="col-md-3 col-sm-4 form-group">
+        <label for="filterLocationName">Location:&nbsp;</label>
+        <input type="text" [(ngModel)]="filterLocation" name="filterLocation" id="filterLocation" placeholder="Location" />
     </div>
-    <div class="col-md-3 col-sm-6 form-group">
-        <label for="filterLocationId">Location ID:&nbsp;</label>
-        <input type="text" [(ngModel)]="filterLocationId"  name="filterLocationId" id="filterLocationId" placeholder="Location ID"/>
-    </div>
-    <div class="col-md-3 col-sm-6 form-group">
+    <div class="col-md-3 col-sm-4 form-group">
         <label for="filterMerchantId">Merchant ID:&nbsp;</label>
         <input type="text" [(ngModel)]="filterMerchantId"  name="filterMerchantId" id="filterMerchantId" placeholder="Merchant ID"/>
     </div>
-    <div class="col-md-3 col-sm-6">
-        <button class="btn btn-primary" (click)="filter()">Filter</button>
+    <div class="col-md-3 col-sm-4 form-group">
+        <label class="col-sm-5" for="filterType">Match Type:&nbsp;</label>
+        <div class="col-sm-6">
+            <input  type="radio" [(ngModel)]="type" name="type" value="2">Bank Only<br>
+            <input  type="radio" [(ngModel)]="type" name="type" value="3">DCR Only<br>
+            <input  type="radio" [(ngModel)]="type" name="type" value="1">Matches Only<br>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <label class="pull-left" style="height:35px;margin-top:10px;">From:  </label>
+        <p-calendar styleClass="col-sm-3" [(ngModel)]="fromDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>
+        <label class="pull-left" style="height:35px;margin-top:10px;">To:  </label>
+        <p-calendar styleClass="col-sm-3" [(ngModel)]="toDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>
+        <div class="col-sm-3">
+            <button class="btn btn-primary" (click)="filter()">Filter</button>
+        </div>
     </div> 
-    <table class="table table-condensed table-striped col-md-12">
+    <div style="clear:both">&nbsp;</div>
+    <p-dataTable *ngIf="type2==2" [immutable]="false" (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" scrollable="true" scrollHeight="700px" [pageLinks]="5" [value]="matches" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15" [globalFilter]="gb">
+        <p-column field="bankTransaction.bankDate" sortable="true" styleClass="col-md-2">
+            <template pTemplate="header">
+                Bank Date
+            </template>
+            <template let-reconcile="rowData" pTemplate="body">
+                {{reconcile.bankTransaction.bankDate | moment: 'format': 'MM/DD/YYYY' }}
+            </template>
+        </p-column>
+        <p-column field="reconcile.bankTransaction.amount" sortable="true" styleClass="col-md-2">
+            <template pTemplate="header">
+                Amount
+            </template>
+            <template let-reconcile="rowData" pTemplate="body">
+                {{reconcile.bankTransaction.amount | currency:'USD':true}}
+            </template>
+        </p-column>
+        <p-column field="bankTransaction.accountNumber" header="Account" sortable="true" styleClass="col-md-1"></p-column>
+        <p-column field="bankTransaction.customerRef" header="Customer Ref" sortable="true" styleClass="col-md-2"></p-column>
+    </p-dataTable>  
+    <table class="table table-condensed table-striped col-md-12" *ngIf="type2==3">
          <tr>
              <th>Source</th>
+             <th>Region</th>
              <th>Location</th>
              <th>Date</th>
-             <th>Credit Card Type</th>
              <th>Total</th>
          </tr>
-         <ng-container *ngFor="let reconcile of filtered">
+         <ng-container *ngFor="let reconcile of matches">
              <tr>
                  <td>DCR</td>
+                 <td>{{reconcile.dcrData.regionNum}}</td>
                  <td>{{reconcile.dcrData.locationNum}}</td>
                  <td>{{reconcile.dcrData.depositDate | moment: 'format': 'MM/DD/YYYY'}}</td>
-                 <td></td>
                  <td>{{reconcile.dcrData.depositAmt | currency:'USD':true}}</td>
-             </tr>
-             <tr *ngIf="reconcile.transactionDetail">
-                 <td style="padding-left:30px"><img src="/app/images/child_arrow.svg" style="width:20px;position:relative;top:-8px;left:-5px" />Cash Deposit</td>
-                 <td>&nbsp;</td>
-                 <td>{{reconcile.transactionDetail.asOfDate | moment: 'format': 'MM/DD/YYYY'}}</td>
-                 <td></td>
-                 <td>{{reconcile.transactionDetail.amount | currency:'USD':true}}</td>
-             </tr>
-             <tr *ngIf="!reconcile.transactionDetail">
-               <td colspan="5">&nbsp;</td>
              </tr>
          </ng-container>
     </table>
+    <table class="table table-condensed table-striped col-md-12" *ngIf="type2==1">
+        <tr>
+            <th>Source</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Total</th>
+        </tr>
+        <ng-container *ngFor="let reconcile of matches">
+            <tr>
+                <td>DCR</td>
+                <td>{{reconcile.dcrData.locationNum}}</td>
+                <td>{{reconcile.dcrData.depositDate | moment: 'format': 'MM/DD/YYYY'}}</td>
+                <td>{{reconcile.dcrData.depositAmt | currency:'USD':true}}</td>
+            </tr>
+            <tr *ngIf="reconcile.bankTransaction">
+                <td style="padding-left:30px"><img src="/app/images/child_arrow.svg" style="width:20px;position:relative;top:-8px;left:-5px" />Cash Deposit</td>
+                <td>&nbsp;</td>
+                <td>{{reconcile.bankTransaction.bankDate | moment: 'format': 'MM/DD/YYYY'}}</td>
+                <td>{{reconcile.bankTransaction.amount | currency:'USD':true}}</td>
+            </tr>
+            <tr *ngIf="!reconcile.bankTransaction">
+                <td colspan="5">&nbsp;</td>
+            </tr>
+        </ng-container>
+    </table>
 </div>
-
-
-

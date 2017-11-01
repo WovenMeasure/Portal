@@ -12,6 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SelectItem } from 'primeng/primeng';
 import { Message, ConfirmationService, ConfirmDialogModule, DataTable } from 'primeng/primeng';
 import * as _ from 'underscore';
+import * as moment from 'moment';
 
 @Component({
     templateUrl: 'dcr-reconcile-list.html',
@@ -33,55 +34,53 @@ export class DcrReconcilesListComponent {
     }    
 
     msgs: Message[] = [];    
-    reconciles: any[];
+    matches: any[];
     filtered: any[];
     loaded: boolean = false;
-    filterLocationName: string;
-    filterLocationId: string;
+    filterLocation: string;
     filterMerchantId: string;    
+    fromDate: Date;
+    toDate: Date;
+    type: string;
+    type2: string;
 
     ngOnInit() {
+        this.matches = [];
+        this.filterLocation = "";
+        this.filterMerchantId = "";
+        var date = new Date();
+        this.fromDate = new Date(date.getFullYear(), date.getMonth() - 1, 1);
+        this.toDate = date;
         this.contextService.currentSection = "bankreconcile";
+        this.type = "2";
+        this.type2 = "2";
         this.loadReconciles();
     }       
 
     loadReconciles() {
+        var _self = this;
         this.spinnerService.postStatus('Loading...');
-        let $observable = this.proxyService.Get("dcrreconcile");
+        //type 2 = cash, type 1 = credit card
+        let $observable = this.proxyService.Get("dcrreconcile/?location=" + this.filterLocation + "&mid=" + this.filterMerchantId + "&type=" + this.type + "&from=" + moment(this.fromDate).format("MM-DD-YYYY") + "&to=" + moment(this.toDate).format("MM-DD-YYYY"));
         $observable.subscribe(
             data => {
                 if (data.success) {
-                    this.reconciles = data.reconciles;
-                    this.filtered = data.reconciles;
+                    _self.matches = data.reconciles;
+                    _self.type2 = _self.type;
                 }
                 else {
-                    this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                    _self.msgs.push({ severity: 'error', summary: data.errorMessage });
                 }
             },
             (err) => {
-                this.msgs.push({ severity: 'error', summary: err });
+                _self.msgs.push({ severity: 'error', summary: err });
             },
             () => {
-                this.spinnerService.finishCurrentStatus();
+                _self.spinnerService.finishCurrentStatus();
             });   
     }   
 
     filter() {
-        var _self = this;
-        this.filtered = _.filter(this.reconciles, (r) => {
-            let match: boolean = true;
-            if (_self.filterLocationId) {
-                match = r.dcrData.locationNum === _self.filterLocationId
-            }
-
-            if (match && _self.filterLocationName) {
-                match = r.dcrData.locationDesc === _self.filterLocationName;
-            }
-
-            if (match && _self.filterMerchantId) {
-                match = r.dcrData.merchantId === _self.filterMerchantId;
-            }
-            return match;
-        });
+        this.loadReconciles();
     }
 }
