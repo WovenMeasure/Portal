@@ -3,29 +3,26 @@
     <h2 class="col-md-4"><strong>Bank Reconciliations</strong></h2>
 </div>
 <div class="col-md-12">
-    <div class="col-md-3 col-sm-4 form-group">
-        <label for="filterLocationName">Location:&nbsp;</label>
-        <input type="text" [(ngModel)]="filterLocation" name="filterLocation" id="filterLocation" placeholder="Location" />
+    <div class="col-md-2 col-sm-2 form-group">
+        <label for="filterLocationId">Location:&nbsp;</label>
+        <p-dropdown [options]="locations" (onChange)="loadReconciles()" [(ngModel)]="filterLocation" [filter]="true" [lazy]="false" placeholder="Select Location"></p-dropdown>
+        <button class="btn-xs btn-primary" (click)="filterLocation=''">Clear</button>
     </div>
-    <div class="col-md-3 col-sm-4 form-group">
+    <div class="col-md-2 col-sm-2 form-group">
         <label for="filterMerchantId">Merchant ID:&nbsp;</label>
         <input type="text" [(ngModel)]="filterMerchantId"  name="filterMerchantId" id="filterMerchantId" placeholder="Merchant ID"/>
-    </div>
-    <div class="col-md-3 col-sm-4 form-group">
-        <label class="col-sm-5" for="filterType">Match Type:&nbsp;</label>
-        <div class="col-sm-6">
-            <input  type="radio" [(ngModel)]="type" name="type" value="2">Bank Only<br>
-            <input  type="radio" [(ngModel)]="type" name="type" value="3">DCR Only<br>
-            <input  type="radio" [(ngModel)]="type" name="type" value="1">Matches Only<br>
-        </div>
+    </div>   
+    <div class="col-md-5 col-sm-5 form-group">
+            <label>Match Type:&nbsp;</label>
+            <p-selectButton [disabled]="filterMerchantId === '' && filterLocation === ''" [options]="types" [(ngModel)]="type" (onChange)="loadReconciles()"></p-selectButton>
     </div>
     <div class="col-sm-12">
         <label class="pull-left" style="height:35px;margin-top:10px;">From:  </label>
-        <p-calendar styleClass="col-sm-3" [(ngModel)]="fromDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>
+        <p-calendar styleClass="col-sm-2" [(ngModel)]="fromDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>
         <label class="pull-left" style="height:35px;margin-top:10px;">To:  </label>
-        <p-calendar styleClass="col-sm-3" [(ngModel)]="toDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>
+        <p-calendar styleClass="col-sm-2" [(ngModel)]="toDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>
         <div class="col-sm-3">
-            <button class="btn btn-primary" (click)="filter()">Filter</button>
+            <button class="btn btn-primary" [disabled]="filterMerchantId === '' && filterLocation === ''" (click)="filter()">Filter</button>
         </div>
     </div> 
     <div style="clear:both">&nbsp;</div>
@@ -78,14 +75,14 @@
             <tr>
                 <td>DCR</td>
                 <td>{{reconcile.dcrData.locationNum}}</td>
-                <td>{{reconcile.dcrData.depositDate | moment: 'format': 'MM/DD/YYYY'}}</td>
+                <td><strong class="small">DCR Entry On:&nbsp;&nbsp;</strong>{{reconcile.dcrEntryDate | moment: 'format': 'MM/DD/YYYY'}}</td>
                 <td>{{reconcile.dcrData.depositAmt | currency:'USD':true}}</td>
             </tr>
             <tr *ngIf="reconcile.bankTransaction">
                 <td style="padding-left:30px"><img src="/app/images/child_arrow.svg" style="width:20px;position:relative;top:-8px;left:-5px" />Cash Deposit</td>
                 <td>&nbsp;</td>
-                <td>{{reconcile.bankTransaction.bankDate | moment: 'format': 'MM/DD/YYYY'}}</td>
-                <td>{{reconcile.bankTransaction.amount | currency:'USD':true}}</td>
+                <td><strong class="small">Bank Deposit On:&nbsp;&nbsp;</strong>{{reconcile.bankTransaction.bankDate | moment: 'format': 'MM/DD/YYYY'}}</td>
+                <td>&nbsp;</td>
             </tr>
             <tr *ngIf="!reconcile.bankTransaction">
                 <td colspan="5">&nbsp;</td>

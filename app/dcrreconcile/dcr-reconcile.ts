@@ -43,6 +43,8 @@ export class DcrReconcilesListComponent {
     toDate: Date;
     type: string;
     type2: string;
+    locations: SelectItem[];
+    types: any[];
 
     ngOnInit() {
         this.matches = [];
@@ -52,10 +54,43 @@ export class DcrReconcilesListComponent {
         this.fromDate = new Date(date.getFullYear(), date.getMonth() - 1, 1);
         this.toDate = date;
         this.contextService.currentSection = "bankreconcile";
-        this.type = "2";
-        this.type2 = "2";
-        this.loadReconciles();
+        this.type = "1";
+        this.type2 = "1";
+        this.loadLocations();
+        this.types = [
+            { label: "Bank Only Unmatched", value: "2" },
+            { label: "DCR Only Unmatched", value: "3" },
+            { label: "Matches Only", value: "1" },
+        ]
+        //this.loadReconciles();
     }       
+
+    loadLocations() {
+        this.spinnerService.postStatus('Loading Locations');
+        let $observable = this.proxyService.Get("location/list/0/7000/true");
+        $observable.subscribe(
+            data => {
+                if (data.success) {
+                    let locs: string[] = _.map(data.locations, (l) => {
+                        return { locationID: l.locationID };
+                    });
+                    
+                    this.locations = _.map(locs, (l) => {
+                        if (l.locationID.length > 7) { l.locationID = l.locationID.substring(0, 7) };
+                        return { label: l.locationID, value: l.locationID };
+                    });
+                }
+                else {
+                    this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                }
+            },
+            (err) => {
+                this.msgs.push({ severity: 'error', summary: err });
+            },
+            () => {
+                this.spinnerService.finishCurrentStatus();
+            });
+    } 
 
     loadReconciles() {
         var _self = this;

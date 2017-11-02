@@ -18,7 +18,7 @@ import { WVDatepickerModule } from './shared/datepicker/datepicker.module';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
 import {
     InputTextModule, DataTableModule, ButtonModule, DialogModule, GrowlModule, DropdownModule, ConfirmDialogModule, ConfirmationService,
-    CalendarModule, EditorModule, SharedModule, InputMaskModule, FileUploadModule, TabViewModule
+    CalendarModule, EditorModule, SharedModule, InputMaskModule, FileUploadModule, TabViewModule, SelectButtonModule
 } from 'primeng/primeng';
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
@@ -73,7 +73,8 @@ import { DcrReconcilesListComponent } from "./dcrreconcile/dcr-reconcile";
 
 @NgModule({
     imports: [BrowserAnimationsModule, BrowserModule, routing, HttpModule, JsonpModule, FormsModule, Ng2PaginationModule, Ng2PageScrollModule.forRoot(), NgbModule.forRoot(), WVDatepickerModule.forRoot(), DateValueAccessorModule,
-        DataTableModule, GrowlModule, DropdownModule, CalendarModule, ConfirmDialogModule, DialogModule, EditorModule, SharedModule, InputMaskModule, CurrencyMaskModule, FileUploadModule, TabsModule.forRoot(), ModalModule.forRoot()],
+        DataTableModule, GrowlModule, DropdownModule, CalendarModule, ConfirmDialogModule, DialogModule, EditorModule, SharedModule, InputMaskModule, CurrencyMaskModule, FileUploadModule, TabsModule.forRoot(), ModalModule.forRoot(),
+        SelectButtonModule],
     declarations: [
         AppComponent, SafePipe, MomentPipe, FormatDatePipe, HeaderComponent, ImageCropperComponent, AlertDetailChargeBackComponent,
         MasterPageComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent, LocationChargeBackComponent,

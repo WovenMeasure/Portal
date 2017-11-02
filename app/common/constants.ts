@@ -10,7 +10,7 @@ export class Constants {
 
     public alertStatusNew: number = 1;
     public alertStatusResolved: number = 2;
-    public alertStatusDismissed: number = 3;
+    public alertStatusDismissed: number = 3; 
     public alertStatusInProgress: number = 4;
 
     public alertRuleTypeChargeBackOrDispute: number = 5;
