@@ -37,6 +37,7 @@ export class AlertListComponent {
     alertToDate: Date;
     filterText: string;
     inProgressOnly: boolean = false;    
+    showResolved: boolean = false;
     localStorageGridOptionsKey: string;
     gridOptions = {
         first: 0,
@@ -126,7 +127,11 @@ export class AlertListComponent {
                         this.alerts = this.allAlerts.filter((a) => { return a.alert.workItemStatusID == this.constants.alertStatusInProgress });
                     }
                     else {
-                        this.alerts = this.allAlerts;
+                        this.alerts = this.allAlerts.filter((a) => { return a.alert.workItemStatusID != this.constants.alertStatusResolved });
+                    }
+
+                    if (this.showResolved) {
+                        this.alerts = this.allAlerts.filter((a) => { return a.alert.workItemStatusID == this.constants.alertStatusResolved });
                     }
                      
                     this.loadGridPageOptions();
@@ -145,11 +150,27 @@ export class AlertListComponent {
             this.alerts = this.allAlerts.filter((a) => { return a.alert.workItemStatusID == this.constants.alertStatusInProgress });
         }
         else {
-            this.alerts = this.allAlerts;
+            this.alerts = this.allAlerts.filter((a) => { return a.alert.workItemStatusID != this.constants.alertStatusResolved });
         }
 
            
     }
+
+
+
+    toggleShowResolved() {
+        this.showResolved = !this.showResolved;
+        this.contextService.showResolved = this.showResolved;
+        if (this.showResolved) {
+            this.alerts = this.allAlerts.filter((a) => { return a.alert.workItemStatusID == this.constants.alertStatusResolved });
+        }
+        else {
+            this.alerts = this.allAlerts.filter((a) => { return a.alert.workItemStatusID != this.constants.alertStatusResolved });
+        }
+
+
+    }
+
 
     filterByDate() {
         this.contextService.currentAlertFilterFromDate = this.alertFromDate;

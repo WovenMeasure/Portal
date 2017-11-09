@@ -129,6 +129,21 @@ export class ContextService {
     }
 
 
+    public get showResolved(): boolean {
+        let val: string = window.localStorage.getItem("showResolved");
+        if (null == val)
+            return false;
+
+        return val == 'true';
+    }
+
+    public set showResolved(value: boolean) {
+        window.localStorage.setItem("showResolved", value.toString());
+    }
+
+
+
+
     public hasPermission(claimValue: string): boolean {
         if (!this.ContextInfo.claims)
             return false;

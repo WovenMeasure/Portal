@@ -27,24 +27,24 @@
     </div> 
     <div style="clear:both">&nbsp;</div>
     <p-dataTable *ngIf="type2==2" [immutable]="false" (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" scrollable="true" scrollHeight="700px" [pageLinks]="5" [value]="matches" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15" [globalFilter]="gb">
-        <p-column field="bankTransaction.bankDate" sortable="true" styleClass="col-md-2">
+        <p-column field="bankDate" sortable="true" styleClass="col-md-2">
             <template pTemplate="header">
                 Bank Date
             </template>
             <template let-reconcile="rowData" pTemplate="body">
-                {{reconcile.bankTransaction.bankDate | moment: 'format': 'MM/DD/YYYY' }}
+                {{reconcile.bankDate | moment: 'format': 'MM/DD/YYYY' }}
             </template>
         </p-column>
-        <p-column field="reconcile.bankTransaction.amount" sortable="true" styleClass="col-md-2">
+        <p-column field="reconcile.bankDepositAmount" sortable="true" styleClass="col-md-2">
             <template pTemplate="header">
                 Amount
             </template>
             <template let-reconcile="rowData" pTemplate="body">
-                {{reconcile.bankTransaction.amount | currency:'USD':true}}
+                {{reconcile.bankDepositAmount | currency:'USD':true}}
             </template>
         </p-column>
-        <p-column field="bankTransaction.accountNumber" header="Account" sortable="true" styleClass="col-md-1"></p-column>
-        <p-column field="bankTransaction.customerRef" header="Customer Ref" sortable="true" styleClass="col-md-2"></p-column>
+        <p-column field="accountNumber" header="Account" sortable="true" styleClass="col-md-1"></p-column>
+        <p-column field="bankCustomerRef" header="Customer Ref" sortable="true" styleClass="col-md-2"></p-column>
     </p-dataTable>  
     <table class="table table-condensed table-striped col-md-12" *ngIf="type2==3">
          <tr>
@@ -58,9 +58,9 @@
              <tr>
                  <td>DCR</td>
                  <td>{{reconcile.dcrData.regionNum}}</td>
-                 <td>{{reconcile.dcrData.locationNum}}</td>
-                 <td>{{reconcile.dcrData.depositDate | moment: 'format': 'MM/DD/YYYY'}}</td>
-                 <td>{{reconcile.dcrData.depositAmt | currency:'USD':true}}</td>
+                 <td>{{reconcile.dcrLocation}}</td>
+                 <td>{{reconcile.dcrEntryDate | moment: 'format': 'MM/DD/YYYY'}}</td>
+                 <td>{{reconcile.dcrDepositAmount | currency:'USD':true}}</td>
              </tr>
          </ng-container>
     </table>
@@ -74,14 +74,14 @@
         <ng-container *ngFor="let reconcile of matches">
             <tr>
                 <td>DCR</td>
-                <td>{{reconcile.dcrData.locationNum}}</td>
+                <td>{{reconcile.dcrLocation}}</td>
                 <td><strong class="small">DCR Entry On:&nbsp;&nbsp;</strong>{{reconcile.dcrEntryDate | moment: 'format': 'MM/DD/YYYY'}}</td>
-                <td>{{reconcile.dcrData.depositAmt | currency:'USD':true}}</td>
+                <td>{{reconcile.dcrDepositAmount | currency:'USD':true}}</td>
             </tr>
             <tr *ngIf="reconcile.bankTransaction">
                 <td style="padding-left:30px"><img src="/app/images/child_arrow.svg" style="width:20px;position:relative;top:-8px;left:-5px" />Cash Deposit</td>
                 <td>&nbsp;</td>
-                <td><strong class="small">Bank Deposit On:&nbsp;&nbsp;</strong>{{reconcile.bankTransaction.bankDate | moment: 'format': 'MM/DD/YYYY'}}</td>
+                <td><strong class="small">Bank Deposit On:&nbsp;&nbsp;</strong>{{reconcile.bankDate | moment: 'format': 'MM/DD/YYYY'}}</td>
                 <td>&nbsp;</td>
             </tr>
             <tr *ngIf="!reconcile.bankTransaction">
