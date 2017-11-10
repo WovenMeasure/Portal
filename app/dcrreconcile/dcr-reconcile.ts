@@ -118,4 +118,12 @@ export class DcrReconcilesListComponent {
     filter() {
         this.loadReconciles();
     }
+
+    daysBetween(fd, sd): number {
+        let firstDate: Date = new Date(fd);
+        let secondDate: Date = new Date(sd);
+        let oneDay:number = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+        let diffDays: number = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
+        return diffDays;
+    }
 }

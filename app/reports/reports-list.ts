@@ -41,19 +41,19 @@ export class ReportListComponent {
             },
             {
                 name: 'Credit Card Chargeback Disputes',
-                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fCCChargeBackDispute&rs:Command=Render'
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fCCChargeBackDispute'
             },
             {
                 name: 'Disputes Grand Totals Location/Region',
-                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fDisputesGrandTotalslocationRegion&rs:Command=Render'
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fDisputesGrandTotalslocationRegion'
             },
             {
                 name: 'Location Bank Account Report',
-                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fLocationBankAccounts&rs:Command=Render'
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fLocationBankAccounts'
             },
             {
                 name: 'No Credit Card Activity Report',
-                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fNoCreditCardActivityReport&rs:Command=Render'
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fNoCreditCardActivityReport'
             }
         );
     }       
