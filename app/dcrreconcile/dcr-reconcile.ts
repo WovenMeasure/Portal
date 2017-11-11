@@ -38,36 +38,69 @@ export class DcrReconcilesListComponent {
     filtered: any[];
     loaded: boolean = false;
     filterLocation: string;
-    filterMerchantId: string;    
+    filterBankAccount: string;  
+    filterRegion: string;
     fromDate: Date;
     toDate: Date;
     type: string;
     type2: string;
     locations: SelectItem[];
+    regions: SelectItem[];
     types: any[];
 
     ngOnInit() {
         this.matches = [];
         this.filterLocation = "";
-        this.filterMerchantId = "";
+        this.filterBankAccount = "";
+        this.filterRegion = "";
         var date = new Date();
         this.fromDate = new Date(date.getFullYear(), date.getMonth() - 1, 1);
         this.toDate = date;
         this.contextService.currentSection = "bankreconcile";
         this.type = "1";
         this.type2 = "1";
-        this.loadLocations();
+        this.loadRegions();
         this.types = [
             { label: "Bank Only Unmatched", value: "2" },
             { label: "DCR Only Unmatched", value: "3" },
             { label: "Matches Only", value: "1" },
         ]
-        //this.loadReconciles();
     }       
 
+    loadRegions() {
+        this.spinnerService.postStatus('Loading Regions');
+        let promise = new Promise((resolve, reject) => {
+            this.regions = [];
+            let observable$ = this.lookupService.loadRegions();
+            observable$.subscribe(
+                data => {
+                    if (data.success) {
+                        this.regions.push({ label: 'Select Region', value: null });
+                        for (let n: number = 0; n < data.regions.length; n++) {
+                            this.regions.push({ label: data.regions[n].regionDesc, value: data.regions[n].strRegionID });
+                        }
+                        resolve();
+                    }
+                    else {
+                        reject();
+                    }
+                },
+                (err) => {
+                    this.msgs.push({ severity: 'error', summary: err });
+                },
+                () => {
+                    this.spinnerService.finishCurrentStatus();
+                });
+        });
+        return promise;
+    }
+
     loadLocations() {
+        if (!this.filterRegion)
+            return;
+
         this.spinnerService.postStatus('Loading Locations');
-        let $observable = this.proxyService.Get("location/list/0/7000/true");
+        let $observable = this.proxyService.Get("location/listForRegion/" + this.filterRegion + "/true");
         $observable.subscribe(
             data => {
                 if (data.success) {
@@ -94,9 +127,13 @@ export class DcrReconcilesListComponent {
 
     loadReconciles() {
         var _self = this;
+        if (!this.filterLocation && !this.filterBankAccount) {
+            return;
+        }
+
         this.spinnerService.postStatus('Loading...');
         //type 2 = cash, type 1 = credit card
-        let $observable = this.proxyService.Get("dcrreconcile/?location=" + this.filterLocation + "&mid=" + this.filterMerchantId + "&type=" + this.type + "&from=" + moment(this.fromDate).format("MM-DD-YYYY") + "&to=" + moment(this.toDate).format("MM-DD-YYYY"));
+        let $observable = this.proxyService.Get("dcrreconcile/?location=" + this.filterLocation + "&ban=" + this.filterBankAccount + "&type=" + this.type + "&from=" + moment(this.fromDate).format("MM-DD-YYYY") + "&to=" + moment(this.toDate).format("MM-DD-YYYY"));
         $observable.subscribe(
             data => {
                 if (data.success) {

@@ -1,33 +1,40 @@
 ﻿<p-growl [value]="msgs"></p-growl>
-<div class="col-md-12">
-    <h2 class="col-md-4"><strong>Bank Reconciliations</strong></h2>
-</div>
-<div class="col-md-12">
-    <div class="col-lg-3 col-md-4 col-sm-4 form-group">
-        <label for="filterLocationId">Location:&nbsp;</label>
-        <p-dropdown [options]="locations" (onChange)="loadReconciles()" [(ngModel)]="filterLocation" [filter]="true" [lazy]="false" placeholder="Select Location"></p-dropdown>
-        <button class="btn-xs btn-primary" (click)="filterLocation=''"><i class="fa fa-close"></i></button>
+<div style="position:fixed;width:80%;z-index:10;background-color:#FFFFFF">
+    <div class="col-md-12">
+        <h2 class="col-md-4"><strong>Bank Reconciliations</strong></h2>
     </div>
-    <div class="col-lg-3 col-md-5 col-sm-5 form-group">
-        <label for="filterMerchantId">MID:&nbsp;</label>
-        <input type="text" [(ngModel)]="filterMerchantId"  name="filterMerchantId" id="filterMerchantId" placeholder="Merchant ID"/>
-    </div>   
-    <div class="visible-sm  visible-md col-sm-3">&nbsp;</div>
-    <div class="col-lg-6 col-md-12 col-sm-12 form-group">
-            <p-selectButton [disabled]="filterMerchantId === '' && filterLocation === ''" [options]="types" [(ngModel)]="type" (onChange)="loadReconciles()"></p-selectButton>
-    </div>
-    <div class="col-xs-12">
-        <label class="col-xs-1" style="height:35px;margin-top:10px;">From:  </label>
-        <p-calendar styleClass="col-xs-11 col-md-3" [(ngModel)]="fromDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>
-        <div style="clear:both" class="visible-sm visible-xs"></div>
-        <label class="col-xs-1" style="height:35px;margin-top:10px;">To:  </label>
-        <p-calendar styleClass="col-xs-11 col-md-3" [(ngModel)]="toDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>
-        <div style="clear:both" class="visible-sm visible-xs"></div>
-        <div class="col-xs-3">
+    <div class="col-md-12">
+        <div class="col-lg-3 col-md-4 col-sm-4 form-group">
+            <label for="filterLocationId">Region:&nbsp;</label>
+            <p-dropdown [options]="regions" [style]="{'width':'70%'}" [autoWidth]="false" (onChange)="loadLocations()" [(ngModel)]="filterRegion" placeholder="Select Region" [lazy]="false"></p-dropdown>
+        </div>
+        <div class="col-lg-4 col-md-5 col-sm-5 form-group">
+            <label for="filterLocationId">Location:&nbsp;</label>
+            <p-dropdown [options]="locations" [style]="{'width':'70%'}" [autoWidth]="false" [disabled]="filterRegion === ''" (onChange)="loadReconciles()" [(ngModel)]="filterLocation" [filter]="true" [lazy]="false" placeholder="Select Location"></p-dropdown>
+            <button class="btn-xs btn-primary" (click)="filterLocation=''"><i class="fa fa-close"></i></button>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+            <label for="filterBankAccount">Acct #:&nbsp;</label>
+            <input type="text" [(ngModel)]="filterBankAccount"  name="filterBankAccount" id="filterBankAccount" placeholder="Bank Account #"/>
+        </div>           
+        <div class="col-xs-12">
+            <label class="pull-left" style="height:35px;margin-top:10px;">From:  </label>
+            <p-calendar styleClass="col-xs-11 col-md-3" [(ngModel)]="fromDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>
+            <div style="clear:both" class="visible-sm visible-xs"></div>
+            <label class="pull-left" style="height:35px;margin-top:10px;">To:  </label>
+            <p-calendar styleClass="col-xs-11 col-md-3" [(ngModel)]="toDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>
+            <div style="clear:both" class="visible-sm visible-xs"></div>
+        </div> 
+        <div style="clear:both">&nbsp;</div>
+        <div class="col-lg-5 col-md-5 col-sm-12 form-group">
+            <p-selectButton [disabled]="filterBankAccount === '' && filterLocation === ''" [options]="types" [(ngModel)]="type" (onChange)="loadReconciles()"></p-selectButton>
+        </div>
+        <div class="col-xs-3 col-md-2">
             <button class="btn btn-primary" [disabled]="filterMerchantId === '' && filterLocation === ''" (click)="filter()">Filter</button>
         </div>
-    </div> 
-    <div style="clear:both">&nbsp;</div>
+    </div>
+</div>
+<div class="col-md-12" style="position:relative;top:235px;z-index:5">
     <p-dataTable *ngIf="type2==2" [immutable]="false" (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" scrollable="true" scrollHeight="700px" [pageLinks]="5" [value]="matches" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15" [globalFilter]="gb">
         <p-column field="bankDate" sortable="true" styleClass="col-md-2">
             <template pTemplate="header">
@@ -88,11 +95,11 @@
                 <td></td>
                 <td>{{reconcile.dcrDepositAmount | currency:'USD':true}}</td>
             </tr>
-            <tr *ngIf="reconcile.bankTransaction">
+            <tr *ngIf="reconcile.bankTransaction" style="background-color:#B3E9FF">
                 <td style="padding-left:20px"><img src="/app/images/child_arrow.svg" style="width:20px;position:relative;top:-8px;left:-5px" />Cash Deposit</td>
-                <td>{{reconcile.bankTransactionId}};</td>
-                <td><strong class="small">Bank Account Number:&nbsp;&nbsp;</strong>{{reconcile.accountNumber}}</td>
-                <td><strong class="small">Bank Customer Ref:&nbsp;&nbsp;</strong>{{reconcile.bankCustomerRef}}</td>
+                <td>{{reconcile.bankTransactionId}}</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="small">Bank Customer Ref:&nbsp;&nbsp;</strong>{{reconcile.bankCustomerRef}}</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="small">Bank Account Number:&nbsp;&nbsp;</strong>{{reconcile.accountNumber}}</td>
                 <td></td>
                 <td>{{reconcile.bankDate | moment: 'format': 'MM/DD/YYYY'}}</td>
                 <td>{{daysBetween(reconcile.dcrEntryDate, reconcile.bankDate)}}</td>
