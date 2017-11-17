@@ -36,12 +36,24 @@ export class ReportListComponent {
                 url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fArmoredCarReport'
             },
             {
+                name: 'Automatic Losses Report',
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fAutomaticLossReport'
+            },
+            {
+                name: 'Change Fund Petty Cash Disbursement Report',
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fChangeFund-PettyCashDisbursement'
+            },
+            {
                 name: 'Credit Card Activity Spike Report',
                 url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fSpikeCreditCardActivityReport'
             },
             {
                 name: 'Credit Card Chargeback Disputes',
                 url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fCCChargeBackDispute'
+            },
+            {
+                name: 'Credit Card Processor Report',
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fCreditCardProcessor'
             },
             {
                 name: 'Disputes Grand Totals Location/Region',
@@ -52,8 +64,20 @@ export class ReportListComponent {
                 url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fLocationBankAccounts'
             },
             {
+                name: 'Missing Case Number Report',
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fMissingCaseNumberReport'
+            },
+            {
+                name: 'Missing Merchant ID Report',
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fMissingMerchantIDReport'
+            },
+            {
                 name: 'No Credit Card Activity Report',
                 url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fNoCreditCardActivityReport'
+            },
+            {
+                name: 'Refund Report',
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fRefundReport'
             }
         );
     }       
