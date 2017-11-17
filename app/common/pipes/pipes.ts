@@ -26,6 +26,19 @@ export class MomentPipe implements PipeTransform {
 }
 
 
+@Pipe({ name: 'momentUtc' })
+export class MomentUtcPipe implements PipeTransform {
+    transform(input: Date, momentFn: string): string {
+        if (!input)
+            return '';
+
+        var args = Array.prototype.slice.call(arguments, 2);
+        var utcDateTime = moment.utc(input);
+        return utcDateTime[momentFn].apply(utcDateTime, args);
+    }
+}
+
+
 @Pipe({ name: 'formatDate' })
 export class FormatDatePipe implements PipeTransform {
     transform(value: string): any {

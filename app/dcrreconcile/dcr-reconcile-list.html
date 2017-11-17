@@ -41,35 +41,39 @@
                 Bank Date
             </template>
             <template let-reconcile="rowData" pTemplate="body">
-                {{reconcile.bankDate | moment: 'format': 'MM/DD/YYYY' }}
+                {{reconcile.bankDate | momentUtc: 'format': 'MM/DD/YYYY' }}
             </template>
         </p-column>
         <p-column field="reconcile.bankDepositAmount" sortable="true" styleClass="col-md-2">
             <template pTemplate="header">
                 Amount
-            </template>
+            </template> 
             <template let-reconcile="rowData" pTemplate="body">
-                {{reconcile.bankDepositAmount | currency:'USD':true}}
+                {{reconcile.amount | currency:'USD':true}}
             </template>
         </p-column>
         <p-column field="accountNumber" header="Account" sortable="true" styleClass="col-md-1"></p-column>
-        <p-column field="bankCustomerRef" header="Customer Ref" sortable="true" styleClass="col-md-2"></p-column>
+        <p-column field="customerRef" header="Customer Ref" sortable="true" styleClass="col-md-2"></p-column>
     </p-dataTable>  
     <table class="table table-condensed table-striped col-md-12" *ngIf="type2==3">
          <tr>
              <th>Source</th>
              <th>Region</th>
              <th>Location</th>
+             <th>Deposit Slip</th>
+             <th>Bank Bag</th>
              <th>Date</th>
              <th>Total</th>
          </tr>
          <ng-container *ngFor="let reconcile of matches">
              <tr>
                  <td>DCR</td>
-                 <td>{{reconcile.dcrData.regionNum}}</td>
-                 <td>{{reconcile.dcrLocation}}</td>
-                 <td>{{reconcile.dcrEntryDate | moment: 'format': 'MM/DD/YYYY'}}</td>
-                 <td>{{reconcile.dcrDepositAmount | currency:'USD':true}}</td>
+                 <td>{{reconcile.intRegionID}}</td>
+                 <td>{{reconcile.strLotNumber}}</td>
+                 <td>{{reconcile.strDepositSlipSerialNo}}</td>
+                 <td>{{reconcile.strBankBag}}</td>
+                 <td>{{reconcile.dtmEntryDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
+                 <td>{{reconcile.numAmount | currency:'USD':true}}</td>
              </tr>
          </ng-container>
     </table>
@@ -84,24 +88,24 @@
             <th>Days Between</th>
             <th>Amount</th>
         </tr>
-        <ng-container *ngFor="let reconcile of matches">
-            <tr>
+        <ng-container *ngFor="let reconcile of matches; let i = index">
+            <tr [ngStyle]="{ 'background-color': rowColor(i) }">
                 <td>DCR</td>
                 <td>{{reconcile.arpdcrCashDepositID}}</td>
                 <td>{{reconcile.dcrCashDeposit.strDepositSlipSerialNo}}</td>
                 <td>{{reconcile.dcrCashDeposit.strBankBag}}</td>
                 <td>{{reconcile.locationID}}</td>
-                <td>{{reconcile.dcrEntryDate | moment: 'format': 'MM/DD/YYYY'}}</td>
+                <td>{{reconcile.dcrEntryDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
                 <td></td>
                 <td>{{reconcile.dcrDepositAmount | currency:'USD':true}}</td>
             </tr>
-            <tr *ngIf="reconcile.bankTransaction" style="background-color:#B3E9FF">
+            <tr *ngIf="reconcile.bankTransaction" [ngStyle]="{ 'background-color': rowColor(i) }">
                 <td style="padding-left:20px"><img src="/app/images/child_arrow.svg" style="width:20px;position:relative;top:-8px;left:-5px" />Cash Deposit</td>
                 <td>{{reconcile.bankTransactionId}}</td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="small">Bank Customer Ref:&nbsp;&nbsp;</strong>{{reconcile.bankCustomerRef}}</td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong class="small">Bank Account Number:&nbsp;&nbsp;</strong>{{reconcile.accountNumber}}</td>
                 <td></td>
-                <td>{{reconcile.bankDate | moment: 'format': 'MM/DD/YYYY'}}</td>
+                <td>{{reconcile.bankDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
                 <td>{{daysBetween(reconcile.dcrEntryDate, reconcile.bankDate)}}</td>
                 <td>{{reconcile.bankDepositAmount | currency:'USD':true}}</td>
             </tr>

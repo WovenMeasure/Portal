@@ -26,10 +26,12 @@ export class LocationListComponent {
                 private translationService: TranslationService) {
 
     }    
-
+    pendingDelete: boolean = false;
     terminated: boolean = false;
     msgs: Message[] = [];
     locations: any[];
+    status: number = 1;
+    allLocations: any[];
     localStorageGridOptionsKey: string;
     gridOptions = {
         first: 0,
@@ -98,13 +100,25 @@ export class LocationListComponent {
     }       
 
     onSelectionChange() {
+        if (this.status === 1) {
+            this.terminated = false;
+            this.pendingDelete = false;
+        }
+        else if (this.status === 2) {
+            this.terminated = true;
+            this.pendingDelete = false;
+        }
+        else if (this.status === 3) {
+            this.terminated = false;
+            this.pendingDelete = true;
+        }
         this.loadLocations();
     }
 
     loadLocations() {
         this.loadGridSortOptions();
         this.spinnerService.postStatus('Loading Locations');
-        let $observable = this.proxyService.Get("location/list/0/7000/" + this.terminated);
+        let $observable = this.proxyService.Get("location/list/0/7000/" + this.terminated + "/" + this.pendingDelete);
         $observable.subscribe(
             data => {
                 if (data.success) {

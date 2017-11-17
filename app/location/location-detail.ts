@@ -171,14 +171,41 @@ export class LocationDetailComponent implements AfterViewInit, OnInit {
             });
     }
 
-    deleteLocation(location) {
+    requestDeleteLocation(location) {
         var _self = this;
         this.confirmationService.confirm({
-            message: 'Are you sure that you want to delete this location?',
+            message: 'Are you sure that you want to request to delete this location?',
             accept: () => {
-                this.spinnerService.postStatus('Deleting Location');
-                var request = { locationID: location.locationID, alertID: 0 };
-                let $observable = this.proxyService.Delete("location/delete/" + location.locationID);
+                this.spinnerService.postStatus('Requesting Location Delete');
+                var request = { locationID: location.locationID };
+                let $observable = this.proxyService.Post("location/requestDelete", request );
+                $observable.subscribe(
+                    data => {
+                        if (data.success) {
+                            _self.router.navigate(['location/location-list']);
+                        }
+                        else {
+                            _self.msgs.push({ severity: 'error', summary: data.errorMessage });
+                        }
+                    },
+                    (err) => {
+                        _self.msgs.push({ severity: 'error', summary: err });
+                    },
+                    () => {
+                        _self.spinnerService.finishCurrentStatus();
+                    });
+            }
+        });
+    } 
+
+    finishDeleteLocation(location) {
+        var _self = this;
+        this.confirmationService.confirm({
+            message: 'Are you sure that you want to request to approve the delete for this location?',
+            accept: () => {
+                this.spinnerService.postStatus('Approving Location Delete');
+                var request = { locationID: location.locationID };
+                let $observable = this.proxyService.Post("location/finishDelete", request);
                 $observable.subscribe(
                     data => {
                         if (data.success) {

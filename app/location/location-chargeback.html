@@ -139,7 +139,7 @@
                         Note Date Time
                     </template>
                     <template let-note="rowData" pTemplate="body">
-                        {{note.noteDateTime | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
+                        {{note.noteDateTime | momentUtc: 'format': 'MM/DD/YYYY h:mm:ss A' }}
                     </template>
                 </p-column>
                 <p-column field="noteByUser.userName" header="User" sortable="true" styleClass="col-md-2"></p-column>
@@ -175,7 +175,7 @@
                     Added Date Time
                 </template>
                 <template let-attachment="rowData" pTemplate="body">
-                    {{attachment.addDateTime | moment: 'format': 'MM/DD/YYYY h:mm:ss A' }}
+                    {{attachment.addDateTime | momentUtc: 'format': 'MM/DD/YYYY h:mm:ss A' }}
                 </template>
             </p-column>
             <p-column field="addedByUser.userName" header="User" sortable="true" styleClass="col-md-2"></p-column>

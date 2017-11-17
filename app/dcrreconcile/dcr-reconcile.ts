@@ -137,7 +137,13 @@ export class DcrReconcilesListComponent {
         $observable.subscribe(
             data => {
                 if (data.success) {
-                    _self.matches = data.reconciles;
+                    if (_self.type === "1")
+                        _self.matches = data.reconciles;
+                    else if (_self.type === "2")
+                        _self.matches = data.bankOnly;
+                    else if (_self.type === "3")
+                        _self.matches = data.dcrOnly;
+
                     _self.type2 = _self.type;
                 }
                 else {
@@ -162,5 +168,14 @@ export class DcrReconcilesListComponent {
         let oneDay:number = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
         let diffDays: number = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)));
         return diffDays;
+    }
+
+    rowColor(index): string {
+        if (index % 3 == 0)
+            return "#EFF0F1";
+        if (index % 2 == 0)
+            return "#B3E9FF";
+
+        return "#8EC442";
     }
 }
