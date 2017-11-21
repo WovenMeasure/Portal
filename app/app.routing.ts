@@ -20,6 +20,7 @@ import { JobParametersListComponent } from './jobparameters/jobparameters-list';
 import { ReportListComponent } from './reports/reports-list';
 import { CasesListComponent } from './cases/cases-list';
 import { DcrReconcilesListComponent } from "./dcrreconcile/dcr-reconcile";
+import { DcrCreditReconcilesListComponent } from "./dcrreconcile/dcr-credit-reconcile";
 
 const appRoutes: Routes = [
     { path: '', component: MasterPageComponent, canActivate: [CanActivateGuard],
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
             {
                 path: 'dcr-reconcile', component: null, canActivate: [CanActivateGuard], children:
                 [
-                    { path: 'dcr-reconcile-list', component: DcrReconcilesListComponent, canActivate: [CanActivateGuard] }
+                    { path: 'dcr-reconcile-list', component: DcrReconcilesListComponent, canActivate: [CanActivateGuard] },
+                    { path: 'dcr-credit-reconcile-list', component: DcrCreditReconcilesListComponent, canActivate: [CanActivateGuard] }
                 ]
             },
             {

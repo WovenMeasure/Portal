@@ -1,0 +1,80 @@
+﻿<p-growl [value]="msgs"></p-growl>
+<div style="position:fixed;width:100%;z-index:10;background-color:#FFFFFF">
+    <div class="col-md-12">
+        <h2 class="col-md-4"><strong>Credit Reconciliations</strong></h2>
+    </div>
+    <div class="col-md-12">
+        <div class="col-lg-3 col-md-4 col-sm-4 form-group">
+            <label for="filterLocationId">Region:&nbsp;</label>
+            <p-dropdown [options]="regions" [style]="{'width':'70%'}" [autoWidth]="false" (onChange)="loadLocations()" [(ngModel)]="filterRegion" placeholder="Select Region" [lazy]="false"></p-dropdown>
+        </div>
+        <div class="col-lg-4 col-md-5 col-sm-5 form-group">
+            <label for="filterLocationId">Location:&nbsp;</label>
+            <p-dropdown [options]="locations" [style]="{'width':'70%'}" [autoWidth]="false" [disabled]="filterRegion === ''" (onChange)="loadReconciles()" [(ngModel)]="filterLocation" [filter]="true" [lazy]="false" placeholder="Select Location"></p-dropdown>
+            <button class="btn-xs btn-primary" (click)="filterLocation=''"><i class="fa fa-close"></i></button>
+        </div>                
+        <div class="col-xs-12">
+            <label class="pull-left" style="height:35px;margin-top:10px;">From:  </label>
+            <p-calendar styleClass="col-xs-11 col-md-3" [(ngModel)]="fromDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>
+            <div style="clear:both" class="visible-sm visible-xs"></div>
+            <label class="pull-left" style="height:35px;margin-top:10px;">To:  </label>
+            <p-calendar styleClass="col-xs-11 col-md-3" [(ngModel)]="toDate" [showIcon]="true" [showOnFocus]="false"></p-calendar>
+            <div style="clear:both" class="visible-sm visible-xs"></div>
+        </div> 
+        <div style="clear:both">&nbsp;</div>       
+        <div class="col-xs-3 col-md-2">
+            <button class="btn btn-primary" [disabled]="filterMerchantId === '' && filterLocation === ''" (click)="filter()">Filter</button>
+        </div>
+    </div>
+</div>
+<div class="col-md-12" style="position:relative;top:235px;z-index:5">  
+    <table class="table table-condensed table-striped col-md-12">
+        <tr>
+            <th style="width:20px"></th>
+            <th>Date Funded</th>
+            <th>CCIMF Amount</th>
+            <th>DCR Entered Amount</th>
+            <th>DCR Entry Date</th>
+            <th>Variance</th>
+        </tr>
+        <ng-container *ngFor="let reconcile of matches; let i = index">
+            <tr>
+                <td><i *ngIf="!reconcile.isMatch && !reconcile.expanded" class="fa fa-plus" aria-hidden="true" (click)="reconcile.expanded = !reconcile.expanded"></i>
+                    <i *ngIf="!reconcile.isMatch && reconcile.expanded" class="fa fa-minus" aria-hidden="true" (click)="reconcile.expanded = !reconcile.expanded"></i></td>
+                <td>{{reconcile.fundedDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
+                <td>{{reconcile.totalCCIMFCreditAmount | currency:'USD':true}}</td>
+                <td>{{reconcile.totalDCRCreditAmount | currency:'USD':true}}</td>
+                <td>{{reconcile.dcrEntryDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
+                <td>{{reconcile.variance | currency:'USD':true}}</td>
+            </tr>          
+            <tr *ngIf="reconcile.expanded" style="background-color:gainsboro">
+                <td colspan="6">
+                    <strong>DCR Data</strong><br />
+                    <table class="table table-condensed table-striped" style="font-size:80%;width:95%;float:right">
+                        <tr>
+                            <th>Visa/MC Amount</th>
+                            <th>Discover Amount</th>
+                            <th>AMEX Amount</th>
+                            <th>Other Amount</th>
+                            <th>Created On</th>
+                            <th>Description</th>
+                            <th>Entry Date</th>
+                        </tr>
+                        <ng-container *ngFor="let dcr of reconcile.dcrData; let j = index">
+                            <tr>
+                                <td>{{dcr.numMCVisaAmount | currency:'USD':true}}</td>
+                                <td>{{dcr.numDiscoverAmount | currency:'USD':true}}</td>
+                                <td>{{dcr.numAmexAmount | currency:'USD':true}}</td>
+                                <td>{{dcr.numOtherAmount | currency:'USD':true}}</td>
+                                <td>{{dcr.dtmCreatedOn | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
+                                <td>{{dcr.strLineItemDesc}}</td>
+                                <td>{{dcr.dtmEntryDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
+                            </tr>
+                        </ng-container>
+                    </table>
+
+                </td>
+            </tr>
+        </ng-container>
+    </table>
+</div>

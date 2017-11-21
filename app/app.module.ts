@@ -69,7 +69,7 @@ import { CanActivateGuard } from "./app.authguard";
 import { PasswordValidator } from './changePassword/changePassword.directive';
 import { AddEditDisbursementComponent } from "./location/add-edit-disbursement";
 import { DcrReconcilesListComponent } from "./dcrreconcile/dcr-reconcile";
- 
+import { DcrCreditReconcilesListComponent } from "./dcrreconcile/dcr-credit-reconcile";
  
 
 @NgModule({
@@ -82,7 +82,7 @@ import { DcrReconcilesListComponent } from "./dcrreconcile/dcr-reconcile";
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, LocationDetailComponent, JobParametersListComponent,
         PasswordValidator, FileUploadComponent, DashboardMainComponent, JobLogListComponent, LocationListComponent, ReportListComponent,
         CasesListComponent, AddLocationComponent, AddEditReturnComponent, AddEditDisbursementComponent, AddEditTheftComponent,
-        DcrReconcilesListComponent
+        DcrReconcilesListComponent, DcrCreditReconcilesListComponent
        ],
 
     entryComponents: [AddEditReturnComponent, AddEditDisbursementComponent, AddEditTheftComponent],
