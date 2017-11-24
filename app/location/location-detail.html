@@ -86,7 +86,14 @@
                         <label for="acar">Armored Car Company</label>
                         <input type="text" class="form-control" id="acar" name="acar" placeholder="Armored Car Company" [(ngModel)]="location.armoredCarCompany">
                     </div>
-
+                    <div class="form-group col-md-2">
+                        <label for="acct">No CC MIDs</label>&nbsp;
+                        <input type="checkbox" class="checkbox-inline" id="acct" name="noccmid" placeholder="No CC MIDs" [(ngModel)]="location.noCCMIDS">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="acct">No Bank Acct Info</label>&nbsp;
+                        <input type="checkbox" class="checkbox-inline" id="acct" name="nobankacct" placeholder="No Bank Acct Info" [(ngModel)]="location.noBankAcctInfo">
+                    </div>
                     <div class="row col-md-12">
                         <div class="small bold" style="color:red" *ngIf="!myForm.valid">All fields preceeded by an asterisk, *, must be filled in before the save button will be available.</div>
                         <button type="submit" class="col-md-1 btn btn-default" *ngIf="myForm.valid" [ngClass]="{ 'btn-default' : !myForm.valid, 'btn-primary': myForm.valid }">Save</button>
