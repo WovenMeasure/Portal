@@ -26,7 +26,7 @@
             <div style="clear:both" class="visible-sm visible-xs"></div>
         </div> 
         <div style="clear:both">&nbsp;</div>
-        <div class="col-lg-5 col-md-5 col-sm-12 form-group">
+        <div class="col-lg-7 col-md-7 col-sm-12 form-group">
             <p-selectButton [disabled]="filterBankAccount === '' && filterLocation === ''" [options]="types" [(ngModel)]="type" (onChange)="loadReconciles()"></p-selectButton>
         </div>
         <div class="col-xs-3 col-md-2">
@@ -35,26 +35,30 @@
     </div>
 </div>
 <div class="col-md-12" style="position:relative;top:235px;z-index:5">
-    <p-dataTable *ngIf="type2==2" [immutable]="false" (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" scrollable="true" scrollHeight="700px" [pageLinks]="5" [value]="matches" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15" [globalFilter]="gb">
-        <p-column field="bankDate" sortable="true" styleClass="col-md-2">
-            <template pTemplate="header">
-                Bank Date
-            </template>
-            <template let-reconcile="rowData" pTemplate="body">
-                {{reconcile.bankDate | momentUtc: 'format': 'MM/DD/YYYY' }}
-            </template>
-        </p-column>
-        <p-column field="reconcile.bankDepositAmount" sortable="true" styleClass="col-md-2">
-            <template pTemplate="header">
-                Amount
-            </template> 
-            <template let-reconcile="rowData" pTemplate="body">
-                {{reconcile.amount | currency:'USD':true}}
-            </template>
-        </p-column>
-        <p-column field="accountNumber" header="Account" sortable="true" styleClass="col-md-1"></p-column>
-        <p-column field="customerRef" header="Customer Ref" sortable="true" styleClass="col-md-2"></p-column>
-    </p-dataTable>  
+    <div *ngIf="type2==2">
+        <p-selectButton [options]="bankOnlySubTypes" [(ngModel)]="bankOnlySubType" (onChange)="filterSubType()"></p-selectButton>
+        <p-dataTable [immutable]="false" (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" scrollable="true" scrollHeight="700px" [pageLinks]="5" [value]="matches" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15" [globalFilter]="gb">
+            <p-column field="baiCode" header="BAI Code" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="bankDate" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Bank Date
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{reconcile.bankDate | momentUtc: 'format': 'MM/DD/YYYY' }}
+                </template>
+            </p-column>
+            <p-column field="reconcile.bankDepositAmount" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Amount
+                </template> 
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{reconcile.amount | currency:'USD':true}}
+                </template>
+            </p-column>
+            <p-column field="accountNumber" header="Account" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="customerRef" header="Customer Ref" sortable="true" styleClass="col-md-2"></p-column>
+        </p-dataTable>  
+    </div>
     <table class="table table-condensed table-striped col-md-12" *ngIf="type2==3">
          <tr>
              <th>Source</th>
@@ -114,4 +118,7 @@
             </tr>
         </ng-container>
     </table>
+    <div *ngIf="type2==4" class="col-md-12">
+        <other-transactions [data]="otherTransactions"></other-transactions>
+    </div>
 </div>

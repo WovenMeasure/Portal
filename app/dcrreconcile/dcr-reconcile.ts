@@ -35,6 +35,8 @@ export class DcrReconcilesListComponent {
 
     msgs: Message[] = [];    
     matches: any[];
+    allMatches: any[];
+    otherTransactions: any[];
     filtered: any[];
     loaded: boolean = false;
     filterLocation: string;
@@ -47,9 +49,13 @@ export class DcrReconcilesListComponent {
     locations: SelectItem[];
     regions: SelectItem[];
     types: any[];
+    bankOnlySubTypes: any[];
+    bankOnlySubType: any;
 
     ngOnInit() {
+        this.bankOnlySubType = "1";
         this.matches = [];
+        this.allMatches = [];
         this.filterLocation = "";
         this.filterBankAccount = "";
         this.filterRegion = "";
@@ -64,7 +70,14 @@ export class DcrReconcilesListComponent {
             { label: "Bank Only Unmatched", value: "2" },
             { label: "DCR Only Unmatched", value: "3" },
             { label: "Matches Only", value: "1" },
-        ]
+            { label: "Other Transactions", value: "4" }
+        ];
+
+        this.bankOnlySubTypes = [
+            { label: "All", value: "1" },
+            { label: "Cash Deposits", value: "2" },
+            { label: "ACH Credits", value: "3" },
+        ];
     }       
 
     loadRegions() {
@@ -132,34 +145,70 @@ export class DcrReconcilesListComponent {
         }
 
         this.spinnerService.postStatus('Loading...');
-        //type 2 = cash, type 1 = credit card
-        let $observable = this.proxyService.Get("dcrreconcile/?location=" + this.filterLocation + "&ban=" + this.filterBankAccount + "&type=" + this.type + "&from=" + moment(this.fromDate).format("MM-DD-YYYY") + "&to=" + moment(this.toDate).format("MM-DD-YYYY"));
-        $observable.subscribe(
-            data => {
-                if (data.success) {
-                    if (_self.type === "1")
-                        _self.matches = data.reconciles;
-                    else if (_self.type === "2")
-                        _self.matches = data.bankOnly;
-                    else if (_self.type === "3")
-                        _self.matches = data.dcrOnly;
 
-                    _self.type2 = _self.type;
-                }
-                else {
-                    _self.msgs.push({ severity: 'error', summary: data.errorMessage });
-                }
-            },
-            (err) => {
-                _self.msgs.push({ severity: 'error', summary: err });
-            },
-            () => {
-                _self.spinnerService.finishCurrentStatus();
-            });   
+        if (_self.type === "4") {
+            let $observable = this.proxyService.Get("dcrreconcile/othertransactions/?location=" + this.filterLocation + "&from=" + moment(this.fromDate).format("MM-DD-YYYY") + "&to=" + moment(this.toDate).format("MM-DD-YYYY"));
+            $observable.subscribe(
+                data => {
+                    if (data.success) {                     
+                        _self.otherTransactions = data.otherTransactions;
+                        _self.type2 = _self.type;
+                    }
+                    else {
+                        _self.msgs.push({ severity: 'error', summary: data.responseMessage });
+                    }
+                },
+                (err) => {
+                    _self.msgs.push({ severity: 'error', summary: err });
+                },
+                () => {
+                    _self.spinnerService.finishCurrentStatus();
+                });
+        }
+        else {
+            //type 2 = cash, type 1 = credit card
+            let $observable = this.proxyService.Get("dcrreconcile/?location=" + this.filterLocation + "&ban=" + this.filterBankAccount + "&type=" + this.type + "&from=" + moment(this.fromDate).format("MM-DD-YYYY") + "&to=" + moment(this.toDate).format("MM-DD-YYYY"));
+            $observable.subscribe(
+                data => {
+                    if (data.success) {
+                        if (_self.type === "1")
+                            _self.matches = data.reconciles;
+                        else if (_self.type === "2")
+                            _self.matches = data.bankOnly;
+                        else if (_self.type === "3")
+                            _self.matches = data.dcrOnly;
+
+                        _self.type2 = _self.type;
+                        this.allMatches = _self.matches;
+                    }
+                    else {
+                        _self.msgs.push({ severity: 'error', summary: data.errorMessage });
+                    }
+                },
+                (err) => {
+                    _self.msgs.push({ severity: 'error', summary: err });
+                },
+                () => {
+                    _self.spinnerService.finishCurrentStatus();
+                });
+        }
     }   
 
     filter() {
         this.loadReconciles();
+    }
+
+
+    filterSubType() {
+        if (this.bankOnlySubType === "1") {
+            this.matches = this.allMatches;
+        }
+        else if (this.bankOnlySubType === "2") {
+            this.matches = _.filter(this.allMatches, (m) => { return m.baiCode === "301" });
+        }
+        else if (this.bankOnlySubType === "3") {
+            this.matches = _.filter(this.allMatches, (m) => { return m.baiCode === "165" });
+        }
     }
 
     daysBetween(fd, sd): number {

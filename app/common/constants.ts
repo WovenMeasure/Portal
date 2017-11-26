@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable() 
 export class Constants {
-    public get BaseApiUri(): string { return "http://api-laz.wovenmeasure.com/api/"; }
-    public get BaseApiUriLocal(): string { return "http://laz.webapi/api/"; }
+    public get BaseApiUriProd(): string { return "http://api-laz.wovenmeasure.com/api/"; }
+    public get BaseApiUri(): string { return "http://laz.webapi/api/"; }
 
     public get BaseAttachmentUri(): string { return this.BaseApiUri + "attachment/getFile/"; }
 
@@ -17,6 +17,16 @@ export class Constants {
 
     public permissionBankReconcile: string = "BankReconcile";
     public permissionAudit: string = "Audit"; 
+
+    public baiCodeLockboxCodes: string[] = [ '115' ];
+    public baiCodeBankingAdjustmentCodes: string[] = ['937', '695', '938', '557', '631', '555', '187'];
+    public baiCodeChecksPaidCodes: string[] = ['475'];
+    public baiCodeZBACodes: string[] = ['575', '275'];
+    public baiCodeOtherCreditsCodes: string[] = ['195', '201', '191', '295', '399', '166', '164'];
+    public baiCodeOtherDebitsCodes: string[] = ['491', '495', '501', '455', '698', '661'];
+
+
+
 
 
     public get US_States() {
@@ -77,6 +87,9 @@ export class Constants {
 
         return alertTypes;
     }
+
+
+    
 
      //public preferedMethod = [{ value: 'Phone', display: 'Phone' }, { value: 'Text-Message', display: 'Text-Message' }, { value: 'Email', display: 'Email' }];
 

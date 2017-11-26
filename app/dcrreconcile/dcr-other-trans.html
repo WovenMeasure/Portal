@@ -1,0 +1,146 @@
+﻿<tabset>
+    <tab heading="Lock Box">
+        <p-dataTable [immutable]="false" scrollable="true" [pageLinks]="5" 
+                     [value]="lockbox" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15">
+            <p-column field="baiCode" header="BAI Code" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="bankDate" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Bank Date
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{reconcile.bankDate | momentUtc: 'format': 'MM/DD/YYYY' }}
+                </template>
+            </p-column>
+            <p-column field="reconcile.bankDepositAmount" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Amount
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{reconcile.amount | currency:'USD':true}}
+                </template>
+            </p-column>
+            <p-column field="accountNumber" header="Account" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="customerRef" header="Customer Ref" sortable="true" styleClass="col-md-2"></p-column>
+        </p-dataTable>
+    </tab>
+    <tab heading="Banking Adjustments">
+        <p-dataTable [immutable]="false" scrollable="true" [pageLinks]="5"
+                     [value]="bankingAdjustments" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15">
+            <p-column field="baiCode" header="BAI Code" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="bankDate" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Bank Date
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{reconcile.bankDate | momentUtc: 'format': 'MM/DD/YYYY' }}
+                </template>
+            </p-column>
+            <p-column field="reconcile.bankDepositAmount" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Amount
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{reconcile.amount | currency:'USD':true}}
+                </template>
+            </p-column>
+            <p-column field="accountNumber" header="Account" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="customerRef" header="Customer Ref" sortable="true" styleClass="col-md-2"></p-column>
+        </p-dataTable>
+    </tab>
+    <tab heading="Checks Paid">
+        <p-dataTable [immutable]="false" scrollable="true" [pageLinks]="5"
+                     [value]="checksPaid" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15">
+            <p-column field="baiCode" header="BAI Code" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="bankDate" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Bank Date
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{reconcile.bankDate | momentUtc: 'format': 'MM/DD/YYYY' }}
+                </template>
+            </p-column>
+            <p-column field="reconcile.bankDepositAmount" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Amount
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{reconcile.amount | currency:'USD':true}}
+                </template>
+            </p-column>
+            <p-column field="accountNumber" header="Account" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="customerRef" header="Customer Ref" sortable="true" styleClass="col-md-2"></p-column>
+        </p-dataTable>
+    </tab>
+    <tab heading="ZBA">
+        <p-dataTable [immutable]="false" scrollable="true" [pageLinks]="5"
+                     [value]="zba" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15">
+            <p-column field="baiCode" header="BAI Code" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="bankDate" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Bank Date
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{reconcile.bankDate | momentUtc: 'format': 'MM/DD/YYYY' }}
+                </template>
+            </p-column>
+            <p-column field="reconcile.bankDepositAmount" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Amount
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{reconcile.amount | currency:'USD':true}}
+                </template>
+            </p-column>
+            <p-column field="accountNumber" header="Account" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="customerRef" header="Customer Ref" sortable="true" styleClass="col-md-2"></p-column>
+        </p-dataTable>
+    </tab>
+    <tab heading="Other Credits">
+        <p-dataTable [immutable]="false" scrollable="true" [pageLinks]="5"
+                     [value]="otherCredits" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15">
+            <p-column field="baiCode" header="BAI Code" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="bankDate" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Bank Date
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{reconcile.bankDate | momentUtc: 'format': 'MM/DD/YYYY' }}
+                </template>
+            </p-column>
+            <p-column field="reconcile.bankDepositAmount" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Amount
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{reconcile.amount | currency:'USD':true}}
+                </template>
+            </p-column>
+            <p-column field="accountNumber" header="Account" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="customerRef" header="Customer Ref" sortable="true" styleClass="col-md-2"></p-column>
+        </p-dataTable>
+    </tab>
+    <tab heading="Other Debits">
+        <p-dataTable [immutable]="false" scrollable="true" [pageLinks]="5"
+                     [value]="otherDebits" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15">
+            <p-column field="baiCode" header="BAI Code" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="bankDate" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Bank Date
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{reconcile.bankDate | momentUtc: 'format': 'MM/DD/YYYY' }}
+                </template>
+            </p-column>
+            <p-column field="reconcile.bankDepositAmount" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Amount
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{reconcile.amount | currency:'USD':true}}
+                </template>
+            </p-column>
+            <p-column field="accountNumber" header="Account" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column field="customerRef" header="Customer Ref" sortable="true" styleClass="col-md-2"></p-column>
+        </p-dataTable>
+    </tab>
+</tabset>

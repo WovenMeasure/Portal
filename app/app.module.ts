@@ -70,6 +70,7 @@ import { PasswordValidator } from './changePassword/changePassword.directive';
 import { AddEditDisbursementComponent } from "./location/add-edit-disbursement";
 import { DcrReconcilesListComponent } from "./dcrreconcile/dcr-reconcile";
 import { DcrCreditReconcilesListComponent } from "./dcrreconcile/dcr-credit-reconcile";
+import { DcrReconcilesOtherTransactionsComponent } from "./dcrreconcile/dcr-other-trans";
  
 
 @NgModule({
@@ -82,7 +83,7 @@ import { DcrCreditReconcilesListComponent } from "./dcrreconcile/dcr-credit-reco
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, LocationDetailComponent, JobParametersListComponent,
         PasswordValidator, FileUploadComponent, DashboardMainComponent, JobLogListComponent, LocationListComponent, ReportListComponent,
         CasesListComponent, AddLocationComponent, AddEditReturnComponent, AddEditDisbursementComponent, AddEditTheftComponent,
-        DcrReconcilesListComponent, DcrCreditReconcilesListComponent
+        DcrReconcilesListComponent, DcrCreditReconcilesListComponent, DcrReconcilesOtherTransactionsComponent
        ],
 
     entryComponents: [AddEditReturnComponent, AddEditDisbursementComponent, AddEditTheftComponent],
