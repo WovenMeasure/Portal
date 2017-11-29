@@ -39,6 +39,14 @@
         <p-selectButton [options]="bankOnlySubTypes" [(ngModel)]="bankOnlySubType" (onChange)="filterSubType()"></p-selectButton>
         <p-dataTable [immutable]="false" (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" scrollable="true" scrollHeight="700px" [pageLinks]="5" [value]="matches" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15" [globalFilter]="gb">
             <p-column field="baiCode" header="BAI Code" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    BAI Description
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{constants.getBaiDescription(reconcile.baiCode)}}
+                </template>
+            </p-column>
             <p-column field="bankDate" sortable="true" styleClass="col-md-2">
                 <template pTemplate="header">
                     Bank Date
@@ -47,6 +55,7 @@
                     {{reconcile.bankDate | momentUtc: 'format': 'MM/DD/YYYY' }}
                 </template>
             </p-column>
+            <p-column field="customerRef" header="Customer Ref" sortable="true" styleClass="col-md-2"></p-column>
             <p-column field="reconcile.bankDepositAmount" sortable="true" styleClass="col-md-2">
                 <template pTemplate="header">
                     Amount
@@ -55,8 +64,7 @@
                     {{reconcile.amount | currency:'USD':true}}
                 </template>
             </p-column>
-            <p-column field="accountNumber" header="Account" sortable="true" styleClass="col-md-1"></p-column>
-            <p-column field="customerRef" header="Customer Ref" sortable="true" styleClass="col-md-2"></p-column>
+            <p-column field="accountNumber" header="Account" sortable="true" styleClass="col-md-1"></p-column>           
         </p-dataTable>  
     </div>
     <table class="table table-condensed table-striped col-md-12" *ngIf="type2==3">
@@ -80,6 +88,17 @@
                  <td>{{reconcile.numAmount | currency:'USD':true}}</td>
              </tr>
          </ng-container>
+        <tr *ngIf="matches.length > 0" class="strong" style="background-color:gainsboro">
+            <td><strong>TOTALS</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <div [innerHTML]="sumField('numAmount') | currency:'USD':true | formatProfitLoss | safe: 'html'"></div>
+            </td>
+        </tr>
     </table>
     <table class="table table-condensed table-striped col-md-12" *ngIf="type2==1">
         <tr>
@@ -117,6 +136,18 @@
                 <td colspan="7">&nbsp;</td>
             </tr>
         </ng-container>
+        <tr *ngIf="matches.length > 0" class="strong" style="background-color:gainsboro">
+            <td><strong>TOTALS</strong></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <div [innerHTML]="sumField('dcrDepositAmount') | currency:'USD':true | formatProfitLoss | safe: 'html'"></div>
+            </td>
+        </tr>
     </table>
     <div *ngIf="type2==4" class="col-md-12">
         <other-transactions [data]="otherTransactions"></other-transactions>

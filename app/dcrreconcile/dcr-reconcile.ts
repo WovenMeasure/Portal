@@ -57,6 +57,7 @@ export class DcrReconcilesListComponent {
         this.matches = [];
         this.allMatches = [];
         this.filterLocation = "";
+        this.colorIncrement = 0;
         this.filterBankAccount = "";
         this.filterRegion = "";
         var date = new Date();
@@ -66,6 +67,7 @@ export class DcrReconcilesListComponent {
         this.type = "1";
         this.type2 = "1";
         this.loadRegions();
+        this.currentColor = "#EFF0F1";
         this.types = [
             { label: "Bank Only Unmatched", value: "2" },
             { label: "DCR Only Unmatched", value: "3" },
@@ -139,6 +141,8 @@ export class DcrReconcilesListComponent {
     } 
 
     loadReconciles() {
+        this.colorIncrement = 0;
+        this.currentColor = "#EFF0F1";
         var _self = this;
         if (!this.filterLocation && !this.filterBankAccount) {
             return;
@@ -219,12 +223,25 @@ export class DcrReconcilesListComponent {
         return diffDays;
     }
 
+    currentColor: string;
+    colorIncrement: number;
     rowColor(index): string {
-        if (index % 3 == 0)
+        if (index == 0 || index % 2 == 0) {
             return "#EFF0F1";
-        if (index % 2 == 0)
+        }
+        else {
             return "#B3E9FF";
+        }
+        
+    }
 
-        return "#8EC442";
+
+    sumField(fieldName: string): number {
+        var values = _(this.matches).pluck(fieldName);
+        let sum: number = 0;
+        _(values).each(function (value) {
+            sum += value;
+        });
+        return sum;
     }
 }

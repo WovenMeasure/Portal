@@ -1,13 +1,26 @@
 ﻿import { Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml, SafeStyle, SafeScript, SafeUrl, SafeResourceUrl } from '@angular/platform-browser';
 import * as moment from 'moment';
 
 @Pipe({ name: 'safe' })
 export class SafePipe implements PipeTransform {
-    constructor(private sanitizer: DomSanitizer) { }
+    constructor(private _sanitizer: DomSanitizer) { }
 
-    transform(style) {
-        return this.sanitizer.bypassSecurityTrustStyle(style);
+    public transform(value: string, type: string): SafeHtml | SafeStyle | SafeScript | SafeUrl | SafeResourceUrl {
+        switch (type) {
+            case 'html':
+                return this._sanitizer.bypassSecurityTrustHtml(value);
+            case 'style':
+                return this._sanitizer.bypassSecurityTrustStyle(value);
+            case 'script':
+                return this._sanitizer.bypassSecurityTrustScript(value);
+            case 'url':
+                return this._sanitizer.bypassSecurityTrustUrl(value);
+            case 'resourceUrl':
+                return this._sanitizer.bypassSecurityTrustResourceUrl(value);
+            default:
+                throw new Error(`Unable to bypass security for invalid type: ${type}`);
+        }
     }
 }
 
@@ -53,6 +66,22 @@ export class FormatDatePipe implements PipeTransform {
                 dateValue.getUTCMinutes(),
                 dateValue.getUTCSeconds());
         return datewithouttimezone;
+    }
+
+}
+
+
+@Pipe({ name: 'formatProfitLoss' })
+export class FormatProfitLossPipe implements PipeTransform {
+    transform(value: string): any {
+        if (value == '' || value == undefined)
+            return '';
+
+        var numberValue = parseFloat(value.replace("$",""));
+        if (numberValue < 0.0) {
+            return "<font color='red'>(" + value + ")</font>";
+        }
+        return value;
     }
 
 }

@@ -138,6 +138,15 @@ export class DcrCreditReconcilesListComponent {
             });   
     }   
 
+    sumField(fieldName: string): number {
+        var values = _(this.matches).pluck(fieldName);
+        let sum:number = 0;
+        _(values).each(function (value) {
+            sum += value;
+        });
+        return sum;
+    }
+
     filter() {
         this.loadReconciles();
     }    

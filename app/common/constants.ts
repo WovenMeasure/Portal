@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable() 
 export class Constants {
-    public get BaseApiUriProd(): string { return "http://api-laz.wovenmeasure.com/api/"; }
-    public get BaseApiUri(): string { return "http://laz.webapi/api/"; }
+    public get BaseApiUri(): string { return "http://api-laz.wovenmeasure.com/api/"; }
+    public get BaseApiUriLocal(): string { return "http://laz.webapi/api/"; }
 
     public get BaseAttachmentUri(): string { return this.BaseApiUri + "attachment/getFile/"; }
 
@@ -88,7 +88,89 @@ export class Constants {
         return alertTypes;
     }
 
+    public getBaiDescription(baiCodeStr: string): string {
+        const baiCode: number = parseInt(baiCodeStr);
+        if (baiCode === 301) {
+            return "Commercial Deposit Credit";
+        }
+        else if (baiCode === 165) {
+            return "Preauthorized ACH Credit";
+        }
+        else if (baiCode === 115) {
+            return "Lockbox Deposit Credit";
+        }
+        else if (baiCode === 937) {
+            return "Deposit Correction Cash Credit";
+        }
+        else if (baiCode === 695) {
+            return "Deposit Correction Debit";
+        }
+        else if (baiCode === 938) {
+            return "Deposit Correction Cash Debit";
+        }
+        else if (baiCode === 557) {
+            return "Individual ACH Return Item DR";
+        }
+        else if (baiCode === 631) {
+            return "Debit Adjustment";
+        }
+        else if (baiCode === 555) {
+            return "Deposited Item Return Debit";
+        }
+        else if (baiCode === 187) {
+            return "Cash Letter Pre-Encoded Dep CR";
+        }
+        else if (baiCode === 475) {
+            return "Checks Paid Debit";
+        }
+        else if (baiCode === 575) {
+            return "ZBA Debit";
+        }
+        else if (baiCode === 275) {
+            return "ZBA Credit";
+        }
+        else if (baiCode === 195) {
+            return "Incoming Money Transfer Credit";
+        }
+        else if (baiCode === 201) {
+            return "Individual Auto Transfer CR";
+        }
+        else if (baiCode === 191) {
+            return "Incoming Internal Money Trnsfr";
+        }
+        else if (baiCode === 295) {
+            return "ATM Credit";
+        }
+        else if (baiCode === 399) {
+            return "Miscellaneous Credit";
+        }
+        else if (baiCode === 166) {
+            return "ACH Settlement Credit";
+        }
+        else if (baiCode === 164) {
+            return "Corporate Trade Payment Credit";
+        }
+        else if (baiCode === 491) {
+            return "Outgoing Internl Money Trnsfr";
+        }
+        else if (baiCode === 495) {
+            return "Outgoing Money Transfer Debit";
+        }
+        else if (baiCode === 501) {
+            return "Individual Auto Transfer DR";
+        }
+        else if (baiCode === 455) {
+            return "Preauthorized ACH Debit";
+        }
+        else if (baiCode === 698) {
+            return "Miscellaneous Fee DR";
+        }
+        else if (baiCode === 661) {
+            return "Account Analysis Fee Debit";
+        }
 
+        return "";
+    }
     
 
      //public preferedMethod = [{ value: 'Phone', display: 'Phone' }, { value: 'Text-Message', display: 'Text-Message' }, { value: 'Email', display: 'Email' }];

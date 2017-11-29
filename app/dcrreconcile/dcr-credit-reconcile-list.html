@@ -35,7 +35,7 @@
             <th>CCIMF Amount</th>
             <th>DCR Entered Amount</th>
             <th>DCR Entry Date</th>
-            <th>Variance</th>
+            <th>CCIMF Over / (Short)</th>
         </tr>
         <ng-container *ngFor="let reconcile of matches; let i = index">
             <tr>
@@ -45,7 +45,9 @@
                 <td>{{reconcile.totalCCIMFCreditAmount | currency:'USD':true}}</td>
                 <td>{{reconcile.totalDCRCreditAmount | currency:'USD':true}}</td>
                 <td>{{reconcile.dcrEntryDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
-                <td>{{reconcile.variance | currency:'USD':true}}</td>
+                <td>
+                    <div [innerHTML]="reconcile.variance | currency:'USD':true | formatProfitLoss | safe: 'html'"></div>
+                </td>
             </tr>          
             <tr *ngIf="reconcile.expanded" style="background-color:gainsboro">
                 <td colspan="6">
@@ -76,5 +78,15 @@
                 </td>
             </tr>
         </ng-container>
+        <tr *ngIf="matches.length > 0" class="strong" style="background-color:gainsboro">
+            <td><strong>TOTALS</strong></td>
+            <td></td>
+            <td>{{sumField("totalCCIMFCreditAmount") | currency:'USD':true}}</td>
+            <td>{{sumField("totalDCRCreditAmount") | currency:'USD':true}}</td>
+            <td></td>
+            <td>
+                <div [innerHTML]="sumField('variance') | currency:'USD':true | formatProfitLoss | safe: 'html'"></div>
+            </td>
+        </tr>
     </table>
 </div>

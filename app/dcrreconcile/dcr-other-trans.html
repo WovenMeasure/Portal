@@ -3,6 +3,14 @@
         <p-dataTable [immutable]="false" scrollable="true" [pageLinks]="5" 
                      [value]="lockbox" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15">
             <p-column field="baiCode" header="BAI Code" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    BAI Description
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{constants.getBaiDescription(reconcile.baiCode)}}
+                </template>
+            </p-column>
             <p-column field="bankDate" sortable="true" styleClass="col-md-2">
                 <template pTemplate="header">
                     Bank Date
@@ -27,6 +35,14 @@
         <p-dataTable [immutable]="false" scrollable="true" [pageLinks]="5"
                      [value]="bankingAdjustments" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15">
             <p-column field="baiCode" header="BAI Code" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    BAI Description
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{constants.getBaiDescription(reconcile.baiCode)}}
+                </template>
+            </p-column>
             <p-column field="bankDate" sortable="true" styleClass="col-md-2">
                 <template pTemplate="header">
                     Bank Date
@@ -51,6 +67,14 @@
         <p-dataTable [immutable]="false" scrollable="true" [pageLinks]="5"
                      [value]="checksPaid" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15">
             <p-column field="baiCode" header="BAI Code" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    BAI Description
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{constants.getBaiDescription(reconcile.baiCode)}}
+                </template>
+            </p-column>
             <p-column field="bankDate" sortable="true" styleClass="col-md-2">
                 <template pTemplate="header">
                     Bank Date
@@ -75,6 +99,14 @@
         <p-dataTable [immutable]="false" scrollable="true" [pageLinks]="5"
                      [value]="zba" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15">
             <p-column field="baiCode" header="BAI Code" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    BAI Description
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{constants.getBaiDescription(reconcile.baiCode)}}
+                </template>
+            </p-column>
             <p-column field="bankDate" sortable="true" styleClass="col-md-2">
                 <template pTemplate="header">
                     Bank Date
@@ -99,6 +131,14 @@
         <p-dataTable [immutable]="false" scrollable="true" [pageLinks]="5"
                      [value]="otherCredits" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15">
             <p-column field="baiCode" header="BAI Code" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    BAI Description
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{constants.getBaiDescription(reconcile.baiCode)}}
+                </template>
+            </p-column>
             <p-column field="bankDate" sortable="true" styleClass="col-md-2">
                 <template pTemplate="header">
                     Bank Date
@@ -123,6 +163,14 @@
         <p-dataTable [immutable]="false" scrollable="true" [pageLinks]="5"
                      [value]="otherDebits" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15">
             <p-column field="baiCode" header="BAI Code" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    BAI Description
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{constants.getBaiDescription(reconcile.baiCode)}}
+                </template>
+            </p-column>
             <p-column field="bankDate" sortable="true" styleClass="col-md-2">
                 <template pTemplate="header">
                     Bank Date

@@ -9,7 +9,7 @@ import { AppComponent }   from "./app.component";
 import { SafePipe } from './common/pipes/pipes';
 import { MomentPipe } from './common/pipes/pipes';
 import { MomentUtcPipe } from './common/pipes/pipes';
-import { FormatDatePipe } from './common/pipes/pipes';
+import { FormatDatePipe, FormatProfitLossPipe } from './common/pipes/pipes';
 import { HttpModule, JsonpModule } from "@angular/http";
 import { HeaderComponent } from "./shared/header/header";
 import { Constants } from "./common/constants";
@@ -78,7 +78,7 @@ import { DcrReconcilesOtherTransactionsComponent } from "./dcrreconcile/dcr-othe
         DataTableModule, GrowlModule, DropdownModule, CalendarModule, ConfirmDialogModule, DialogModule, EditorModule, SharedModule, InputMaskModule, CurrencyMaskModule, FileUploadModule, TabsModule.forRoot(), ModalModule.forRoot(),
         SelectButtonModule],
     declarations: [
-        AppComponent, SafePipe, MomentPipe, MomentUtcPipe, FormatDatePipe, HeaderComponent, ImageCropperComponent, AlertDetailChargeBackComponent,
+        AppComponent, FormatProfitLossPipe, SafePipe, MomentPipe, MomentUtcPipe, FormatDatePipe, HeaderComponent, ImageCropperComponent, AlertDetailChargeBackComponent,
         MasterPageComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent, LocationChargeBackComponent,
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, LocationDetailComponent, JobParametersListComponent,
         PasswordValidator, FileUploadComponent, DashboardMainComponent, JobLogListComponent, LocationListComponent, ReportListComponent,
