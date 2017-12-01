@@ -37,7 +37,7 @@
 <div class="col-md-12" style="position:relative;top:235px;z-index:5">
     <div *ngIf="type2==2">
         <p-selectButton [options]="bankOnlySubTypes" [(ngModel)]="bankOnlySubType" (onChange)="filterSubType()"></p-selectButton>
-        <p-dataTable [immutable]="false" (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" scrollable="true" scrollHeight="700px" [pageLinks]="5" [value]="matches" tableStyleClass="table-striped pull-right borderTable" [paginator]="true" [rows]="15" [globalFilter]="gb">
+        <p-dataTable [immutable]="false" (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" [pageLinks]="5" [value]="matches" tableStyleClass="table-striped pull-right borderTable" [scrollable]="true" scrollHeight="65vh" [globalFilter]="gb">
             <p-column field="baiCode" header="BAI Code" sortable="true" styleClass="col-md-1"></p-column>
             <p-column sortable="true" styleClass="col-md-2">
                 <template pTemplate="header">

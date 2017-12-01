@@ -21,12 +21,21 @@ import { ReportListComponent } from './reports/reports-list';
 import { CasesListComponent } from './cases/cases-list';
 import { DcrReconcilesListComponent } from "./dcrreconcile/dcr-reconcile";
 import { DcrCreditReconcilesListComponent } from "./dcrreconcile/dcr-credit-reconcile";
+import { AccountManagementComponent } from "./accounts/accounts-management";
+import { LocationDetailLiteComponent } from "./accounts/location-detail-lite";
 
 const appRoutes: Routes = [
     { path: '', component: MasterPageComponent, canActivate: [CanActivateGuard],
         children: 
         [
             { path: '', redirectTo: 'dash-main', pathMatch: 'full' },
+            {
+                path: 'accounts', component: null, canActivate: [CanActivateGuard], children:
+                [
+                    { path: 'accounts-management', component: AccountManagementComponent, canActivate: [CanActivateGuard] },
+                    { path: 'location-lite', component: LocationDetailLiteComponent, canActivate: [CanActivateGuard] },
+                ]
+            },
             { path: 'dash-main', component: DashboardMainComponent, canActivate: [CanActivateGuard] },
             {
                 path: 'location', component: null, canActivate: [CanActivateGuard], children:

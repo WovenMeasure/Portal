@@ -18,5 +18,10 @@ export class LookupService {
         let observable$ = this.proxyService.Get("lookup/region");
         return observable$;
     }
+
+    public loadBankAccounts(): Observable<any> {
+        let observable$ = this.proxyService.Get("lookup/bankAccounts");
+        return observable$;
+    }
    
 }

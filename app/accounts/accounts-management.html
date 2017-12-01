@@ -1,0 +1,33 @@
+﻿<p-growl [value]="msgs"></p-growl>
+<div style="position:fixed;width:100%;z-index:10;background-color:#FFFFFF">
+    <div class="col-md-12">
+        <h2 class="col-md-4"><strong>Account Management</strong></h2>
+    </div>
+    <div class="col-md-12">
+        <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+            <label for="filterBankAccount">Acct #:&nbsp;</label>
+            <p-dropdown [options]="bankAccounts" [style]="{'width':'70%'}" [autoWidth]="false" (onChange)="load()" [(ngModel)]="filterBankAccount" placeholder="Select Bank Account" [lazy]="false"></p-dropdown>
+        </div>  
+        <div class="col-lg-2 col-md-3 col-sm-3 form-group">
+            <label for="filterLocationId">Region:&nbsp;</label>
+            <p-dropdown [options]="regions" [style]="{'width':'70%'}" [autoWidth]="false" (onChange)="loadLocations()" [(ngModel)]="filterRegion" placeholder="Select Region" [lazy]="false"></p-dropdown>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-4 form-group">
+            <label for="filterLocationId">Location:&nbsp;</label>
+            <p-dropdown [options]="locations" [style]="{'width':'70%'}" [autoWidth]="false" [disabled]="filterRegion === ''" (onChange)="load()" [(ngModel)]="filterLocation" [filter]="true" [lazy]="false" placeholder="Select Location"></p-dropdown>
+            <button class="btn-xs btn-primary" (click)="filterLocation=''"><i class="fa fa-close"></i></button>
+        </div>                      
+        <div class="col-xs-3 col-md-2">
+            <button class="btn btn-primary" [disabled]="filterBankAccount === '' && filterLocation === ''" (click)="filter()">Filter</button>
+        </div>
+    </div>
+</div>
+<div class="col-md-12" style="position:relative;top:155px;z-index:5">
+    <p-dataTable [immutable]="false" scrollable="true" scrollHeight="70vh" selectionMode="single" (onRowSelect)="onRowSelect($event)" [value]="matches" tableStyleClass="table-striped pull-right">
+        <p-column field="locationID" header="ID" sortable="true" styleClass="col-md-2"></p-column>
+        <p-column field="name" header="Name" sortable="true" styleClass="col-md-4"></p-column>
+        <p-column field="contactName" header="Contact" sortable="true" styleClass="col-md-3"></p-column>
+        <p-column field="city" header="City" sortable="true" styleClass="col-md-2"></p-column>
+        <p-column field="state" header="State" sortable="true" styleClass="col-md-1"></p-column>
+    </p-dataTable>
+</div>

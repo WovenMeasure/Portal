@@ -142,6 +142,19 @@ export class ContextService {
     }
 
 
+    public get acctManagementSelectedAccount(): string {
+        let val: string = window.localStorage.getItem("acctManagementSelectedAccount");
+        if (null == val)
+            return "";
+
+        return val;
+    }
+
+    public set acctManagementSelectedAccount(value: string) {
+        window.localStorage.setItem("acctManagementSelectedAccount", value);
+    }
+
+
 
 
     public hasPermission(claimValue: string): boolean {

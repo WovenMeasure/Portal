@@ -71,6 +71,8 @@ import { AddEditDisbursementComponent } from "./location/add-edit-disbursement";
 import { DcrReconcilesListComponent } from "./dcrreconcile/dcr-reconcile";
 import { DcrCreditReconcilesListComponent } from "./dcrreconcile/dcr-credit-reconcile";
 import { DcrReconcilesOtherTransactionsComponent } from "./dcrreconcile/dcr-other-trans";
+import { AccountManagementComponent } from "./accounts/accounts-management";
+import { LocationDetailLiteComponent } from "./accounts/location-detail-lite";
  
 
 @NgModule({
@@ -83,7 +85,8 @@ import { DcrReconcilesOtherTransactionsComponent } from "./dcrreconcile/dcr-othe
         LoginComponent, ResetPasswordComponent, ChangePasswordComponent, LocationDetailComponent, JobParametersListComponent,
         PasswordValidator, FileUploadComponent, DashboardMainComponent, JobLogListComponent, LocationListComponent, ReportListComponent,
         CasesListComponent, AddLocationComponent, AddEditReturnComponent, AddEditDisbursementComponent, AddEditTheftComponent,
-        DcrReconcilesListComponent, DcrCreditReconcilesListComponent, DcrReconcilesOtherTransactionsComponent
+        DcrReconcilesListComponent, DcrCreditReconcilesListComponent, DcrReconcilesOtherTransactionsComponent, AccountManagementComponent,
+        LocationDetailLiteComponent
        ],
 
     entryComponents: [AddEditReturnComponent, AddEditDisbursementComponent, AddEditTheftComponent],
