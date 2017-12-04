@@ -44,7 +44,7 @@ export class LocationDetailLiteComponent implements AfterViewInit, OnInit {
     loaded: boolean = false;
     ngOnInit() {
         var _self = this;
-        this.contextService.currentSection = "acctManagement";
+        this.contextService.currentSection = "acctManagementReconcile";
         this.locationId = this.route.snapshot.queryParams['i'];
         _self.loadLocationDetail();        
 

@@ -48,7 +48,7 @@ export class AccountManagementComponent {
         this.filterLocation = "";
         this.filterBankAccount = "";
         this.filterRegion = "";      
-        this.contextService.currentSection = "acctManagement";
+        this.contextService.currentSection = "acctManagementReconcile";
         this.loadRegions().then(() => {
             this.loadBankAccounts().then(() => {
                 if (_self.contextService.acctManagementSelectedAccount) {

@@ -36,13 +36,11 @@
             <span><a [ngClass]="{'selected': contextService.currentSection == 'reports'}" [routerLink]="['/reports/report-list']">Reports</a></span>
         </div>  
         <div class="menu-item" *ngIf="contextService.hasPermission(constants.permissionBankReconcile)">
-            <span><a (click)="reconcileExpanded = !reconcileExpanded">DCR Reconciliation</a></span>
-            <span style="margin-left:55px;padding: 0px 10px 5px" *ngIf="reconcileExpanded"><a style="font-size:70%" [ngClass]="{'selected': contextService.currentSection == 'bankreconcile'}" [routerLink]="['/dcr-reconcile/dcr-reconcile-list']">Bank Reconcilation</a></span>
+            <span><a (click)="reconcileExpanded = !reconcileExpanded">Bank Reconciliation</a></span>
+            <span style="margin-left:55px;padding: 0px 10px 5px" *ngIf="reconcileExpanded"><a style="font-size:70%" [ngClass]="{'selected': contextService.currentSection == 'bankreconcile'}" [routerLink]="['/dcr-reconcile/dcr-reconcile-list']">Cash Reconcilation</a></span>
             <span style="margin-left:55px;padding: 0px 10px 0px" *ngIf="reconcileExpanded"><a style="font-size:70%" [ngClass]="{'selected': contextService.currentSection == 'creditreconcile'}" [routerLink]="['/dcr-reconcile/dcr-credit-reconcile-list']">Credit Reconcilation</a></span>
+            <span style="margin-left:55px;padding: 0px 10px 0px" *ngIf="reconcileExpanded"><a style="font-size:70%" [ngClass]="{'selected': contextService.currentSection == 'acctManagementReconcile'}" [routerLink]="['/accounts/accounts-management']">Account Management</a></span>
         </div>
-        <div class="menu-item">
-            <span><a [ngClass]="{'selected': contextService.currentSection == 'acctManagement'}" [routerLink]="['/accounts/accounts-management']">Account Management</a></span>
-        </div>  
     </div>
     <div class="main" ui-view="screens">
         <!-- (Child detail views) Routed views go into this -->
