@@ -6,8 +6,10 @@
     <div class="col-md-12">
         <div class="col-lg-3 col-md-3 col-sm-3 form-group">
             <label for="filterBankAccount">Acct #:&nbsp;</label>
-            <p-dropdown [options]="bankAccounts" [style]="{'width':'70%'}" [autoWidth]="false" (onChange)="load()" [(ngModel)]="filterBankAccount" placeholder="Select Bank Account" [lazy]="false"></p-dropdown>
+            <p-dropdown [filter]="true" [options]="bankAccounts" [style]="{'width':'70%'}" [autoWidth]="false" (onChange)="load()" [(ngModel)]="filterBankAccount" placeholder="Select Bank Account" [lazy]="false"></p-dropdown>
         </div>  
+    </div>
+    <div class="col-md-12">
         <div class="col-lg-2 col-md-3 col-sm-3 form-group">
             <label for="filterLocationId">Region:&nbsp;</label>
             <p-dropdown [options]="regions" [style]="{'width':'70%'}" [autoWidth]="false" (onChange)="loadLocations()" [(ngModel)]="filterRegion" placeholder="Select Region" [lazy]="false"></p-dropdown>
@@ -16,13 +18,13 @@
             <label for="filterLocationId">Location:&nbsp;</label>
             <p-dropdown [options]="locations" [style]="{'width':'70%'}" [autoWidth]="false" [disabled]="filterRegion === ''" (onChange)="load()" [(ngModel)]="filterLocation" [filter]="true" [lazy]="false" placeholder="Select Location"></p-dropdown>
             <button class="btn-xs btn-primary" (click)="filterLocation=''"><i class="fa fa-close"></i></button>
-        </div>                      
+        </div>
         <div class="col-xs-3 col-md-2">
             <button class="btn btn-primary" [disabled]="filterBankAccount === '' && filterLocation === ''" (click)="filter()">Filter</button>
         </div>
     </div>
 </div>
-<div class="col-md-12" style="position:relative;top:155px;z-index:5">
+<div class="col-md-12" style="position:relative;top:175px;z-index:5">
     <p-dataTable [immutable]="false" scrollable="true" scrollHeight="70vh" selectionMode="single" (onRowSelect)="onRowSelect($event)" [value]="matches" tableStyleClass="table-striped pull-right">
         <p-column field="locationID" header="ID" sortable="true" styleClass="col-md-2"></p-column>
         <p-column field="name" header="Name" sortable="true" styleClass="col-md-4"></p-column>

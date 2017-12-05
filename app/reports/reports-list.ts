@@ -68,6 +68,10 @@ export class ReportListComponent {
                 url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fMissingCaseNumberReport'
             },
             {
+                name: 'Missing Data Report',
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fMissingDataReport'
+            },
+            {
                 name: 'Missing DDA Account No report',
                 url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fMissingDDAAccountReport'
             },

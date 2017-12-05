@@ -147,7 +147,9 @@ export class AccountManagementComponent {
 
     load() {
         var _self = this;
+        this.contextService.acctManagementSelectedAccount = this.filterBankAccount;
         if (!this.filterLocation && !this.filterBankAccount) {
+            _self.matches = [];
             return;
         }
 
@@ -157,7 +159,6 @@ export class AccountManagementComponent {
         }
 
         this.spinnerService.postStatus('Loading...');
-        this.contextService.acctManagementSelectedAccount = this.filterBankAccount;
         let $observable = this.proxyService.Get("location/listByBankAccount/" + this.filterBankAccount);
             $observable.subscribe(
                 data => {
