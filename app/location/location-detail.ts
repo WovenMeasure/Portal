@@ -100,7 +100,7 @@ export class LocationDetailComponent implements AfterViewInit, OnInit {
     loadLocationDetail() {
         var _self = this;
         this.spinnerService.postStatus('Loading Location');
-        let $observable = this.proxyService.Get("location/" + this.locationId);
+        let $observable = this.proxyService.Post("location", { locationId: this.locationId });
         $observable.subscribe(
             data => {
                 if (data.success) {

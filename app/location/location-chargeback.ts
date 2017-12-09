@@ -100,7 +100,7 @@ export class LocationChargeBackComponent {
 
     loadLocation() {
         this.spinnerService.postStatus('Loading Location');
-        let $observable = this.proxyService.Get("location/" + this.locationID);
+        let $observable = this.proxyService.Post("location", { locationId: this.locationID });
         $observable.subscribe(
             data => {
                 if (data.success) {

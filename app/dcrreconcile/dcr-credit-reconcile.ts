@@ -150,4 +150,11 @@ export class DcrCreditReconcilesListComponent {
     filter() {
         this.loadReconciles();
     }    
+
+    getMatchColor(value: number, value2: number) {
+        if (value === value2)
+            return "inherit";
+
+        return "red";
+    }
 }
