@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable() 
 export class Constants {
     public get BaseApiUri(): string { return "http://api-laz.wovenmeasure.com/api/"; }
-    public get BaseApiUrilocal(): string { return "http://laz.webapi/api/"; }
+    public get BaseApiUriLocal(): string { return "http://laz.webapi/api/"; }
 
     public get BaseAttachmentUri(): string { return this.BaseApiUri + "attachment/getFile/"; }
 
