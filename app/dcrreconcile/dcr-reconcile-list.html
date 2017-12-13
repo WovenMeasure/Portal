@@ -120,7 +120,7 @@
                 <td>{{reconcile.locationID}}</td>
                 <td>{{reconcile.dcrEntryDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
                 <td></td>
-                <td>{{reconcile.dcrDepositAmount | currency:'USD':true}}</td>
+                <td>{{reconcile.dcrAmount | currency:'USD':true}}</td>
             </tr>
             <tr *ngIf="reconcile.bankTransaction" [ngStyle]="{ 'background-color': rowColor(i) }">
                 <td style="padding-left:20px"><img src="/app/images/child_arrow.svg" style="width:20px;position:relative;top:-8px;left:-5px" />Cash Deposit</td>

@@ -23,6 +23,7 @@ import { DcrReconcilesListComponent } from "./dcrreconcile/dcr-reconcile";
 import { DcrCreditReconcilesListComponent } from "./dcrreconcile/dcr-credit-reconcile";
 import { AccountManagementComponent } from "./accounts/accounts-management";
 import { LocationDetailLiteComponent } from "./accounts/location-detail-lite";
+import { DcrBankUnmatchedAllComponent } from "./dcrreconcile/dcr-bank-unmatched-all";
 
 const appRoutes: Routes = [
     { path: '', component: MasterPageComponent, canActivate: [CanActivateGuard],
@@ -65,6 +66,7 @@ const appRoutes: Routes = [
                 path: 'dcr-reconcile', component: null, canActivate: [CanActivateGuard], children:
                 [
                     { path: 'dcr-reconcile-list', component: DcrReconcilesListComponent, canActivate: [CanActivateGuard] },
+                    { path: 'dcr-cash-unmatched-all-reconcile-list', component: DcrBankUnmatchedAllComponent, canActivate: [CanActivateGuard] },
                     { path: 'dcr-credit-reconcile-list', component: DcrCreditReconcilesListComponent, canActivate: [CanActivateGuard] }
                 ]
             },

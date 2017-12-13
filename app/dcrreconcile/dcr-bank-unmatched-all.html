@@ -1,0 +1,39 @@
+﻿<p-growl [value]="msgs"></p-growl>
+<div style="position:fixed;width:100%;z-index:10;background-color:#FFFFFF">
+    <div class="col-md-12">
+        <h2 class="col-md-4"><strong>Cash Unmatched All</strong></h2>
+    </div>    
+</div>
+<div class="col-md-12" style="position:relative;top:20px;z-index:5">
+    <div>
+        <p-dataTable [immutable]="false" (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" [pageLinks]="5" [value]="matches" tableStyleClass="table-striped pull-right borderTable" [globalFilter]="gb">
+            <p-column field="baiCode" header="BAI Code" sortable="true" styleClass="col-md-1"></p-column>
+            <p-column sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    BAI Description
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{constants.getBaiDescription(reconcile.baiCode)}}
+                </template>
+            </p-column>
+            <p-column field="bankDate" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Bank Date
+                </template>
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{reconcile.bankDate | momentUtc: 'format': 'MM/DD/YYYY' }}
+                </template>
+            </p-column>
+            <p-column field="customerRef" header="Customer Ref" sortable="true" styleClass="col-md-2"></p-column>
+            <p-column field="reconcile.bankDepositAmount" sortable="true" styleClass="col-md-2">
+                <template pTemplate="header">
+                    Amount
+                </template> 
+                <template let-reconcile="rowData" pTemplate="body">
+                    {{reconcile.amount | currency:'USD':true}}
+                </template>
+            </p-column>
+            <p-column field="accountNumber" header="Account" sortable="true" styleClass="col-md-1"></p-column>           
+        </p-dataTable>  
+    </div>  
+</div>
