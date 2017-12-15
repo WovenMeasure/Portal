@@ -15,10 +15,10 @@ import * as _ from 'underscore';
 import * as moment from 'moment';
 
 @Component({
-    templateUrl: 'dcr-bank-unmatched-all.html',
+    templateUrl: 'dcr-unmatched-all.html',
     providers: [ConfirmationService]
 })
-export class DcrBankUnmatchedAllComponent {   
+export class DcrUnmatchedAllComponent {   
     constructor(private router: Router, 
                 private componentFactoryResolver: ComponentFactoryResolver,
                 private proxyService: ProxyService,
@@ -47,7 +47,7 @@ export class DcrBankUnmatchedAllComponent {
 
     ngOnInit() {      
         this.filterBankAccount = "";
-        this.contextService.currentSection = "bankreconcileAllBankUnmatched";
+        this.contextService.currentSection = "bankreconcileAllDcrUnmatched";
         this.loadBankAccounts();      
     }       
 
@@ -57,7 +57,7 @@ export class DcrBankUnmatchedAllComponent {
         this.spinnerService.postStatus('Loading Bank Accounts');
         let promise = new Promise((resolve, reject) => {
             this.bankAccounts = [];
-            let observable$ = this.lookupService.loadBankAccountsUnmatched();
+            let observable$ = this.lookupService.loadBankAccountsUnmatchedDcr();
             observable$.subscribe(
                 data => {
                     if (data.success) {
@@ -86,11 +86,11 @@ export class DcrBankUnmatchedAllComponent {
         var _self = this;
 
         this.spinnerService.postStatus('Loading...');
-        let $observable = this.proxyService.Get("dcrreconcile/allBankUnmatched/" + this.filterBankAccount);
+        let $observable = this.proxyService.Get("dcrreconcile/allDcrUnmatched/" + this.filterBankAccount);
         $observable.subscribe(
             data => {
                 if (data.success) {                     
-                    _self.matches = data.bankOnly;
+                    _self.matches = data.dcrOnly;
                 }
                 else {
                     _self.msgs.push({ severity: 'error', summary: data.responseMessage });

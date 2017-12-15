@@ -20,7 +20,7 @@
      </div>
     <input #gb type="text" style="margin-top:20px" class="pull-right" placeholder="Search"><i class="fa fa-search pull-right" style="margin-top:20px;margin-right:10px" aria-hidden="true"></i>
     <div class="clearfix"></div>
-    <button class="btn btn-large btn-primary" (click)="addLocation()">Add New Location to Portal</button>
+    <button class="btn btn-large btn-primary" (click)="addLocation()">Add New Location to Portal</button> 
     <br /><br />
     <p-dataTable [rows]="100" [immutable]="false" (onPage)="onPage($event)" (onFilter)="onFilter($event)" (onSort)="onSort($event)" scrollable="true" scrollHeight="700px" [pageLinks]="5" selectionMode="single" (onRowSelect)="onRowSelect($event)" [value]="locations" tableStyleClass="table-striped pull-right" [paginator]="true"  [globalFilter]="gb">
        <p-column field="locationID" header="ID" sortable="true" styleClass="col-md-2"></p-column>

@@ -318,7 +318,7 @@
             <tab heading="Audit History">
                 <br />
                 <h4><strong>Audit History&nbsp;&nbsp;</strong></h4>
-                <p-dataTable [immutable]="false" [value]="location.arpLocationAudits" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
+                <p-dataTable [immutable]="false" (onRowSelect)="onAuditRowSelect($event)" [value]="location.arpLocationAudits" [pageLinks]="5" selectionMode="single" tableStyleClass="table-striped" [paginator]="true" [rows]="15" [globalFilter]="gb3">
                     <p-column sortable="true" styleClass="col-md-1">
                         <template pTemplate="header">
                             Change Date
@@ -329,7 +329,55 @@
                     </p-column>
                     <p-column field="oldMerchantID" header="Old Merchant ID" sortable="true" styleClass="col-md-1"></p-column>
                     <p-column field="newMerchantID" header="New Merchant ID" sortable="true" styleClass="col-md-1"></p-column>
+                    <p-column field="oldABANo" header="Old ABA" sortable="true" styleClass="col-md-1"></p-column>
+                    <p-column field="newABANo" header="New ABA" sortable="true" styleClass="col-md-1"></p-column>
+                    <p-column field="oldDDANo" header="Old DDA" sortable="true" styleClass="col-md-1"></p-column>
+                    <p-column field="newDDANo" header="New DDA" sortable="true" styleClass="col-md-1"></p-column>
                 </p-dataTable>
+                <div class="clearfix">&nbsp;</div>
+                <hr />
+                <div class="col-xs-12" style="border: 1px solid #DDDDDD; padding: 10px 0 10px 0" *ngIf="selectedAudit">
+                    <h4 class="col-xs-12" style="background-color:#DDDDDD;padding:5px;margin: 0 0 10px 0"><strong>Extended Information</strong></h4><br />
+                    <div class="form-group col-md-6">
+                        <label class="col-xs-3" for="dateEmailedToField">Date Emailed to Field</label>
+                        <p-calendar class="col-xs-9" [(ngModel)]="selectedAudit.dateEmailedToField" name="dateEmailedToField" [showIcon]="true" [showOnFocus]="false"></p-calendar>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="col-xs-3" for="dateMIDClosed">Date MID was closed</label>
+                        <p-calendar class="col-xs-9" [(ngModel)]="selectedAudit.dateMIDClosed" name="dateMIDClosed" [showIcon]="true" [showOnFocus]="false"></p-calendar>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="monthsHittingFees"># of months of fees hitting</label>
+                        <input type="number" class="form-control" name="monthsHittingFees" id="monthsHittingFees" placeholder="Months Hitting Fees" [(ngModel)]="selectedAudit.monthsHittingFees">
+                    </div>
+                    <div style="clear:both">&nbsp;</div>
+                    <div class="form-group col-md-3">
+                        <label for="monthsHittingFees">Net Sales Amount</label>
+                        <input type="number" class="form-control" name="netSalesAmount" id="netSalesAmount" placeholder="Net Sales Amount" [(ngModel)]="selectedAudit.netSalesAmount">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="adjustments">Adjustments</label>
+                        <input type="number" class="form-control" name="adjustments" id="adjustments" placeholder="Adjustments" [(ngModel)]="selectedAudit.adjustments">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="fees">Fees</label>
+                        <input type="number" class="form-control" name="fees" id="fees" placeholder="Fees" [(ngModel)]="selectedAudit.fees">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="deposit">Deposit</label>
+                        <input type="number" class="form-control" name="deposit" id="deposit" placeholder="Deposit" [(ngModel)]="selectedAudit.deposit">
+                    </div>
+                    <div style="clear:both">&nbsp;</div>
+                    <div class="col-md-12">
+                        <strong>Notes</strong>
+                        <p-editor [(ngModel)]="selectedAudit.notes" [style]="{'height':'100px'}"></p-editor>
+                    </div>
+                    <div style="clear:both">&nbsp;</div>
+                    <button type="submit" class="col-xs-2 col-xs-offset-1 btn btn-primary" (click)="onSaveAuditExtended()">Save Extended</button>
+                    <br /><br />
+                </div>
+                <div class="clearfix">&nbsp;</div>
+                <hr />
             </tab>
 </tabset>
 </div>

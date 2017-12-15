@@ -10,7 +10,7 @@ import {Constants } from "../common/constants";
 import { ProxyService } from "../common/services/proxy-service";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {SelectItem} from 'primeng/primeng';
-import { Message, ConfirmationService, ConfirmDialogModule } from 'primeng/primeng';
+import { Message, ConfirmationService, ConfirmDialogModule, EditorModule, SharedModule } from 'primeng/primeng';
 import { AddEditReturnComponent } from "./add-edit-return";
 import { AddEditDisbursementComponent } from './add-edit-disbursement';
 import * as _ from 'underscore';
@@ -21,7 +21,7 @@ import { AddEditTheftComponent } from "./add-edit-theft";
 @Component({
     templateUrl: 'location-detail.html',
     providers: [ConfirmationService]
-})
+}) 
 export class LocationDetailComponent implements AfterViewInit, OnInit {   
     constructor(private router: Router, 
                 private componentFactoryResolver: ComponentFactoryResolver,
@@ -51,6 +51,7 @@ export class LocationDetailComponent implements AfterViewInit, OnInit {
     newLocationID: string = '';
     initialTab: string = '';
     addModal: any;
+    selectedAudit: any;
     ngOnInit() {
         var _self = this;
         this.contextService.currentSection = "locations";
@@ -588,5 +589,43 @@ export class LocationDetailComponent implements AfterViewInit, OnInit {
                 _self.msgs.push({ severity: 'error', summary: dismissReason });
             }
         );
+    }
+
+
+
+    onAuditRowSelect(event) {
+        this.editAuditExtended(event.data);
+    }
+
+    editAuditExtended(audit: any) {
+        this.selectedAudit = audit;
+        if (this.selectedAudit.dateEmailedToField)
+            this.selectedAudit.dateEmailedToField = new Date(this.selectedAudit.dateEmailedToField);
+
+        if (this.selectedAudit.dateMIDClosed)
+            this.selectedAudit.dateMIDClosed = new Date(this.selectedAudit.dateMIDClosed);
+    }
+
+    onSaveAuditExtended() {
+        var data = {
+            auditExtended: this.selectedAudit
+        }
+        this.spinnerService.postStatus('Saving Extension Data');
+        let $observable = this.proxyService.Post("location/saveAuditExtended", data);
+        $observable.subscribe(
+            data => {
+                if (data.success) {
+                    this.msgs.push({ severity: 'success', summary: "Extended Information Saved" });
+                }
+                else {
+                    this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                }
+            },
+            (err) => {
+                this.msgs.push({ severity: 'error', summary: err });
+            },
+            () => {
+                this.spinnerService.finishCurrentStatus();
+            });
     }
 }

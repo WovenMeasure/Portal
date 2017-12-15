@@ -23,5 +23,16 @@ export class LookupService {
         let observable$ = this.proxyService.Get("lookup/bankAccounts");
         return observable$;
     }
-   
+
+
+    public loadBankAccountsUnmatched(): Observable<any> {
+        let observable$ = this.proxyService.Get("lookup/bankAccountsUnMatched");
+        return observable$;
+    }
+
+
+    public loadBankAccountsUnmatchedDcr(): Observable<any> {
+        let observable$ = this.proxyService.Get("lookup/bankAccountsUnMatchedDcr");
+        return observable$;
+    }
 }
