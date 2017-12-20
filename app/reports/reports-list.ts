@@ -40,6 +40,10 @@ export class ReportListComponent {
                 url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fAutomaticLossReport'
             },
             {
+                name: 'Bank Only Unmatched Report',
+                url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fBankOnlyUnmatched'
+            },
+            {
                 name: 'Change Fund Petty Cash Disbursement Report',
                 url: 'http://laz-reportviewer.wovenmeasure.com/ReportViewer?reportPath=%2fReport+Project1%2fChangeFund-PettyCashDisbursement'
             },
