@@ -43,9 +43,17 @@ export class DcrCreditReconcilesListComponent {
     toDate: Date;
     locations: SelectItem[];
     regions: SelectItem[];
+    dcrOnly: any[];
+    ccOnly: any[];
+    currentCC: any;
+    currentMatchVariance: any;
+    currentMatchChoices: any[];
 
     ngOnInit() {
         this.matches = [];
+        this.dcrOnly = [];
+        this.ccOnly = [];
+        this.currentMatchChoices = [];
         this.filterLocation = "";
         this.filterRegion = "";
         var date = new Date();
@@ -53,6 +61,7 @@ export class DcrCreditReconcilesListComponent {
         this.toDate = date;
         this.contextService.currentSection = "creditreconcile";
         this.loadRegions();
+        this.currentCC = null;
     }       
 
     loadRegions() {
@@ -108,7 +117,7 @@ export class DcrCreditReconcilesListComponent {
             (err) => {
                 this.msgs.push({ severity: 'error', summary: err });
             },
-            () => {
+            () => { 
                 this.spinnerService.finishCurrentStatus();
             });
     } 
@@ -125,6 +134,10 @@ export class DcrCreditReconcilesListComponent {
             data => {
                 if (data.success) {
                     _self.matches = data.reconciles;
+                    _self.dcrOnly = data.dcrOnly;
+                    _self.ccOnly = data.ccOnly;
+                    _self.currentCC = null;
+                    _self.currentMatchChoices = [];
                 }
                 else {
                     _self.msgs.push({ severity: 'error', summary: data.errorMessage });
@@ -147,6 +160,15 @@ export class DcrCreditReconcilesListComponent {
         return sum;
     }
 
+    sumFieldFromCollection(collection: any[], fieldName: string): number {
+        var values = _(collection).pluck(fieldName);
+        let sum: number = 0;
+        _(values).each(function (value) {
+            sum += value;
+        });
+        return sum;
+    }
+
     filter() {
         this.loadReconciles();
     }    
@@ -157,4 +179,41 @@ export class DcrCreditReconcilesListComponent {
 
         return "red";
     }
+
+    dropCC($event: any) {
+        this.currentCC = $event.dragData;
+        this.currentMatchChoices = [];
+        this.calcVariance();
+    }
+
+    dropDcr($event: any) {
+        this.currentMatchChoices.push($event.dragData);
+        this.calcVariance();
+    }
+
+    removeDcrMatch(dcr: any) {
+        var index = this.currentMatchChoices.indexOf(dcr);
+        this.currentMatchChoices.splice(index, 1);
+        this.calcVariance();
+    }
+
+    notInMatches(dcr: any) {
+        var index = this.currentMatchChoices.indexOf(dcr);
+        return index === -1;
+    }
+
+    resetMatches() {
+        this.currentCC = null;
+        this.currentMatchChoices = [];
+        this.currentMatchVariance = 0.0;
+    }
+
+    calcVariance() {
+        this.currentMatchVariance = Math.abs(this.currentCC.processedPaidByOthers) - (this.sumFieldFromCollection(this.currentMatchChoices, "numMCVisaAmount") +
+                                                                            this.sumFieldFromCollection(this.currentMatchChoices, "numDiscoverAmount") +
+                                                                            this.sumFieldFromCollection(this.currentMatchChoices, "numAmexAmount"));
+
+        //(ProcessedPaidByOthers) - Sum(IsNull(numMCVisaAmount, 0) + IsNull(numDiscoverAmount, 0) + isNull(numAmexAmount, 0)),
+    }
+
 }

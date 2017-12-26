@@ -25,6 +25,7 @@
     "moment": "^2.14.1",
     "ng2-bootstrap": "1.2.1",
     "ng2-currency-mask": "^4.0.1",
+    "ng2-dnd": "^5.0.2",
     "ng2-file-upload": "^1.2.1",
     "ng2-img-cropper": "^0.7.7",
     "ng2-money-mask": "^0.2.4",

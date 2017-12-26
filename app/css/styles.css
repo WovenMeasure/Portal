@@ -284,7 +284,9 @@ select {
 
 
 
-
+.bold {
+    font-weight:bold;
+}
 
 
 .borderTable {

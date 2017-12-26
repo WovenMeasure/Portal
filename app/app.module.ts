@@ -1,6 +1,7 @@
 import { NgModule, APP_INITIALIZER} from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { BrowserAnimationsModule  } from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { DndModule } from 'ng2-dnd';
 import { FormsModule }   from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
@@ -80,7 +81,7 @@ import { DcrUnmatchedAllComponent } from "./dcrreconcile/dcr-unmatched-all";
 @NgModule({
     imports: [BrowserAnimationsModule, BrowserModule, routing, HttpModule, JsonpModule, FormsModule, Ng2PaginationModule, Ng2PageScrollModule.forRoot(), NgbModule.forRoot(), WVDatepickerModule.forRoot(), DateValueAccessorModule,
         DataTableModule, GrowlModule, DropdownModule, CalendarModule, ConfirmDialogModule, DialogModule, EditorModule, SharedModule, InputMaskModule, CurrencyMaskModule, FileUploadModule, TabsModule.forRoot(), ModalModule.forRoot(),
-        SelectButtonModule],
+        SelectButtonModule, DndModule.forRoot()],
     declarations: [
         AppComponent, FormatProfitLossPipe, SafePipe, MomentPipe, MomentUtcPipe, FormatDatePipe, HeaderComponent, ImageCropperComponent, AlertDetailChargeBackComponent,
         MasterPageComponent, AlertListComponent, AlertDetailLocationComponent, AlertDetailComponent, LocationChargeBackComponent,
