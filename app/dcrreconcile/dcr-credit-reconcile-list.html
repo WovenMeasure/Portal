@@ -46,8 +46,8 @@
                 <ng-container *ngFor="let reconcile of matches; let i = index">
                     <tr>
                         <td>
-                            <i *ngIf="!reconcile.isMatch && !reconcile.expanded" class="fa fa-plus" aria-hidden="true" (click)="reconcile.expanded = !reconcile.expanded"></i>
-                            <i *ngIf="!reconcile.isMatch && reconcile.expanded" class="fa fa-minus" aria-hidden="true" (click)="reconcile.expanded = !reconcile.expanded"></i>
+                            <i *ngIf="reconcile.variance != 0.0 && !reconcile.expanded" class="fa fa-plus" aria-hidden="true" (click)="reconcile.expanded = !reconcile.expanded"></i>
+                            <i *ngIf="reconcile.variance != 0.0  && reconcile.expanded" class="fa fa-minus" aria-hidden="true" (click)="reconcile.expanded = !reconcile.expanded"></i>
                         </td>
                         <td>{{reconcile.fundedDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
                         <td>{{reconcile.totalCCIMFCreditAmount | currency:'USD':true}}</td>
@@ -113,16 +113,18 @@
                 <div *ngIf="!currentCC">
                     Step (1): Drag an unmatched CCIMF Record
                     <table class="table table-condensed table-striped col-md-12">
-                        <tr>
+                        <tr> 
                             <th>Funded Date</th>
-                            <th>Processed Net Sales</th>
-                            <th>Processed Paid By Others</th>
+                            <th>Total CC Credit Amt</th>
+                            <th>Visa Disc Amt</th>
+                            <th>Amex Amt</th>
                         </tr>
                         <ng-container *ngFor="let cc of ccOnly; let i = index">
                             <tr dnd-draggable [dragEnabled]="true" [dragData]="cc">
                                 <td>{{cc.fundedDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
-                                <td>{{cc.processedNetSales | currency:'USD':true}}</td>
-                                <td>{{cc.processedPaidByOthers | currency:'USD':true}}</td>
+                                <td>{{cc.totalCCIMFCreditAmount | currency:'USD':true}}</td>
+                                <td>{{cc.ccimfmcVisaDiscAmount | currency:'USD':true}}</td>
+                                <td>{{cc.ccimfAmexAmount | currency:'USD':true}}</td>
                             </tr>
                         </ng-container>
                     </table>
@@ -157,12 +159,15 @@
                 <div class="col-md-12" style="border:1px black solid; border-radius:15px; padding:10px;">
                     <div *ngIf="!currentCC" style="padding:5px" class="bold" dnd-droppable (onDropSuccess)="dropCC($event)">Drag CC IMF Here</div>
                     <div *ngIf="currentCC">
-                        <div class="col-md-12 bold">CURRENT CC: {{currentCC?.merchantId}} - {{currentCC?.fundedDate | momentUtc: 'format': 'MM/DD/YYYY'}}</div>
-                        <div class="col-md-12 bold">Variance: {{currentMatchVariance | currency:'USD':true}}</div>
+                        <div class="row col-md-12 bold">CURRENT CC Funded Date: {{currentCC?.fundedDate | momentUtc: 'format': 'MM/DD/YYYY'}}</div>
+                        <div class="row"><div class="col-md-4 bold">Total</div><div class="col-md-3 pull-right text-right">{{currentCC?.totalCCIMFCreditAmount | currency:'USD':true}}</div></div>
+                        <div class="row"><div class="col-md-4 bold">Visa/MC/Disc</div><div class="col-md-3 pull-right text-right">{{currentCC?.ccimfmcVisaDiscAmount | currency:'USD':true}}/<strong>({{currentMatchVisaVariance | currency:'USD':true}})</strong></div></div>
+                        <div class="row"><div class="col-md-4 bold">Amex</div><div class="col-md-3 pull-right text-right">{{currentCC?.ccimfAmexAmount | currency:'USD':true}}/<strong>({{currentMatchAmexVariance | currency:'USD':true}})</strong></div></div>
+                        <div class="row"><div class="col-md-4 bold">Variance:</div><div class="col-md-3 pull-right text-right"><strong>{{currentMatchVariance | currency:'USD':true}}</strong></div></div>
                     </div>
                     <button class="btn-success btn-xs pull-right" *ngIf="currentMatchVariance == 0.0 && currentCC && currentMatchChoices.length > 0">Save Matches</button>
-                </div>
-                <div *ngIf="currentCC" class="col-md-12" style="border:1px black solid; border-radius:15px; padding:10px;">
+                </div> 
+                <div *ngIf="currentCC" class="col-md-12"  dnd-droppable (onDropSuccess)="dropDcr($event)" style="border:1px black solid; border-radius:15px; padding:10px;">
                     <div class="bold" dnd-droppable (onDropSuccess)="dropDcr($event)">Drag matching DCR records here.</div>
                     <table class="table table-condensed table-striped" dnd-droppable (onDropSuccess)="dropDcr($event)">
                         <tr>

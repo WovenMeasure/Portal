@@ -47,6 +47,8 @@ export class DcrCreditReconcilesListComponent {
     ccOnly: any[];
     currentCC: any;
     currentMatchVariance: any;
+    currentMatchVisaVariance: any;
+    currentMatchAmexVariance: any;
     currentMatchChoices: any[];
 
     ngOnInit() {
@@ -209,9 +211,25 @@ export class DcrCreditReconcilesListComponent {
     }
 
     calcVariance() {
-        this.currentMatchVariance = Math.abs(this.currentCC.processedPaidByOthers) - (this.sumFieldFromCollection(this.currentMatchChoices, "numMCVisaAmount") +
-                                                                            this.sumFieldFromCollection(this.currentMatchChoices, "numDiscoverAmount") +
-                                                                            this.sumFieldFromCollection(this.currentMatchChoices, "numAmexAmount"));
+        this.currentMatchVariance = Math.abs(this.currentCC.totalCCIMFCreditAmount) - (Math.abs(this.sumFieldFromCollection(this.currentMatchChoices, "numMCVisaAmount")) +
+            Math.abs(this.sumFieldFromCollection(this.currentMatchChoices, "numDiscoverAmount")) +
+            Math.abs(this.sumFieldFromCollection(this.currentMatchChoices, "numAmexAmount")));
+
+
+        this.calcVisaMCVariance();
+        this.calcAmexMCVariance();
+        //(ProcessedPaidByOthers) - Sum(IsNull(numMCVisaAmount, 0) + IsNull(numDiscoverAmount, 0) + isNull(numAmexAmount, 0)),
+    }
+
+    calcVisaMCVariance() {
+        this.currentMatchVisaVariance = Math.abs(this.currentCC.ccimfmcVisaDiscAmount) - (Math.abs(this.sumFieldFromCollection(this.currentMatchChoices, "numMCVisaAmount")) +
+            Math.abs(this.sumFieldFromCollection(this.currentMatchChoices, "numDiscoverAmount")));
+
+        //(ProcessedPaidByOthers) - Sum(IsNull(numMCVisaAmount, 0) + IsNull(numDiscoverAmount, 0) + isNull(numAmexAmount, 0)),
+    }
+
+    calcAmexMCVariance() {
+        this.currentMatchAmexVariance = Math.abs(this.currentCC.ccimfAmexAmount) - Math.abs(this.sumFieldFromCollection(this.currentMatchChoices, "numAmexAmount"));
 
         //(ProcessedPaidByOthers) - Sum(IsNull(numMCVisaAmount, 0) + IsNull(numDiscoverAmount, 0) + isNull(numAmexAmount, 0)),
     }

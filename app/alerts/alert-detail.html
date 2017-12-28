@@ -53,11 +53,7 @@
                 <label class="col-xs-3" for="dateEmailedToField">Date Emailed to Field</label>
                 <p-calendar class="col-xs-9" [(ngModel)]="alert.alertExtended.dateEmailedToField" name="dateEmailedToField" [showIcon]="true" [showOnFocus]="false"></p-calendar>
             </div>
-            <div class="form-group col-md-6">
-                <label class="col-xs-3" for="dateMIDClosed">Date MID was closed</label>
-                <p-calendar class="col-xs-9" [(ngModel)]="alert.alertExtended.dateMIDClosed" name="dateMIDClosed" [showIcon]="true" [showOnFocus]="false"></p-calendar>
-            </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-6">             
                 <label for="monthsHittingFees"># of months of fees hitting</label>
                 <input type="number" class="form-control" name="monthsHittingFees" id="monthsHittingFees" placeholder="Months Hitting Fees" [(ngModel)]="alert.alertExtended.monthsHittingFees">
             </div>
