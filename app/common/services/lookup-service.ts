@@ -25,6 +25,12 @@ export class LookupService {
     }
 
 
+    public loadBankAccountsWithGL(): Observable<any> {
+        let observable$ = this.proxyService.Get("lookup/bankAccountsWithGL");
+        return observable$;
+    }
+
+
     public loadBankAccountsUnmatched(): Observable<any> {
         let observable$ = this.proxyService.Get("lookup/bankAccountsUnMatched");
         return observable$;

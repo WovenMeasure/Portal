@@ -8,6 +8,12 @@
             <label for="filterBankAccount">Acct #:&nbsp;</label>
             <p-dropdown [filter]="true" [options]="bankAccounts" [style]="{'width':'70%'}" [autoWidth]="false" (onChange)="load()" [(ngModel)]="filterBankAccount" placeholder="Select Bank Account" [lazy]="false"></p-dropdown>
         </div>  
+        <div class="col-lg-3 col-md-3 col-sm-3 form-group">
+            <label for="glAccount">GL Acct #:&nbsp;</label>            
+            <input [disabled]="!editGL" type="text" [(ngModel)]="currentGL" />
+            <i class="fa fa-2x fa-pencil" *ngIf="!editGL" (click)="editGL = !editGL"></i>
+            <i class="fa fa-2x fa-save" *ngIf="editGL" (click)="saveGL()"></i>
+        </div>
     </div>
     <div class="col-md-12">
         <div class="col-lg-2 col-md-3 col-sm-3 form-group">

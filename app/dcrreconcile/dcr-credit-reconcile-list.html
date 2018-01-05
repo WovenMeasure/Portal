@@ -27,10 +27,28 @@
         </div>
     </div>
 </div>
+<style>
+    table thead tr {
+        display: block;
+    }
+
+    table th, table td {
+        width: 20vw
+    }
+
+
+    table tbody {
+        display: block;
+        height: 60vh;
+        overflow: auto;
+        //set tbody to auto
+    }
+</style>
 <div class="col-md-12" style="position:relative;top:235px;z-index:5">
     <tabset>
         <tab heading="Results">
             <table class="table table-condensed table-striped col-md-12">
+                <thead>
                 <tr>
                     <th style="width:20px"></th>
                     <th>Date Funded</th>
@@ -43,6 +61,8 @@
                     <th>DCR Amex Amount</th>
                     <th>CCIMF Over / (Short)</th>
                 </tr>
+                </thead>
+                <tbody>
                 <ng-container *ngFor="let reconcile of matches; let i = index">
                     <tr>
                         <td>
@@ -53,8 +73,8 @@
                         <td>{{reconcile.totalCCIMFCreditAmount | currency:'USD':true}}</td>
                         <td>{{reconcile.totalDCRCreditAmount | currency:'USD':true}}</td>
                         <td>{{reconcile.dcrEntryDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
-                        <td [style.color]="getMatchColor(reconcile.dcrmcVisaDiscAmount, reconcile.ccimfmcVisaDiscAmount)">{{reconcile.ccimfmcVisaDiscAmount | currency:'USD':true}}</td>
-                        <td [style.color]="getMatchColor(reconcile.dcrmcVisaDiscAmount, reconcile.ccimfmcVisaDiscAmount)">{{reconcile.dcrmcVisaDiscAmount | currency:'USD':true}}</td>
+                        <td [style.color]="getMatchColor(reconcile.dcrVisaMCDiscAmount, reconcile.ccimfmcVisaDiscAmount)">{{reconcile.ccimfmcVisaDiscAmount | currency:'USD':true}}</td>
+                        <td [style.color]="getMatchColor(reconcile.dcrVisaMCDiscAmount, reconcile.ccimfmcVisaDiscAmount)">{{reconcile.dcrVisaMCDiscAmount | currency:'USD':true}}</td>
                         <td [style.color]="getMatchColor(reconcile.ccimfAmexAmount, reconcile.dcrAmexAmount)">{{reconcile.ccimfAmexAmount | currency:'USD':true}}</td>
                         <td [style.color]="getMatchColor(reconcile.ccimfAmexAmount, reconcile.dcrAmexAmount)">{{reconcile.dcrAmexAmount | currency:'USD':true}}</td>
                         <td>
@@ -66,23 +86,15 @@
                             <strong>DCR Data</strong><br />
                             <table class="table table-condensed table-striped" style="font-size:80%;width:95%;float:right">
                                 <tr>
-                                    <th>Visa/MC Amount</th>
-                                    <th>Discover Amount</th>
+                                    <th>Visa/MC/Disc Amount</th>
                                     <th>AMEX Amount</th>
-                                    <th>Other Amount</th>
-                                    <th>Created On</th>
-                                    <th>Description</th>
                                     <th>Entry Date</th>
                                 </tr>
-                                <ng-container *ngFor="let dcr of reconcile.dcrData; let j = index">
+                                <ng-container *ngFor="let dcr of reconcile.matches; let j = index">
                                     <tr>
-                                        <td>{{dcr.numMCVisaAmount | currency:'USD':true}}</td>
-                                        <td>{{dcr.numDiscoverAmount | currency:'USD':true}}</td>
-                                        <td>{{dcr.numAmexAmount | currency:'USD':true}}</td>
-                                        <td>{{dcr.numOtherAmount | currency:'USD':true}}</td>
-                                        <td>{{dcr.dtmCreatedOn | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
-                                        <td>{{dcr.strLineItemDesc}}</td>
-                                        <td>{{dcr.dtmEntryDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
+                                        <td>{{dcr.dcrmcVisaDiscAmount | currency:'USD':true}}</td>
+                                        <td>{{dcr.dcrAmexAmount | currency:'USD':true}}</td>
+                                        <td>{{dcr.dcrEntryDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
                                     </tr>
                                 </ng-container>
                             </table>
@@ -97,13 +109,14 @@
                     <td>{{sumField("totalDCRCreditAmount") | currency:'USD':true}}</td>
                     <td></td>
                     <td>{{sumField("ccimfmcVisaDiscAmount") | currency:'USD':true}}</td>
-                    <td>{{sumField("dcrmcVisaDiscAmount") | currency:'USD':true}}</td>
+                    <td>{{sumField("dcrVisaMCDiscAmount") | currency:'USD':true}}</td>
                     <td>{{sumField("ccimfAmexAmount") | currency:'USD':true}}</td>
                     <td>{{sumField("dcrAmexAmount") | currency:'USD':true}}</td>
                     <td>
                         <div [innerHTML]="sumField('variance') | currency:'USD':true | formatProfitLoss | safe: 'html'"></div>
                     </td>
                 </tr>
+                </tbody>
             </table>
         </tab>
         <tab heading="Manual Matching">

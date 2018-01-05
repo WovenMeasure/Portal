@@ -42,6 +42,9 @@ export class AccountManagementComponent {
     locations: SelectItem[];
     regions: SelectItem[];
     bankAccounts: SelectItem[];
+    accounts: any[];
+    currentGL: string;
+    editGL: boolean;
 
     ngOnInit() {       
         var _self = this;
@@ -63,13 +66,14 @@ export class AccountManagementComponent {
         this.spinnerService.postStatus('Loading Bank Accounts');
         let promise = new Promise((resolve, reject) => {
             this.bankAccounts = [];
-            let observable$ = this.lookupService.loadBankAccounts();
+            let observable$ = this.lookupService.loadBankAccountsWithGL();
             observable$.subscribe(
                 data => {
                     if (data.success) {
+                        this.accounts = data.accountNumbers;
                         this.bankAccounts.push({ label: 'Select Bank Account', value: null });
                         for (let n: number = 0; n < data.accountNumbers.length; n++) {
-                            this.bankAccounts.push({ label: data.accountNumbers[n].replace(/^0+/, ''), value: data.accountNumbers[n] });
+                            this.bankAccounts.push({ label: data.accountNumbers[n].item1.replace(/^0+/, ''), value: data.accountNumbers[n].item1 });
                         }
                         resolve();
                     }
@@ -158,6 +162,9 @@ export class AccountManagementComponent {
             return;
         }
 
+        _self.editGL = false;
+        _self.currentGL = _self.accounts.find((a) => { return a.item1 == this.filterBankAccount }).item2;
+
         this.spinnerService.postStatus('Loading...');
         let $observable = this.proxyService.Get("location/listByBankAccount/" + this.filterBankAccount);
             $observable.subscribe(
@@ -184,5 +191,30 @@ export class AccountManagementComponent {
 
     onRowSelect(event) {
         this.router.navigate(['/accounts/location-lite'], { queryParams: { i: event.data.locationID } });
+    }
+    
+    saveGL() {
+        var data = {
+            dda: this.filterBankAccount,
+            gl: this.currentGL
+        };
+        this.spinnerService.postStatus('Updating GL Account Number');
+        let $observable = this.proxyService.Post("location/assignGLAccountNo", data);
+        $observable.subscribe(
+            data => {
+                if (data.success) {
+                    this.msgs.push({ severity: 'success', summary: "GL Account Updated" });
+                    this.editGL = false;
+                }
+                else {
+                    this.msgs.push({ severity: 'error', summary: data.errorMessage });
+                }
+            },
+            (err) => {
+                this.msgs.push({ severity: 'error', summary: err });
+            },
+            () => {
+                this.spinnerService.finishCurrentStatus();
+            });
     }
 }
