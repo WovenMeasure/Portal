@@ -106,7 +106,12 @@
                     <div class="form-group col-md-3">
                         <label for="acct">Ignore No CC Activity Report</label>&nbsp;
                         <input type="checkbox" class="checkbox-inline" id="acct" name="noccmid" placeholder="Ignore No CC Activity Report" [(ngModel)]="location.ignoreNoCCActivityReport">
-                    </div><hr class="row col-md-12" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="acct">Unavailable Weekends</label>&nbsp;
+                        <input type="checkbox" class="checkbox-inline" id="acct" name="unavailWeekends" placeholder="Unavailable Weekends" [(ngModel)]="location.unavailableWeekends">
+                    </div>
+                    <hr class="row col-md-12" />
                     <div class="row col-md-12">
                         <div class="small bold" style="color:red" *ngIf="!myForm.valid">All fields preceeded by an asterisk, *, must be filled in before the save button will be available.</div>
                         <button type="submit" class="col-md-1 btn btn-default" *ngIf="myForm.valid" [ngClass]="{ 'btn-default' : !myForm.valid, 'btn-primary': myForm.valid }">Save</button>
@@ -125,9 +130,10 @@
                         <div class="form-group col-md-3 col-md-offset-1  pull-right" *ngIf="!location.ignored && !location.manualDeleted">
                             <strong>This location is not ignored.</strong>
                             <button class="btn btn-primary btn-xs" type="button" (click)="markIgnored(location)">Mark Location Ignored</button>
-                        </div>                      
+                        </div>
                         <div *ngIf="location.manualDeleted">
-                            <strong><br />
+                            <strong>
+                                <br />
                                 This location was manually deleted.
                             </strong>
                         </div>
