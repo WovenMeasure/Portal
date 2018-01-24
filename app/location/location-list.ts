@@ -6,10 +6,9 @@ import { SpinnerService } from '../common/services/spinner-service';
 import { TranslationService } from '../common/services/translation-service';
 import { ContextService } from '../common/services/context-service';
 import {Constants } from "../common/constants";
-import { ProxyService } from "../common/services/proxy-service";
+import { ProxyService } from "../common/services/proxy-service"; 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SelectItem, Message, DataTable } from 'primeng/primeng';
-
 @Component({ 
     templateUrl: 'location-list.html'
 })

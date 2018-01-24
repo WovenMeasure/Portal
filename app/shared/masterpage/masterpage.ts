@@ -28,8 +28,7 @@ export class MasterPageComponent {
     }  
 
     logout() {
-        this.authenticationService.Logoff();
-        this.router.navigate(['login']);
+        this.authenticationService.startSignoutMainWindow();
     }
 
     back() {

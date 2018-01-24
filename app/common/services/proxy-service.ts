@@ -13,7 +13,7 @@ export class ProxyService {
     private baseUrl = this.constants.BaseApiUri;  // URL to web API
 
     private createAuthorizationHeader(headers: Headers) {
-        headers.append('Authorization', 'Bearer ' + this.contextService.ContextInfo.token);
+        headers.append('Authorization', this.contextService.ContextInfo.token_type + ' ' + this.contextService.ContextInfo.access_token);
     }
     private createBasicHeader(headers: Headers) {
         headers.append('Accept', 'application/json, application/javascript');
@@ -22,7 +22,7 @@ export class ProxyService {
     private createConfig(): any{
         var config = {
             headers: {
-                'Authorization': 'bearer ' + this.contextService.ContextInfo.token,
+                'Authorization': this.contextService.ContextInfo.token_type + ' ' + this.contextService.ContextInfo.access_token,
                 'Accept': 'application/json, application/javascript'
             },
             attempts: 0,
