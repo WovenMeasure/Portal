@@ -33,7 +33,7 @@
     }
 
     table th, table td {
-        width: 20vw
+        width: 9vw;
     }
 
 
@@ -41,7 +41,6 @@
         display: block;
         height: 60vh;
         overflow: auto;
-        //set tbody to auto
     }
 </style>
 <div class="col-md-12" style="position:relative;top:235px;z-index:5">
@@ -50,7 +49,7 @@
             <table class="table table-condensed table-striped col-md-12">
                 <thead>
                 <tr>
-                    <th style="width:20px"></th>
+                    <th style="width:20px">&nbsp;</th>
                     <th>Date Funded</th>
                     <th>CCIMF Amount</th>
                     <th>DCR Entered Amount</th>
@@ -65,7 +64,7 @@
                 <tbody>
                 <ng-container *ngFor="let reconcile of matches; let i = index">
                     <tr>
-                        <td>
+                        <td style="width:20px">
                             <i *ngIf="reconcile.variance != 0.0 && !reconcile.expanded" class="fa fa-plus" aria-hidden="true" (click)="reconcile.expanded = !reconcile.expanded"></i>
                             <i *ngIf="reconcile.variance != 0.0  && reconcile.expanded" class="fa fa-minus" aria-hidden="true" (click)="reconcile.expanded = !reconcile.expanded"></i>
                         </td>
@@ -103,8 +102,7 @@
                     </tr>
                 </ng-container>
                 <tr *ngIf="matches.length > 0" class="strong" style="background-color:gainsboro">
-                    <td><strong>TOTALS</strong></td>
-                    <td></td>
+                    <td colspan="2"><strong>TOTALS</strong></td>
                     <td>{{sumField("totalCCIMFCreditAmount") | currency:'USD':true}}</td>
                     <td>{{sumField("totalDCRCreditAmount") | currency:'USD':true}}</td>
                     <td></td>
