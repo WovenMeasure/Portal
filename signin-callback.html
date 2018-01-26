@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <h1 id="waiting">Redirecting...</h1>
+    <div id="error"></div>
+    <script src="oidc-client.min.js"></script>
+    <script>
+        Log.logger = console;
+        new UserManager().signinRedirectCallback().then(function (user) {
+            localStorage.setItem('User', JSON.stringify(user));
+            console.log('userdata',localStorage.getItem('User'));
+            if (user == null) {
+                document.getElementById("waiting").style.display = "none";
+                document.getElementById("error").innerText = "No sign-in request pending.";
+            }
+            else {
+                console.log('profile',user.profile);
+                if(user.profile.ResetPwd === 'True' && user.profile.ActiveDir === 'False' )
+                {
+                    localStorage.setItem('profile',JSON.stringify(user.profile));
+                    localStorage.setItem('scopes',user.scopes);
+                    localStorage.setItem('bearer', user.access_token);
+                    localStorage.setItem('user', user.profile.email);
+                    window.location = "./CreatePassword";
+                }
+                else
+                {
+                    localStorage.setItem('profile',JSON.stringify(user.profile));
+                    localStorage.setItem('scopes',user.scopes);
+                    localStorage.setItem('bearer', user.access_token);
+                    localStorage.setItem('user', user.profile.email);
+
+                    window.location = "./dash-main";
+                }
+            }
+        })
+        .catch(function (er) {
+            document.getElementById("waiting").style.display = "none";
+            document.getElementById("error").innerText = er.message;
+        });
+    </script>
+</body>
+</html>

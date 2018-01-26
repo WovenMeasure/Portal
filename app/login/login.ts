@@ -25,30 +25,17 @@ export class LoginComponent {
                 private spinnerService: SpinnerService,
                 private constants: Constants,
                 private translationService: TranslationService) {
-            this.val = 15.23;
        } 
 
-    
+
+    startSigninMainWindow() {
+        this.authenticationService.startSigninMainWindow();
+    }
 
     ngOnInit() {
         this.erroMsgShow = false;
         this.erroMsg2Show = false;
        
-    }
-    
-
-    onLogin(ev) {       
-        this.spinnerService.postStatus(this.translationService.translate('Logging in'));
-        this.authenticationService.Login(this.email, this.password).subscribe(
-            res => {
-                this.router.navigate(['dash-main']);               
-            },
-            (error) => {
-                this.erroMsgShow = true;
-            },
-            () => { this.spinnerService.finishCurrentStatus(); }
-        );
-    
     }
     
 }

@@ -3,6 +3,7 @@ var webpackMerge = require('webpack-merge');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 var commonConfig = require('./webpack.common.js');
+const ConfigPlugin = require('config-webpack-plugin')
 var helpers = require('./helpers');
 
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
@@ -11,7 +12,7 @@ module.exports = webpackMerge(commonConfig, {
     devtool: 'source-map',
 
     output: {
-        path: helpers.root('dist'),
+        path: helpers.root('distProd'),
         publicPath: '/',
         filename: '[name].[hash].js',
         chunkFilename: '[id].[hash].chunk.js'
@@ -19,6 +20,7 @@ module.exports = webpackMerge(commonConfig, {
 
     plugins: [
       new webpack.NoEmitOnErrorsPlugin(),
+      new webpack.NormalModuleReplacementPlugin(/environment\.ts/, './environment-prod.ts'),
       new webpack.optimize.UglifyJsPlugin({ // https://github.com/angular/angular/issues/10618
           mangle: {
               keep_fnames: true

@@ -65,6 +65,7 @@ module.exports = {
           $: "jquery",
           jQuery: "jquery"
       }),
-      new webpack.ProvidePlugin({ Quill: "Quill" })
+      new webpack.ProvidePlugin({ Quill: "Quill" }),
+
     ]
 };
