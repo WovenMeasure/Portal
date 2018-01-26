@@ -186,7 +186,7 @@ export class DcrReconcilesListComponent {
                         this.allMatches = _self.matches;
                     }
                     else {
-                        _self.msgs.push({ severity: 'error', summary: data.errorMessage });
+                        _self.msgs.push({ severity: 'error', summary: data.responseMessage });
                     }
                 },
                 (err) => {

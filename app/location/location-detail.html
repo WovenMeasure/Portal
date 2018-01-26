@@ -101,13 +101,17 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label for="acct">Ignore DDA Acct Number</label>&nbsp;
-                        <input type="checkbox" class="checkbox-inline" id="acct" name="nobankacct" placeholder="Ignore DDA Acct Number" [(ngModel)]="location.ignoreDDAAcctNumber">
+                        <input type="checkbox" class="checkbox-inline" id="acct" name="ignoreDDAAcctNumber" placeholder="Ignore DDA Acct Number" [(ngModel)]="location.ignoreDDAAcctNumber">
                     </div>
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-2">
                         <label for="acct">Ignore No CC Activity Report</label>&nbsp;
                         <input type="checkbox" class="checkbox-inline" id="acct" name="noccmid" placeholder="Ignore No CC Activity Report" [(ngModel)]="location.ignoreNoCCActivityReport">
                     </div>
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-2">
+                        <label for="acct">Ignore Spiked CC Activity</label>&nbsp;
+                        <input type="checkbox" class="checkbox-inline" id="acct" name="ignoreSpikedCCActivity" placeholder="Ignore Spiked CC Activity" [(ngModel)]="location.ignoreSpikedCCActivity">
+                    </div>
+                    <div class="form-group col-md-2">
                         <label for="acct">Unavailable Weekends</label>&nbsp;
                         <input type="checkbox" class="checkbox-inline" id="acct" name="unavailWeekends" placeholder="Unavailable Weekends" [(ngModel)]="location.unavailableWeekends">
                     </div>
