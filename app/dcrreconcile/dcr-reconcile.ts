@@ -51,6 +51,11 @@ export class DcrReconcilesListComponent {
     types: any[];
     bankOnlySubTypes: any[];
     bankOnlySubType: any;
+    bankOnly: any[];
+    dcrOnly: any[];
+    currentBank: any;
+    currentMatchVariance: any;
+    currentMatchChoices: any[];
 
     ngOnInit() {
         this.bankOnlySubType = "1";
@@ -72,7 +77,8 @@ export class DcrReconcilesListComponent {
             { label: "Bank Only Unmatched", value: "2" },
             { label: "DCR Only Unmatched", value: "3" },
             { label: "Matches Only", value: "1" },
-            { label: "Other Transactions", value: "4" }
+            { label: "Other Transactions", value: "4" },
+            { label: "Manual Matching", value: "5" }
         ];
 
         this.bankOnlySubTypes = [
@@ -181,7 +187,10 @@ export class DcrReconcilesListComponent {
                             _self.matches = data.bankOnly;
                         else if (_self.type === "3")
                             _self.matches = data.dcrOnly;
-
+                        else if (_self.type === "5") {//manual matching 
+                            _self.bankOnly = data.bankOnly;
+                           _self.dcrOnly = data.dcrOnly;
+                        }
                         _self.type2 = _self.type;
                         this.allMatches = _self.matches;
                     }
@@ -197,6 +206,34 @@ export class DcrReconcilesListComponent {
                 });
         }
     }   
+
+    notInMatches(dcr: any): boolean {
+        var index = this.currentMatchChoices.indexOf(dcr);
+        return index === -1; 
+    }
+
+    resetMatches() {
+        this.currentBank = null;
+        this.currentMatchChoices = [];
+        this.currentMatchVariance = 0.0;
+    }
+
+    dropBank($event: any) {
+        this.currentBank = $event.dragData;
+        this.currentMatchChoices = [];
+        this.calcVariance();
+    }
+
+    dropDcr($event: any) {
+        this.currentMatchChoices.push($event.dragData);
+        this.calcVariance();
+    }
+
+    removeDcrMatch(dcr: any) {
+        var index = this.currentMatchChoices.indexOf(dcr);
+        this.currentMatchChoices.splice(index, 1);
+        this.calcVariance();
+    }
 
     filter() {
         this.loadReconciles();
@@ -243,5 +280,18 @@ export class DcrReconcilesListComponent {
             sum += value;
         });
         return sum;
+    }
+    
+    sumFieldFromCollection(collection: any[], fieldName: string): number {
+        var values = _(collection).pluck(fieldName);
+        let sum: number = 0;
+        _(values).each(function (value) {
+            sum += value;
+        });
+        return sum;
+    }
+
+    calcVariance() {
+        this.currentMatchVariance = Math.abs(this.currentBank.amount) - (Math.abs(this.sumFieldFromCollection(this.currentMatchChoices, "numAmount")));        
     }
 }

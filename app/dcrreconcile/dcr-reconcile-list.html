@@ -152,4 +152,86 @@
     <div *ngIf="type2==4" class="col-md-12">
         <other-transactions [data]="otherTransactions"></other-transactions>
     </div>
+    <div *ngIf="type2==5" class="col-md-12">
+    
+        <br />
+        <button class="btn-primary btn-xs pull-right" (click)="resetMatches()">Clear Matches</button>
+        <div class="col-md-5 clearfix">
+            <div *ngIf="!currentBank">
+                Step (1): Drag an unmatched Bank Record
+                <table class="table table-condensed table-striped col-md-12">
+                    <tr>
+                        <th>Bank Date</th>
+                        <th>BAI Code</th>
+                        <th>Amt</th>
+                        <th>Type</th>
+                    </tr>
+                    <ng-container *ngFor="let cc of bankOnly; let i = index">
+                        <tr dnd-draggable [dragEnabled]="true" [dragData]="cc">
+                            <td>{{cc.bankDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
+                            <td>{{cc.baiCode}}</td>
+                            <td>{{cc.amount | currency:'USD':true}}</td>
+                            <td>{{cc.type}}</td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+            <div *ngIf="currentBank">
+                <strong>Step (2): Drag unmatched DCR Record(s)</strong><br />
+                <table class="table table-condensed table-striped" style="font-size:80%;width:95%;float:right">
+                    <tr>
+                        <th>Deposit Slip</th>
+                        <th>Other Amount</th>
+                        <th>Created On</th>
+                        <th>Description</th>
+                        <th>Entry Date</th>
+                    </tr>
+                    <ng-container *ngFor="let dcr of dcrOnly; let j = index">
+                        <tr dnd-draggable [dragEnabled]="true" [dragData]="dcr" *ngIf="notInMatches(dcr)">
+                            <td>{{dcr.strDepositSlipSerialNo}}</td>
+                            <td>{{dcr.numAmount | currency:'USD':true}}</td>
+                            <td>{{dcr.dtmCreatedOn | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
+                            <td>{{dcr.strLineItemDesc}}</td>
+                            <td>{{dcr.dtmEntryDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-5 col-md-offset-1">
+            <div class="col-md-12" style="border:1px black solid; border-radius:15px; padding:10px;">
+                <div *ngIf="!currentBank" style="padding:5px" class="bold" dnd-droppable (onDropSuccess)="dropBank($event)">Drag Bank Record Here</div>
+                <div *ngIf="currentBank">
+                    <div class="row col-md-12 bold">CURRENT Bank Funded Date: {{currentBank?.bankDate | momentUtc: 'format': 'MM/DD/YYYY'}}</div>
+                    <div class="row"><div class="col-md-12 bold">{{currentBank?.type}}</div></div>
+                    <div class="row"><div class="col-md-4 bold">Amount</div><div class="col-md-3 pull-right text-right">{{currentBank?.amount | currency:'USD':true}}</div></div>
+                    <div class="row"><div class="col-md-4 bold">Variance:</div><div class="col-md-3 pull-right text-right"><strong>{{currentMatchVariance | currency:'USD':true}}</strong></div></div>
+                </div>
+                <button class="btn-success btn-xs pull-right" *ngIf="currentMatchVariance == 0.0 && currentBank && currentMatchChoices.length > 0">Save Matches</button>
+            </div>
+            <div *ngIf="currentBank" class="col-md-12" dnd-droppable (onDropSuccess)="dropDcr($event)" style="border:1px black solid; border-radius:15px; padding:10px;">
+                <div class="bold" dnd-droppable (onDropSuccess)="dropDcr($event)">Drag matching DCR records here.</div>
+                <table class="table table-condensed table-striped" dnd-droppable (onDropSuccess)="dropDcr($event)">
+                    <tr>
+                        <th>Amount</th>
+                        <th>Deposit Slip</th>
+                        <th>Created On</th>
+                        <th>Description</th>
+                        <th>Entry Date</th>
+                        <th>Remove From Match</th>
+                    </tr>
+                    <ng-container *ngFor="let dcr of currentMatchChoices; let j = index">
+                        <tr>
+                            <td>{{dcr.numAmount | currency:'USD':true}}</td>
+                            <td>{{dcr.strDepositSlipSerialNo}}</td>
+                            <td>{{dcr.dtmCreatedOn | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
+                            <td>{{dcr.strLineItemDesc}}</td>
+                            <td>{{dcr.dtmEntryDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
+                            <td><i class="fa fa-2x fa-remove" (click)="removeDcrMatch(dcr)"></i></td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
