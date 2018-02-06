@@ -5,46 +5,29 @@ import * as moment from 'moment';
 
 @Injectable() 
 export class ContextService {
-    _contextInfo: ContextInfo;
-    _loggedIn: boolean;
     public messages: Message[];
 
     constructor() {
         this.merchantId = "";
-        this.messages = new Array<Message>();
-        var userString = window.sessionStorage.getItem("contextInfo");
+        this.messages = new Array<Message>();       
+    }    
+
+    public get ContextInfo(): any {
+        var userString = window.localStorage.getItem("User");
+        let contextInfo: any;
         if (userString == null) {
-            this._contextInfo = new ContextInfo();
-            this._loggedIn = false; 
+            contextInfo = new ContextInfo();
         }
         else {
-            this._contextInfo = JSON.parse(userString);
-            this._loggedIn = true;
+            contextInfo = JSON.parse(userString);
         }
-    }
 
-    public Clear() {
-        window.sessionStorage.removeItem("contextInfo");
-        this._contextInfo = new ContextInfo();
-        this._loggedIn = false;
-    }
-
-    public get ContextInfo(): ContextInfo {
-        return this._contextInfo;
+        return contextInfo;
     }
 
     public get LoggedIn(): boolean {
-        return this._loggedIn;
-    }
-
-    public set LoggedIn(value) {
-        if (value)
-            window.sessionStorage.setItem("contextInfo", JSON.stringify(this._contextInfo));
-        else    
-            window.sessionStorage.removeItem("contextInfo");
-
-        this._loggedIn = value;
-    }
+        return (window.localStorage.getItem('user') != null);
+    }    
 
     _currentSection: string;
 
@@ -158,10 +141,12 @@ export class ContextService {
 
 
     public hasPermission(claimValue: string): boolean {
-        if (!this.ContextInfo.claims)
+        let contextInfo: ContextInfo = this.ContextInfo;
+        
+        if (!this.ContextInfo.profile.custom_groups)
             return false;
 
-        return (this.ContextInfo.claims.indexOf(claimValue) > 0);
+        return (this.ContextInfo.profile.custom_groups.indexOf(claimValue) > 0);
     }
 
 }

@@ -32,6 +32,7 @@
     "ng2-page-scroll": "4.0.0-beta.1",
     "ng2-pagination": "^1.0.1",
     "ngx-bootstrap": "^1.7.1",
+    "oidc-client": "^1.4.1",
     "primeng": "^4.2.0-rc.1",
     "quill": "^1.2.2",
     "reflect-metadata": "^0.1.3",
@@ -47,6 +48,7 @@
     "babel-eslint": "^7.2.3",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "compression-webpack-plugin": "^0.3.2",
+    "config-webpack-plugin": "^1.1.0",
     "copy-webpack-plugin": "^4.0.1",
     "eslint": "^3.19.0",
     "estraverse-fb": "^1.3.2",
@@ -82,7 +84,8 @@
     "webpack-merge": "^2.6.1"
   },
   "scripts": {
-    "start": "webpack-dev-server --inline --progress --port 8080 --config config/webpack.dev.js",
-    "build": "rimraf dist && webpack --config config/webpack.prod.js --progress --profile --bail"
+    "start": "webpack-dev-server --inline --progress --port 8080 --config config/webpack.local.js",
+    "buildDev": "rimraf distDev && webpack --config config/webpack.dev.js --progress --profile --bail",
+    "buildProd": "rimraf distProd && webpack --config config/webpack.prod.js --progress --profile --bail"
   }
 }

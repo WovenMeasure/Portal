@@ -4,11 +4,11 @@
             <form #loginForm="ngForm" (ngSubmit)="onLogin($event)" autocomplete="false">
                 <img src="/app/images/logo-laz-parking.png" class="center-block">
                 <div class="text-center form-group text1" [ngClass]="{ 'has-error' : !emailField.valid && emailField.dirty, 'has-error' : !emailField.valid && emailField.touched  }">
-                    <input  type="text" class="Rectangle-1205 form-control" id="email" required [(ngModel)]="email" name="email" #emailField="ngModel" pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="{{translationService.translate('Email')}}"/>
+                    <input type="text" class="Rectangle-1205 form-control" id="email" required [(ngModel)]="email" name="email" #emailField="ngModel" pattern="[a-zA-Z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="{{translationService.translate('Email')}}" />
                     <p class="help-block" *ngIf="emailField.errors?.required && emailField.touched">{{translationService.translate('*Email cannot be blank')}}</p>
                     <p class="help-block" *ngIf="emailField.errors?.pattern && emailField.touched">{{translationService.translate('*Must be a valid email address')}}</p>
                 </div>
-                <div class="text-center form-group text1" [ngClass]="{ 'has-error' : !passwordField.valid && passwordField.dirty, 'has-error' : !passwordField.valid && passwordField.touched  }" >
+                <div class="text-center form-group text1" [ngClass]="{ 'has-error' : !passwordField.valid && passwordField.dirty, 'has-error' : !passwordField.valid && passwordField.touched  }">
                     <input type="password" class="Rectangle-1205_Copy form-control" id="password" required [(ngModel)]="password" name="password" #passwordField="ngModel" placeholder="{{translationService.translate('Password')}}" maxlength="20" />
                     <p class="help-block" *ngIf="passwordField.errors?.required && passwordField.touched">{{translationService.translate('*Password cannot be Blank')}}</p>
                 </div>
@@ -29,3 +29,5 @@
 <div class="footer">
     <div class="col-lg-12 col-md-12 col-sm-12 Rectangle-4-Copy"></div>
 </div>
+
+<button (click)="startSigninMainWindow()" id='startSigninMainWindow'>start signin main window</button>

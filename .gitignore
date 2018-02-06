@@ -47,3 +47,5 @@ Thumbs.db
 /packages
 /packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0
 /packages
+/distDev
+/distProd
