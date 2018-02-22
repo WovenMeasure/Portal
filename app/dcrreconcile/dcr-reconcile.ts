@@ -53,14 +53,18 @@ export class DcrReconcilesListComponent {
     bankOnlySubType: any;
     bankOnly: any[];
     dcrOnly: any[];
+    adjustments: any[];
     currentBank: any;
     currentMatchVariance: any;
     currentMatchChoices: any[];
-
+    currentMatchChoicesAdjustments: any[];
+    adjustmentNote: string;
+    matchStep: number;
     ngOnInit() {
         this.bankOnlySubType = "1";
         this.matches = [];
         this.allMatches = [];
+        this.adjustmentNote = "";
         this.filterLocation = "";
         this.colorIncrement = 0;
         this.filterBankAccount = "";
@@ -146,9 +150,14 @@ export class DcrReconcilesListComponent {
             });
     } 
 
+    allowDropFunction(type: number) {
+        return this.matchStep === type;
+    }
+
     loadReconciles() {
         this.colorIncrement = 0;
         this.currentColor = "#EFF0F1";
+        this.matchStep = 2;
         var _self = this;
         if (!this.filterLocation && !this.filterBankAccount) {
             return;
@@ -189,7 +198,9 @@ export class DcrReconcilesListComponent {
                             _self.matches = data.dcrOnly;
                         else if (_self.type === "5") {//manual matching 
                             _self.bankOnly = data.bankOnly;
-                           _self.dcrOnly = data.dcrOnly;
+                            _self.dcrOnly = data.dcrOnly;
+                            _self.adjustments = data.bankOnlyAdjustments;
+
                         }
                         _self.type2 = _self.type;
                         this.allMatches = _self.matches;
@@ -213,15 +224,26 @@ export class DcrReconcilesListComponent {
     }
 
     resetMatches() {
+        this.adjustmentNote = "";
         this.currentBank = null;
         this.currentMatchChoices = [];
+        this.currentMatchChoicesAdjustments = [];
+        this.matchStep = 1;
         this.currentMatchVariance = 0.0;
     }
 
     dropBank($event: any) {
+        this.matchStep = 2;
         this.currentBank = $event.dragData;
         this.currentMatchChoices = [];
+        this.currentMatchChoicesAdjustments = [];
         this.calcVariance();
+    }
+
+
+    notInMatchesAdjustments(bank: any): boolean {
+        var index = this.currentMatchChoicesAdjustments.indexOf(bank);
+        return index === -1;
     }
 
     dropDcr($event: any) {
@@ -232,6 +254,17 @@ export class DcrReconcilesListComponent {
     removeDcrMatch(dcr: any) {
         var index = this.currentMatchChoices.indexOf(dcr);
         this.currentMatchChoices.splice(index, 1);
+        this.calcVariance();
+    }
+
+    dropAdjustment($event: any) {
+        this.currentMatchChoicesAdjustments.push($event.dragData);
+        this.calcVariance();
+    }
+
+    removeBankMatch(bank: any) {
+        var index = this.currentMatchChoicesAdjustments.indexOf(bank);
+        this.currentMatchChoicesAdjustments.splice(index, 1);
         this.calcVariance();
     }
 
@@ -272,6 +305,14 @@ export class DcrReconcilesListComponent {
         
     }
 
+    filterBankAdjustments(records: any[]) {
+        return _.filter(records, (a) => { return a.baiCode === "187" });
+    }
+
+
+    filterBankNotAdjustments(records: any[]) {
+        return _.filter(records, (a) => { return a.baiCode !== "187" });
+    }
 
     sumField(fieldName: string): number {
         var values = _(this.matches).pluck(fieldName);
@@ -292,6 +333,6 @@ export class DcrReconcilesListComponent {
     }
 
     calcVariance() {
-        this.currentMatchVariance = Math.abs(this.currentBank.amount) - (Math.abs(this.sumFieldFromCollection(this.currentMatchChoices, "numAmount")));        
+        this.currentMatchVariance = Math.abs(this.currentBank.amount) - (Math.abs(this.sumFieldFromCollection(this.currentMatchChoices, "numAmount"))) - (Math.abs(this.sumFieldFromCollection(this.currentMatchChoicesAdjustments, "amount")));                
     }
 }

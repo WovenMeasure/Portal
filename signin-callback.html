@@ -10,7 +10,8 @@
     <script src="oidc-client.min.js"></script>
     <script>
         Log.logger = console;
-        new UserManager().signinRedirectCallback().then(function (user) {
+        var um = new UserManager();
+        um.signinRedirectCallback().then(function (user) {
             localStorage.setItem('User', JSON.stringify(user));
             console.log('userdata',localStorage.getItem('User'));
             if (user == null) {
@@ -41,6 +42,15 @@
         .catch(function (er) {
             document.getElementById("waiting").style.display = "none";
             document.getElementById("error").innerText = er.message;
+            });
+
+        um.events.addUserLoaded((user) => {
+            console.log("user loaded");
+            localStorage.setItem('User', JSON.stringify(user));
+            localStorage.setItem('profile', JSON.stringify(user.profile));
+            localStorage.setItem('scopes', user.scopes);
+            localStorage.setItem('bearer', user.access_token);
+            localStorage.setItem('user', user.profile.email);
         });
     </script>
 </body>

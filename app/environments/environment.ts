@@ -11,7 +11,7 @@
             accessTokenExpiringNotificationTime: 30,
             filterProtocolClaims: true,
             loadUserInfo: true
-    },
+    }, 
 
-    BaseApiUrl: "http://api-laz.wovenmeasure.com/api/"
+    BaseApiUrl: "http://laz.webapi/api/"
 }

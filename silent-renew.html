@@ -11,7 +11,9 @@
     <div id="error"></div>
     <script src="oidc-client.min.js"></script>
     <script>
-        new UserManager().signinSilentCallback();
+        new UserManager().signinSilentCallback().then((user) =>
+            localStorage.setItem('User', JSON.stringify(user));
+        );
     </script>
 </body>
 

@@ -160,25 +160,29 @@
             <div *ngIf="!currentBank">
                 Step (1): Drag an unmatched Bank Record
                 <table class="table table-condensed table-striped col-md-12">
-                    <tr>
-                        <th>Bank Date</th>
-                        <th>BAI Code</th>
-                        <th>Amt</th>
-                        <th>Type</th>
-                    </tr>
-                    <ng-container *ngFor="let cc of bankOnly; let i = index">
-                        <tr dnd-draggable [dragEnabled]="true" [dragData]="cc">
-                            <td>{{cc.bankDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
-                            <td>{{cc.baiCode}}</td>
-                            <td>{{cc.amount | currency:'USD':true}}</td>
-                            <td>{{cc.type}}</td>
+                    <thead style="display:block;overflow:auto;background:#fff;width:100%">
+                        <tr>
+                            <th style="width:85px">Bank Date</th>
+                            <th style="width:295px">BAI Code</th>
+                            <th style="width:85px">Amt</th>
+                            <th>Customer Ref #</th>
                         </tr>
-                    </ng-container>
+                    </thead>
+                    <tbody style="display:block;height:60vh;overflow:auto">
+                        <ng-container *ngFor="let cc of bankOnly; let i = index">
+                            <tr dnd-draggable [dragEnabled]="true" [dragData]="cc">
+                                <td style="width:85px">{{cc.bankDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
+                                <td style="width:295px">{{cc.baiCode}} - {{constants.getBaiDescription(cc.baiCode)}}</td>
+                                <td style="width:85px">{{cc.amount | currency:'USD':true}}</td>
+                                <td>{{cc.customerRef}}</td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
                 </table>
-            </div>
-            <div *ngIf="currentBank">
-                <strong>Step (2): Drag unmatched DCR Record(s)</strong><br />
-                <table class="table table-condensed table-striped" style="font-size:80%;width:95%;float:right">
+            </div>           
+            <div *ngIf="currentBank && matchStep===2">
+                <strong>Step (2): Drag unmatched DCR Record(s)</strong><button (click)="matchStep=3" class="btn btn-primary btn-xs">Next Step</button><br />
+                <table class="table table-condensed table-striped" style="font-size:80%;width:95%;float:right;">
                     <tr>
                         <th>Deposit Slip</th>
                         <th>Other Amount</th>
@@ -187,12 +191,29 @@
                         <th>Entry Date</th>
                     </tr>
                     <ng-container *ngFor="let dcr of dcrOnly; let j = index">
-                        <tr dnd-draggable [dragEnabled]="true" [dragData]="dcr" *ngIf="notInMatches(dcr)">
+                        <tr dnd-draggable  [dragEnabled]="true" [dragData]="dcr" *ngIf="notInMatches(dcr)">
                             <td>{{dcr.strDepositSlipSerialNo}}</td>
                             <td>{{dcr.numAmount | currency:'USD':true}}</td>
                             <td>{{dcr.dtmCreatedOn | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
                             <td>{{dcr.strLineItemDesc}}</td>
                             <td>{{dcr.dtmEntryDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+            <div *ngIf="currentBank && matchStep===3">
+                <strong>Step (3): Drag unmatched Banking Adjustment Record(s)</strong><button (click)="matchStep=2" class="btn btn-primary btn-xs">Previous Step</button><br />
+                <table class="table table-condensed table-striped col-md-12">
+                    <tr>
+                        <th>Bank Date</th>
+                        <th>BAI Code</th>
+                        <th>Amt</th>
+                    </tr>
+                    <ng-container *ngFor="let cc of adjustments; let i = index">
+                        <tr dnd-draggable [dragEnabled]="true" [dragData]="cc" *ngIf="notInMatchesAdjustments(cc)">
+                            <td>{{cc.bankDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
+                            <td>{{cc.baiCode}} - {{constants.getBaiDescription(cc.baiCode)}}</td>
+                            <td>{{cc.amount | currency:'USD':true}}</td>
                         </tr>
                     </ng-container>
                 </table>
@@ -207,11 +228,10 @@
                     <div class="row"><div class="col-md-4 bold">Amount</div><div class="col-md-3 pull-right text-right">{{currentBank?.amount | currency:'USD':true}}</div></div>
                     <div class="row"><div class="col-md-4 bold">Variance:</div><div class="col-md-3 pull-right text-right"><strong>{{currentMatchVariance | currency:'USD':true}}</strong></div></div>
                 </div>
-                <button class="btn-success btn-xs pull-right" *ngIf="currentMatchVariance == 0.0 && currentBank && currentMatchChoices.length > 0">Save Matches</button>
             </div>
-            <div *ngIf="currentBank" class="col-md-12" dnd-droppable (onDropSuccess)="dropDcr($event)" style="border:1px black solid; border-radius:15px; padding:10px;">
-                <div class="bold" dnd-droppable (onDropSuccess)="dropDcr($event)">Drag matching DCR records here.</div>
-                <table class="table table-condensed table-striped" dnd-droppable (onDropSuccess)="dropDcr($event)">
+            <div *ngIf="currentBank" class="col-md-12" [allowDrop]="allowDropFunction(3)" dnd-droppable (onDropSuccess)="dropDcr($event)" style="border:1px black solid; border-radius:15px; padding:10px;">
+                <div class="bold">Drag matching DCR records here.</div>
+                <table style="background-color:lightblue" class="table table-condensed table-striped">
                     <tr>
                         <th>Amount</th>
                         <th>Deposit Slip</th>
@@ -231,6 +251,31 @@
                         </tr>
                     </ng-container>
                 </table>
+            </div>
+            <div *ngIf="currentBank" [allowDrop]="allowDropFunction(2)" class="col-md-12" dnd-droppable (onDropSuccess)="dropAdjustment($event)" style="border:1px black solid; border-radius:15px; padding:10px;">
+                <div class="bold">Drag matching Adjustment records here.</div>
+                <table class="table table-condensed table-striped" style="background-color:lightgreen">
+                    <tr>
+                        <th>Bank Date</th>
+                        <th>BAI</th>
+                        <th>Amt</th>
+                        <th>Customer Ref #</th>
+                        <th>Remove From Match</th>
+                    </tr>
+                    <ng-container *ngFor="let cc of currentMatchChoicesAdjustments; let j = index">
+                        <tr>
+                            <td>{{cc.bankDate | momentUtc: 'format': 'MM/DD/YYYY'}}</td>
+                            <td>{{cc.baiCode}} - {{constants.getBaiDescription(cc.baiCode)}}</td>
+                            <td>{{cc.amount | currency:'USD':true}}</td>
+                            <td>{{cc.customerRef}}</td>
+                            <td><i class="fa fa-2x fa-remove" (click)="removeBankMatch(cc)"></i></td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </div>
+            <div class="col-md-12" style="border:1px black solid; border-radius:15px; padding:10px;" *ngIf="currentBank && (currentMatchChoices.length > 0 || currentMatchChoicesAdjustments.length > 0)">
+                <textarea cols="70" rows="4" ng-model="adjustmentNote" placeholder="Please enter a note."></textarea>
+                <button ng-enabled="adjustmentNote.length > 0" class="btn-success btn-xs pull-right">Save Matches</button>
             </div>
         </div>
     </div>
